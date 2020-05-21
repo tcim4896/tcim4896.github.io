@@ -1,0 +1,17 @@
+html, body { width: 100%; height: 100%; }
+
+.col-resize{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 auto;
+  overflow: hidden;
+  background: rgb(221, 221, 221) none repeat scroll 0% 0%;
+  cursor: col-resize;
+  left: calc(13.4921% + 43.2539px);
+  top: calc(0% + 60px);
+  width: calc(0% + 11px);
+  height: calc(100% - 60px);
+}
+
