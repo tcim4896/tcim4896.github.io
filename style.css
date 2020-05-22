@@ -1,5 +1,8 @@
 html, body { width: 100%; height: 100%; }
 
+body {
+  flex-direction: row;
+}
 .col-resize{
   position: absolute;
   display: flex;
@@ -10,8 +13,48 @@ html, body { width: 100%; height: 100%; }
   background: rgb(221, 221, 221) none repeat scroll 0% 0%;
   cursor: col-resize;
   left: calc(13.4921% + 43.2539px);
-  top: calc(0% + 60px);
+  top: calc(0px);
   width: calc(0% + 11px);
-  height: calc(100% - 60px);
+  height: calc(100%);
 }
 
+.wrapper{
+  display:flex;
+  height: 100%;
+}
+
+.viewer{
+  border: 1px solid rgba(0,0,0,0.5);
+  width: 60%;
+  margin:10px;
+}
+
+.toolbar{
+  position:relative;
+  border: 1px solid rgba(0,0,0,0.5);
+  width:30%;
+  margin:10px;
+  box-sizing:border-box;
+  padding:10px;
+}
+
+.tools{
+  position:absolute;
+  border: 1px solid rgba(0,0,0,0.5);
+  right:10px;
+  left:10px;
+  height: calc(50% - 21px);
+}
+
+.applied {
+  position:absolute;
+  border: 1px solid rgba(0,0,0,0.5);
+  right:10px;
+  left:10px;
+  height: calc(50% - 11px);
+  bottom: 10px;
+}
+
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text)
+}
