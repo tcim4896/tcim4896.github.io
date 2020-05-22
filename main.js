@@ -61,7 +61,7 @@ function o(args) {
   				mState[args[prop]] = r;
   			break;
   			case "placeholder":
-  				r.setAttribute("placeholder",args[prop]);
+  				r.setAttribute("data-placeholder",args[prop]);
   			break;
   			default:
   				r.setAttribute("class", "input")
@@ -98,10 +98,11 @@ e(document.body,"mouseup",function(e){
 	mState['mousedown']=false
 })
 
-function input(){
+function input(placeholder){
 	let div=document.createElement("div");
-	div.setAttribute("contentEditable", true)
-	div.setAttribute("class", "input")
+	div.setAttribute("contentEditable",true)
+	div.setAttribute("class","input")
+	div.setAttribute("data-text",placeholder+"...")
 	return div;
 }
 
@@ -141,10 +142,10 @@ function replace(str,term,replacement){
 }
 
 o({id:"replace",class:"replace",siblings:[
-	e(input(),"keydown", function(e){
+	e(input("term"),"keydown", function(e){
 		ss().replace["term"]+=e.key;
 	}),
-	e(input(),"keydown", function(e){
+	e(input("replacement"),"keydown", function(e){
 		ss().replace["replacement"]+=e.key;
 		s("viewer").innerText=replace(s("viewer").innerText,
 			ss().replace.term,

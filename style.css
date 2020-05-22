@@ -66,5 +66,8 @@ body {
 }
 
 [contentEditable=true]:empty:not(:focus):before{
-    content:attr(data-text)
+    content:attr(data-text);
+    font-style:italic;
+    padding-left: 5px;
+    color: #888;
 }
