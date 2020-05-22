@@ -106,6 +106,15 @@ function input(placeholder){
 	return div;
 }
 
+function btn(text){
+	let div=document.createElement("div");
+	div.innerText=text
+	div.setAttribute("class","btn")
+	return div;
+}
+
+function Component(type){}
+
 o({id:"tools",class:"tools"})
 o({id:"applied",class:"applied"})
 o({id:"toolbar",class:"toolbar",siblings:[s("tools"),s("applied")]})
@@ -149,16 +158,17 @@ o({id:"replace",class:"replace",siblings:[
 	}),
 	e(input("replacement"),"keydown", function(e){
 		ss().replace["replacement"]+=e.key; //excludes
+	}),
+	e(btn("apply"),"click", function (e){
 		s("mangled-text")
 		.innerText=replace(s("original-text")
 			.innerText,
 			ss().replace.term,
 			ss().replace.replacement)
-		cl(ss().replace)
 	})
 ]})
-b(s("tools"),s("replace"))
 
+b(s("tools"),s("replace"),s("re"))
 
 b(document.body,s("wrapper"))
 
