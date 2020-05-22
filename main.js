@@ -109,7 +109,9 @@ function input(placeholder){
 o({id:"tools",class:"tools"})
 o({id:"applied",class:"applied"})
 o({id:"toolbar",class:"toolbar",siblings:[s("tools"),s("applied")]})
-o({id:"viewer",class:"viewer", text:"lorum ipsum"})
+o({id:"original-text",class:"container",text:"lorum ipsum"})
+o({id:"mangled-text",class:"container"})
+o({id:"viewer",class:"viewer",siblings:[s("original-text"),s("mangled-text")]})
 o({id:"wrapper",class:"wrapper",siblings:[s("toolbar"),s("viewer")]})
 // or propchaining
 s("viewer").setAttribute("contentEditable", true)
@@ -146,8 +148,10 @@ o({id:"replace",class:"replace",siblings:[
 		ss().replace["term"]+=e.key;
 	}),
 	e(input("replacement"),"keydown", function(e){
-		ss().replace["replacement"]+=e.key;
-		s("viewer").innerText=replace(s("viewer").innerText,
+		ss().replace["replacement"]+=e.key; //excludes
+		s("mangled-text")
+		.innerText=replace(s("original-text")
+			.innerText,
 			ss().replace.term,
 			ss().replace.replacement)
 		cl(ss().replace)

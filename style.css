@@ -39,6 +39,14 @@ body {
   padding:5px;
 }
 
+.container{
+  position:relative;
+  border: 1px solid rgba(0,0,0,0.5);
+  margin:10px;
+  box-sizing:border-box;
+  padding:10px;
+}
+
 .toolbar{
   position:relative;
   border: 1px solid rgba(0,0,0,0.5);
