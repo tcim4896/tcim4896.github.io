@@ -43,17 +43,28 @@ d={
 };
 d.fn(0).fn(1)
 
-function o(id, text, type, siblings = []) {
-  let r = document.createElement("div");
-  r.textContent = text;
-  r.setAttribute("class", type);
-  for (let node of siblings) {
-    r.appendChild(node);
-  }
-
-  // adding chain to define it's level
-  mState[id] = r;
-  mState["elements"].push(r);
+function o(args) {
+	let r = document.createElement("div");
+	for(let prop in args){
+		switch(prop){
+			case "text":
+				r.textContent = args[prop];
+			break;
+			case "class":
+				r.setAttribute("class", args[prop]);
+			break;
+			case "siblings":
+				for (let node of args[prop]) {
+    			r.appendChild(node);
+  			}
+  			break;
+  			case "id":
+  				mState[args[prop]] = r;
+  			break;
+		}
+	}
+	mState["elements"].push(r);
+	// or propchaining
   return r;
 }
 
@@ -84,11 +95,12 @@ function input(){
 	return div;
 }
 
-o("tools",none,"tools")
-o("applied",none,"applied")
-o("toolbar",none,"toolbar",[s("tools"),s("applied")])
-o("viewer","lorem ipsum","viewer")
-o("wrapper",none,"wrapper",[s("toolbar"),s("viewer")])
+o({id:"tools",class:"tools"})
+o({id:"applied",class:"applied"})
+o({id:"toolbar",class:"toolbar",siblings:[s("tools"),s("applied")]})
+o({id:"viewer",class:"viewer", text:"lorum ipsum"})
+o({id:"wrapper",class:"wrapper",siblings:[s("toolbar"),s("viewer")]})
+// or propchaining
 s("viewer").setAttribute("contentEditable", true)
 // creating replace tool
 function replace(str,term,replacement){
@@ -118,7 +130,7 @@ function replace(str,term,replacement){
     return r;
 }
 
-o("replace",none,"replace",[
+o({id:"replace",class:"replace",siblings:[
 	e(input(),"keydown", function(e){
 		mState.services.replace["term"]+=e.key;
 	}),
@@ -128,7 +140,7 @@ o("replace",none,"replace",[
 			mState.services.replace.term,
 			mState.services.replace.replacement)
 	})
-])
+]})
 b(s("tools"),s("replace"))
 
 
