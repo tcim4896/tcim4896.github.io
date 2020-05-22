@@ -45,6 +45,7 @@ body {
   margin:10px;
   box-sizing:border-box;
   padding:10px;
+  min-height: 200px;
 }
 
 .toolbar{
