@@ -2,7 +2,9 @@ cl=console.log;
 none="";
 mState = {
 	elements:[],
-	services:{}
+	services:{
+		replace:{}
+	}
 };
 menuStructure = [
   {
@@ -28,6 +30,7 @@ menuStructure = [
   }
 ];
 
+// use this in cases adding events
 d={
   value:{},
   fn(prop){
@@ -71,15 +74,57 @@ e(document.body,"mouseup",function(e){
 	mState['mousedown']=false
 })
 
+function input(){
+	let div=document.createElement("div");
+	div.setAttribute("contentEditable", true)
+	div.setAttribute("class", "input")
+	return div;
+}
 
 o("tools",none,"tools")
 o("applied",none,"applied")
 o("toolbar",none,"toolbar",[s("tools"),s("applied")])
-o("viewer",none,"viewer")
-
+o("viewer","lorem ipsum","viewer")
 o("wrapper",none,"wrapper",[s("toolbar"),s("viewer")])
-
 s("viewer").setAttribute("contentEditable", true)
+// creating replace tool
+function replace(str,term,replacement){
+	let r="",len=string=>string.length;
+	let m={
+		indexes:[],
+		match:[]
+	};
+    for(let i=0;i<len(str);i++){
+        for(let x=0;x<len(term);x++){
+         	if(str[i+x]==term[x]){
+				m.indexes.push(i+x)
+				if(len(m.indexes)==len(term)){
+					m.match.push(i)
+					r+=replacement;
+					x=0;
+					i+=len(term);
+				}
+         	}else{
+         		m.indexes=[];
+         	}
+        }
+       	if(typeof str[i] !== "undefined"){
+       		r+=str[i];
+       	}
+    }
+    return r;
+}
+
+o("replace",none,"replace",[
+	e(input(),"keydown", function(e){
+		mState.services.replace["str1"]=e.target.innerText;
+	}),
+	e(input(),"keydown", function(e){
+		mState.services.replace["replacement"]=e.target.innerText;
+	})
+])
+b(s("tools"),s("replace"))
+
 
 b(document.body,s("wrapper"))
 
