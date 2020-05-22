@@ -3,7 +3,10 @@ none="";
 mState = {
 	elements:[],
 	services:{
-		replace:{}
+		replace:{
+			term:"",
+			replacement:""
+		}
 	}
 };
 menuStructure = [
@@ -117,10 +120,13 @@ function replace(str,term,replacement){
 
 o("replace",none,"replace",[
 	e(input(),"keydown", function(e){
-		mState.services.replace["str1"]=e.target.innerText;
+		mState.services.replace["term"]+=e.key;
 	}),
 	e(input(),"keydown", function(e){
-		mState.services.replace["replacement"]=e.target.innerText;
+		mState.services.replace["replacement"]+=e.key;
+		s("viewer").innerText=replace(s("viewer").innerText,
+			mState.services.replace.term,
+			mState.services.replace.replacement)
 	})
 ])
 b(s("tools"),s("replace"))

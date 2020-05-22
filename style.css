@@ -5,9 +5,11 @@ body {
 }
 
 .input{
+  position:relative;
   border:1px solid rgba(0,0,0,0.5);
   line-height: 40px;
-  width:100%;
+  margin:10px;
+  height:auto;
 }
 
 .col-resize{
