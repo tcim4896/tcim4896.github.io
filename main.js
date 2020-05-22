@@ -1,5 +1,4 @@
 cl=console.log;
-none="";
 mState = {
 	elements:[],
 	services:{
@@ -13,7 +12,7 @@ menuStructure = [
   {
     text: "News",
     event: "open",
-    path: 1,
+    path: undefined,
     list: [
       {
         text: "item1",
@@ -54,12 +53,18 @@ function o(args) {
 				r.setAttribute("class", args[prop]);
 			break;
 			case "siblings":
-				for (let node of args[prop]) {
-    			r.appendChild(node);
+				for (let sibling of args[prop]) {
+    			r.appendChild(sibling);
   			}
   			break;
   			case "id":
   				mState[args[prop]] = r;
+  			break;
+  			case "placeholder":
+  				r.setAttribute("placeholder",args[prop]);
+  			break;
+  			default:
+  				r.setAttribute("class", "input")
   			break;
 		}
 	}
@@ -77,6 +82,10 @@ function s(id) {
   return mState[id];
 }
 
+function ss(){
+	return mState.services;
+}
+
 function b(elm, sibling) {
   elm.appendChild(sibling);
 }
@@ -84,6 +93,7 @@ function b(elm, sibling) {
 e(document.body,"mousedown",function(e){
 	mState['mousedown']=true
 })
+
 e(document.body,"mouseup",function(e){
 	mState['mousedown']=false
 })
@@ -132,13 +142,14 @@ function replace(str,term,replacement){
 
 o({id:"replace",class:"replace",siblings:[
 	e(input(),"keydown", function(e){
-		mState.services.replace["term"]+=e.key;
+		ss().replace["term"]+=e.key;
 	}),
 	e(input(),"keydown", function(e){
-		mState.services.replace["replacement"]+=e.key;
+		ss().replace["replacement"]+=e.key;
 		s("viewer").innerText=replace(s("viewer").innerText,
-			mState.services.replace.term,
-			mState.services.replace.replacement)
+			ss().replace.term,
+			ss().replace.replacement)
+		cl(ss().replace)
 	})
 ]})
 b(s("tools"),s("replace"))
