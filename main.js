@@ -217,7 +217,7 @@ o({id:"replace",class:"method",siblings:[
 	e(input("replacement"),"keydown", function(e){
 		ss().replace["replacement"]+=e.key; //excludes
 	}),
-	e(btn("apply"),"click", function (e){
+	e(btn("replace"),"click", function (e){
 		ss().mangler.applied.push({
 			event:"replace",
 			term:ss().replace.term,
@@ -244,7 +244,7 @@ o({id:"exclude-one",class:"method",siblings:[
 		cl(0)
 		ss().excludeOne["char"]+=e.key;
 	}),
-	e(btn("apply"),"click", function (e){
+	e(btn("exclude"),"click", function (e){
 		ss().mangler.applied.push({
 			event:"excludeOne",
 			char:ss().excludeOne.char
