@@ -46,16 +46,22 @@ d={
 d.fn(0).fn(1)
 
 function stateChange(){
-	ss().mangler.applied.forEach(function(method){
-		s("applied").textContent+=JSON.stringify(method);
+	if(ss().mangler.applied.length>0){
+		ss().mangler.applied.forEach(function(method){
+			s("applied").textContent+=JSON.stringify(method);
 
-		cl(window[method.event])
-		s("mangled-text").textContent=window[method.event](
-			s("original-text").textContent,
-			method.term,
-			method.replacement
-		);
-	})
+			cl(window[method.event])
+			s("mangled-text").textContent=window[method.event](
+				s("original-text").textContent,
+				method.term,
+				method.replacement
+			);
+		})		
+	}else{
+		s("mangled-text").textContent=s("original-text").textContent;
+	}
+
+
 }
 
 function o(args) {
@@ -189,6 +195,5 @@ o({id:"replace",class:"replace",siblings:[
 ]})
 
 b(s("tools"),s("replace"),s("re"))
-
 b(document.body,s("wrapper"))
-
+stateChange() //init
