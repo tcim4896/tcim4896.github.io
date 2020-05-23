@@ -5,6 +5,9 @@ mState = {
 		replace:{
 			term:"",
 			replacement:""
+		},
+		mangler:{
+			applied:[]
 		}
 	}
 };
@@ -41,6 +44,19 @@ d={
   }
 };
 d.fn(0).fn(1)
+
+function stateChange(){
+	ss().mangler.applied.forEach(function(method){
+		s("applied").textContent+=JSON.stringify(method);
+
+		cl(window[method.event])
+		s("mangled-text").textContent=window[method.event](
+			s("original-text").textContent,
+			method.term,
+			method.replacement
+		);
+	})
+}
 
 function o(args) {
 	let r = document.createElement("div");
@@ -102,7 +118,7 @@ function input(placeholder){
 	let div=document.createElement("div");
 	div.setAttribute("contentEditable",true)
 	div.setAttribute("class","input")
-	div.setAttribute("data-text",placeholder+"...")
+	//div.setAttribute("data-text",placeholder+"...")
 	return div;
 }
 
@@ -160,11 +176,15 @@ o({id:"replace",class:"replace",siblings:[
 		ss().replace["replacement"]+=e.key; //excludes
 	}),
 	e(btn("apply"),"click", function (e){
-		s("mangled-text")
-		.innerText=replace(s("original-text")
-			.innerText,
-			ss().replace.term,
-			ss().replace.replacement)
+		ss().mangler.applied.push({
+			event:"replace",
+			term:ss().replace.term,
+			replacement:ss().replace.replacement
+		})
+		stateChange();
+		// push the method on the mangler stack
+		// call the stateChange method
+		// apply all the methods onto the te
 	})
 ]})
 
