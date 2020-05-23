@@ -9,9 +9,7 @@ mState = {
 		excludeOne:{
 			char:""
 		},
-		mangler:{
-			applied:[]
-		},
+		applied:[]
 	}
 };
 _=mState.services;
@@ -52,24 +50,17 @@ d.fn(0).fn(1)
 ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 function stateChange(){
-	if(ss().mangler.applied.length>0){
-		ss().mangler.applied.forEach(function(method){
-			let id=ss().mangler.applied.length-1;
-
-			let argCount=0;
-			for(let prop in _.mangler.applied){
-				argCount++;
-			}
-			/*
-			could do this dynamically
-			but everytime original text as input smart?
-			e.g.{text:original-text,term,replacement}
-			*/
+	cl(ss().applied)
+	if(ss().applied.length>0){
+		ss().applied.forEach(function(method){
 			switch(method.event){
 				case "replace":
-					b(s("applied"),o({id,class:"method",siblings:[
+					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
-							console.log(method,ss().mangler)
+							ss().applied=ss().applied.filter(function(m){
+								cl(method.id==m.id)
+								return method.id !== m.id;
+							})
 							stateChange()
 						}),
 						text(method.event),
@@ -233,8 +224,8 @@ o({id:"replace",class:"method",siblings:[
 		ss().replace["replacement"]+=e.key; //excludes
 	}),
 	e(btn("replace"),"click", function (e){
-		ss().mangler.applied.push({
-			id:ss().mangler.applied.length,
+		ss().applied.push({
+			id:ss().applied.length,
 			event:"replace",
 			term:ss().replace.term,
 			replacement:ss().replace.replacement
