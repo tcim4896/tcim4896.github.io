@@ -51,11 +51,11 @@ ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 
 function stateChange(){
 	cl(ss().applied.length)
+	s("applied").innerHTML="";
 	if(ss().applied.length>0){
-		s("applied").innerHTML="";
 		ss().applied.forEach(function(method){
 			switch(method.event){
-				case "replace": // whuttt??!?'
+				case "replace": // whuttt??!? oooohhhh..
 
 				/**/
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
