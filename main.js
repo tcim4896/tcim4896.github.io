@@ -55,17 +55,30 @@ function stateChange(){
 	if(ss().mangler.applied.length>0){
 		ss().mangler.applied.forEach(function(method){
 			let id=ss().mangler.applied.length-1;
+
+			let argCount=0;
+			for(let prop in _.mangler.applied){
+				argCount++;
+			}
+			/*
+			could do this dynamically
+			but everytime original text as input smart?
+			e.g.{text:original-text,term,replacement}
+			*/
 			switch(method.event){
 				case "replace":
 					b(s("applied"),o({id,class:"method",siblings:[
+						e(btn("x"),"click",e=>{
+							console.log(method,ss().mangler)
+							stateChange()
+						}),
 						text(method.event),
 						text(method.term),
 						text(method.replacement)
 					]}))
-
-					cl(window[method.event])
 					s("mangled-text").textContent=window[method.event](
-						s("original-text").textContent,
+						s("original-text")
+						.textContent,
 						method.term,
 						method.replacement
 					);
@@ -76,7 +89,8 @@ function stateChange(){
 					]}))
 
 					cl(window[method.event])
-					s("mangled-text").textContent=window[method.event](
+					s("mangled-text")
+					.textContent=window[method.event](
 						s("original-text").textContent,
 						method.char,
 					);
@@ -212,6 +226,7 @@ function replace(str,term,replacement){
 
 o({id:"replace",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
+		cl(e)
 		ss().replace["term"]+=e.key;
 	}),
 	e(input("replacement"),"keydown", function(e){
@@ -219,6 +234,7 @@ o({id:"replace",class:"method",siblings:[
 	}),
 	e(btn("replace"),"click", function (e){
 		ss().mangler.applied.push({
+			id:ss().mangler.applied.length,
 			event:"replace",
 			term:ss().replace.term,
 			replacement:ss().replace.replacement
@@ -242,7 +258,7 @@ function excludeOne(text,char){
 o({id:"exclude-one",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
 		cl(0)
-		ss().excludeOne["char"]+=e.key;
+		ss().excludeOne["char"]+=String.fromCharCode(e.keyCode);
 	}),
 	e(btn("exclude"),"click", function (e){
 		ss().mangler.applied.push({
@@ -260,3 +276,11 @@ b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
 b(document.body,s("wrapper"))
 stateChange() //init
+
+// var valid = 
+//     (keycode > 47 && keycode < 58)   || // number keys
+//     keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
+//     (keycode > 64 && keycode < 91)   || // letter keys
+//     (keycode > 95 && keycode < 112)  || // numpad keys
+//     (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+//     (keycode > 218 && keycode < 223);   // [\]' (in order)
