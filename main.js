@@ -45,10 +45,18 @@ d={
 };
 d.fn(0).fn(1)
 
+ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
 function stateChange(){
 	if(ss().mangler.applied.length>0){
 		ss().mangler.applied.forEach(function(method){
-			s("applied").textContent+=JSON.stringify(method);
+
+			let id=ss().mangler.applied.length-1;
+			b(s("applied"),o({id,class:"method",siblings:[
+				text(method.event),
+				text(method.term),
+				text(method.replacement)
+			]}))
 
 			cl(window[method.event])
 			s("mangled-text").textContent=window[method.event](
@@ -60,8 +68,6 @@ function stateChange(){
 	}else{
 		s("mangled-text").textContent=s("original-text").textContent;
 	}
-
-
 }
 
 function o(args) {
@@ -135,12 +141,19 @@ function btn(text){
 	return div;
 }
 
+function text(text){
+	let div=document.createElement("div");
+	div.innerText=text
+	div.setAttribute("class","btn")
+	return div;
+}
+
 function Component(type){}
 
 o({id:"tools",class:"tools"})
 o({id:"applied",class:"applied"})
 o({id:"toolbar",class:"toolbar",siblings:[s("tools"),s("applied")]})
-o({id:"original-text",class:"container",text:"lorum ipsum"})
+o({id:"original-text",class:"container",text:ipsum})
 o({id:"mangled-text",class:"container"})
 o({id:"viewer",class:"viewer",siblings:[s("original-text"),s("mangled-text")]})
 o({id:"wrapper",class:"wrapper",siblings:[s("toolbar"),s("viewer")]})
@@ -194,6 +207,6 @@ o({id:"replace",class:"replace",siblings:[
 	})
 ]})
 
-b(s("tools"),s("replace"),s("re"))
+b(s("tools"),s("replace"))
 b(document.body,s("wrapper"))
 stateChange() //init
