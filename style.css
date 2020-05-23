@@ -25,6 +25,8 @@ body {
   margin:5px;
   height:auto;
   text-align: center;
+  background-color:rgba(20,225,55,0.7);
+  cursor:pointer;
 }
 
 .col-resize{
