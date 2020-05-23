@@ -50,15 +50,17 @@ d.fn(0).fn(1)
 ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 function stateChange(){
-	cl(ss().applied)
+	cl(ss().applied.length)
 	if(ss().applied.length>0){
+		s("applied").innerHTML="";
 		ss().applied.forEach(function(method){
 			switch(method.event){
-				case "replace":
+				case "replace": // whuttt??!?'
+
+				/**/
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
 							ss().applied=ss().applied.filter(function(m){
-								cl(method.id==m.id)
 								return method.id !== m.id;
 							})
 							stateChange()
@@ -75,7 +77,13 @@ function stateChange(){
 					);
 				break;
 				case "excludeOne":
-					b(s("applied"),o({id,class:"method",siblings:[
+					b(s("applied"),o({id:method.id,class:"method",siblings:[
+						e(btn("x"),"click",e=>{
+							ss().applied=ss().applied.filter(function(m){
+								return method.id !== m.id;
+							})
+							stateChange()
+						}),
 						text(method.char),
 					]}))
 
@@ -252,7 +260,8 @@ o({id:"exclude-one",class:"method",siblings:[
 		ss().excludeOne["char"]+=String.fromCharCode(e.keyCode);
 	}),
 	e(btn("exclude"),"click", function (e){
-		ss().mangler.applied.push({
+		ss().applied.push({
+			id:ss().applied.length,
 			event:"excludeOne",
 			char:ss().excludeOne.char
 		})
