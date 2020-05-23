@@ -153,20 +153,15 @@ function Component(type){}
 o({id:"tools",class:"tools"})
 o({id:"applied",class:"applied"})
 o({id:"toolbar",class:"toolbar",siblings:[s("tools"),s("applied")]})
-e(o({id:"original-text",class:"container"}),"keydown",function(e){
-	stateChange();
-	cl(0) // weird
+e(o({id:"original-text",class:"container",text:ipsum}),"keydown",function(e){
+	stateChange(); // fix length bug
 })
-
-
-
-
-
+s("original-text").setAttribute("contentEditable", true)
 o({id:"mangled-text",class:"container"})
 o({id:"viewer",class:"viewer",siblings:[s("original-text"),s("mangled-text")]})
 o({id:"wrapper",class:"wrapper",siblings:[s("toolbar"),s("viewer")]})
 // or propchaining
-s("viewer").setAttribute("contentEditable", true)
+
 // creating replace tool
 function replace(str,term,replacement){
 	let r="",len=string=>string.length;
