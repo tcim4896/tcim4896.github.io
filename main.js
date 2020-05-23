@@ -153,7 +153,15 @@ function Component(type){}
 o({id:"tools",class:"tools"})
 o({id:"applied",class:"applied"})
 o({id:"toolbar",class:"toolbar",siblings:[s("tools"),s("applied")]})
-o({id:"original-text",class:"container",text:ipsum})
+e(o({id:"original-text",class:"container"}),"keydown",function(e){
+	stateChange();
+	cl(0) // weird
+})
+
+
+
+
+
 o({id:"mangled-text",class:"container"})
 o({id:"viewer",class:"viewer",siblings:[s("original-text"),s("mangled-text")]})
 o({id:"wrapper",class:"wrapper",siblings:[s("toolbar"),s("viewer")]})
@@ -189,6 +197,7 @@ function replace(str,term,replacement){
 
 o({id:"replace",class:"replace",siblings:[
 	e(input("term"),"keydown", function(e){
+		cl(0)
 		ss().replace["term"]+=e.key;
 	}),
 	e(input("replacement"),"keydown", function(e){
