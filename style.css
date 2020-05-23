@@ -10,7 +10,7 @@ body {
   flex-direction: row;
 }
 
-.input{
+.input {
   position:relative;
   border:1px solid rgba(0,0,0,0.5);
   line-height: 18px;
@@ -18,7 +18,7 @@ body {
   height:auto;
 }
 
-.btn{
+.btn {
   position:relative;
   border:1px solid rgba(0,0,0,0.5);
   line-height: 18px;
@@ -29,7 +29,7 @@ body {
   cursor:pointer;
 }
 
-.col-resize{
+.col-resize {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -44,28 +44,30 @@ body {
   height: calc(100%);
 }
 
-.wrapper{
+.wrapper {
   display:flex;
   height: 100%;
 }
 
-.viewer{
+.viewer {
   border: 1px solid rgba(0,0,0,0.5);
   width: 100%;
   margin:10px;
   padding:5px;
 }
 
-.container{
+.container {
   position:relative;
   border: 1px solid rgba(0,0,0,0.5);
   margin:10px;
   box-sizing:border-box;
   padding:10px;
   min-height: 200px;
+  height:250px;
+  overflow-y:scroll;
 }
 
-.toolbar{
+.toolbar {
   position:relative;
   border: 1px solid rgba(0,0,0,0.5);
   width:40%;
@@ -74,7 +76,7 @@ body {
   padding:10px;
 }
 
-.tools{
+.tools {
   position:absolute;
   border: 1px solid rgba(0,0,0,0.5);
   right:10px;
@@ -94,7 +96,7 @@ body {
   overflow-y:scroll;
 }
 
-[contentEditable=true]:empty:not(:focus):before{
+[contentEditable=true]:empty:not(:focus):before {
     content:attr(data-text);
     font-style:italic;
     padding-left: 5px;
