@@ -50,14 +50,11 @@ d.fn(0).fn(1)
 ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 function stateChange(){
-	cl(ss().applied.length)
 	s("applied").innerHTML="";
 	if(ss().applied.length>0){
 		ss().applied.forEach(function(method){
 			switch(method.event){
-				case "replace": // whuttt??!? oooohhhh..
-
-				/**/
+				case "replace":
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
 							ss().applied=ss().applied.filter(function(m){
@@ -95,8 +92,6 @@ function stateChange(){
 					);
 				break;
 			}
-			
-
 		})		
 	}else{
 		s("mangled-text").textContent=s("original-text").textContent;
@@ -238,10 +233,7 @@ o({id:"replace",class:"method",siblings:[
 			term:ss().replace.term,
 			replacement:ss().replace.replacement
 		})
-		stateChange();
-		// push the method on the mangler stack
-		// call the stateChange method
-		// apply all the methods onto the te
+		stateChange()
 	})
 ]})
 
@@ -253,7 +245,7 @@ function excludeOne(text,char){
     }
     return r; 
 }
-
+// creating exclude one tool
 o({id:"exclude-one",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
 		cl(0)
@@ -265,10 +257,7 @@ o({id:"exclude-one",class:"method",siblings:[
 			event:"excludeOne",
 			char:ss().excludeOne.char
 		})
-		stateChange();
-		// push the method on the mangler stack
-		// call the stateChange method
-		// apply all the methods onto the te
+		stateChange()
 	})
 ]})
 
@@ -276,11 +265,3 @@ b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
 b(document.body,s("wrapper"))
 stateChange() //init
-
-// var valid = 
-//     (keycode > 47 && keycode < 58)   || // number keys
-//     keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
-//     (keycode > 64 && keycode < 91)   || // letter keys
-//     (keycode > 95 && keycode < 112)  || // numpad keys
-//     (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-//     (keycode > 218 && keycode < 223);   // [\]' (in order)
