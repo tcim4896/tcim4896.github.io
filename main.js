@@ -6,14 +6,18 @@ mState = {
 			term:"",
 			replacement:""
 		},
+		excludeOne:{
+			char:""
+		},
 		mangler:{
 			applied:[]
-		}
+		},
 	}
 };
+_=mState.services;
 menuStructure = [
   {
-    text: "News",
+    text: "Mangler",
     event: "open",
     path: undefined,
     list: [
@@ -50,20 +54,36 @@ ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 function stateChange(){
 	if(ss().mangler.applied.length>0){
 		ss().mangler.applied.forEach(function(method){
-
 			let id=ss().mangler.applied.length-1;
-			b(s("applied"),o({id,class:"method",siblings:[
-				text(method.event),
-				text(method.term),
-				text(method.replacement)
-			]}))
+			switch(method.event){
+				case "replace":
+					b(s("applied"),o({id,class:"method",siblings:[
+						text(method.event),
+						text(method.term),
+						text(method.replacement)
+					]}))
 
-			cl(window[method.event])
-			s("mangled-text").textContent=window[method.event](
-				s("original-text").textContent,
-				method.term,
-				method.replacement
-			);
+					cl(window[method.event])
+					s("mangled-text").textContent=window[method.event](
+						s("original-text").textContent,
+						method.term,
+						method.replacement
+					);
+				break;
+				case "excludeOne":
+					b(s("applied"),o({id,class:"method",siblings:[
+						text(method.char),
+					]}))
+
+					cl(window[method.event])
+					s("mangled-text").textContent=window[method.event](
+						s("original-text").textContent,
+						method.char,
+					);
+				break;
+			}
+			
+
 		})		
 	}else{
 		s("mangled-text").textContent=s("original-text").textContent;
@@ -190,9 +210,8 @@ function replace(str,term,replacement){
     return r;
 }
 
-o({id:"replace",class:"replace",siblings:[
+o({id:"replace",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
-		cl(0)
 		ss().replace["term"]+=e.key;
 	}),
 	e(input("replacement"),"keydown", function(e){
@@ -211,6 +230,33 @@ o({id:"replace",class:"replace",siblings:[
 	})
 ]})
 
+function excludeOne(text,char){
+    var r="";
+    for(let i=0;i<text.length;i++){
+      text[i]!=char?
+      (r+=text[i]):0;
+    }
+    return r; 
+}
+
+o({id:"exclude-one",class:"method",siblings:[
+	e(input("term"),"keydown", function(e){
+		cl(0)
+		ss().excludeOne["char"]+=e.key;
+	}),
+	e(btn("apply"),"click", function (e){
+		ss().mangler.applied.push({
+			event:"excludeOne",
+			char:ss().excludeOne.char
+		})
+		stateChange();
+		// push the method on the mangler stack
+		// call the stateChange method
+		// apply all the methods onto the te
+	})
+]})
+
 b(s("tools"),s("replace"))
+b(s("tools"),s("exclude-one"))
 b(document.body,s("wrapper"))
 stateChange() //init
