@@ -9,6 +9,9 @@ mState = {
 		excludeOne:{
 			char:""
 		},
+		extra:{
+			char:""
+		},
 		applied:[]
 	}
 };
@@ -91,6 +94,24 @@ function stateChange(){
 						method.char,
 					);
 				break;
+				case "extra":
+					b(s("applied"),o({id:method.id,class:"method",siblings:[
+						e(btn("x"),"click",e=>{
+							ss().applied=ss().applied.filter(function(m){
+								return method.id !== m.id;
+							})
+							stateChange()
+						}),
+						text(method.char),
+					]}))
+
+					cl(window[method.event])
+					s("mangled-text")
+					.textContent=window[method.event](
+						s("original-text").textContent,
+						method.char,
+					);
+				break;				
 			}
 		})		
 	}else{
@@ -248,7 +269,6 @@ function excludeOne(text,char){
 // creating exclude one tool
 o({id:"exclude-one",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
-		cl(0)
 		ss().excludeOne["char"]+=String.fromCharCode(e.keyCode);
 	}),
 	e(btn("exclude"),"click", function (e){
@@ -261,7 +281,35 @@ o({id:"exclude-one",class:"method",siblings:[
 	})
 ]})
 
+// creating extra char tool
+
+function extra(str,char){
+	let r="",len=string=>string.length;
+    for(let i=0;i<len(str);i++){
+       	if(typeof str[i] !== "undefined"){
+       		r+=str[i]+=char;
+       	}
+    }
+    return r;
+}
+
+o({id:"extra",class:"method",siblings:[
+	e(input("term"),"keydown", function(e){
+		ss().extra["char"]+=e.key;
+	}),
+	e(btn("extra"),"click", function (e){
+		ss().applied.push({
+			id:ss().applied.length,
+			event:"extra",
+			char:ss().extra.char
+		})
+		stateChange()
+	})
+]})
+
+
 b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
+b(s("tools"),s("extra"))
 b(document.body,s("wrapper"))
 stateChange() //init
