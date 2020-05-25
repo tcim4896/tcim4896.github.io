@@ -1,1 +1,6 @@
-#Mangler# *trace back design pattern
+#Mangler# 
+
+*trace back design pattern
+*word/char-count
+*router/switch-pages
+*bundle menu in with sh script

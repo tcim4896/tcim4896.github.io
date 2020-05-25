@@ -269,7 +269,7 @@ function excludeOne(text,char){
 // creating exclude one tool
 o({id:"exclude-one",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
-		ss().excludeOne["char"]+=String.fromCharCode(e.keyCode);
+		ss().excludeOne["char"]+=e.key;
 	}),
 	e(btn("exclude"),"click", function (e){
 		ss().applied.push({
@@ -282,7 +282,6 @@ o({id:"exclude-one",class:"method",siblings:[
 ]})
 
 // creating extra char tool
-
 function extra(str,char){
 	let r="",len=string=>string.length;
     for(let i=0;i<len(str);i++){
@@ -306,10 +305,37 @@ o({id:"extra",class:"method",siblings:[
 		stateChange()
 	})
 ]})
-
+// creating encrypt tool
+function encrypt(text,table1,table2){
+	for(;;)
+	// psuedo
+	// for every table1 idx replace text idxo with table2 idxo
+    var r="";
+    for(let i=0;i<text.length;i++){
+      text[i]!=char?
+      (r+=text[i]):0;
+    }
+    return r; 
+}
+// creating exclude one tool
+o({id:"encrypt",class:"method",siblings:[
+	e(input("term"),"keydown", function(e){
+		ss().encrypt["char"]+=e.key;
+	}),
+	e(btn("encrypt"),"click", function (e){
+		ss().applied.push({
+			id:ss().applied.length,
+			event:"encrypt",
+			table1:ss().encrypt.table1,
+			table2:ss().encrypt.table2
+		})
+		stateChange()
+	})
+]})
 
 b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
 b(s("tools"),s("extra"))
+b(s("tools"),s("encrypt"))
 b(document.body,s("wrapper"))
 stateChange() //init
