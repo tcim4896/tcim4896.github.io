@@ -371,6 +371,7 @@ o({id:"encode",class:"method",siblings:[
 
 //creating rxtx db tool
 function rxtx(url){
+	let r;
 	// XMLHttpRequest
 	const Http = new XMLHttpRequest();
 	Http.open("GET", url);
@@ -392,6 +393,9 @@ function rxtx(url){
 
 	return r;
 }
+//user:pass@localhost:port,anotherhost:port,yetanother:port/database', opts);
+
+rxtx("http://10.0.0.127:80")
 
 function store(obj){
 	localStorage.setItem(obj.key,obj.value)
