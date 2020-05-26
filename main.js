@@ -316,19 +316,18 @@ function encrypt(text,table1,table2){
       (r+=text[i]):0;
     }
     return r; 
-}
-// creating up one tool
-function upOne(char){
-	let r="",abc="abcdefghijklmnopqrstuvwxyz";
-	if(abc.indexOf(char)==abc.length-1){
-		r=abc[0];
-	}else{
-		r=abc[abc.indexOf(char)+1];
+    // creating abc up tool
+	function abcUp(char){
+		let r="",abc="abcdefghijklmnopqrstuvwxyz";
+		if(abc.indexOf(char)==abc.length-1){
+			r=abc[0];
+		}else{
+			r=abc[abc.indexOf(char)+1];
+		}
+		return r;
 	}
-	return r;
 }
 
-// creating exclude one tool
 o({id:"encrypt",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
 		ss().encrypt["char"]+=e.key;
@@ -343,6 +342,32 @@ o({id:"encrypt",class:"method",siblings:[
 		stateChange()
 	})
 ]})
+
+function encode(str, enc){
+	let r;
+	function l2idxx(str){
+		return str;
+	}
+	switch(enc){
+		case "l2idxx": {
+			r=l2idxx(str);
+		}
+		break;
+		default:
+			r="sha256";
+		break;
+	}
+	return r;
+}
+
+o({id:"encode",class:"method",siblings:[
+	e(input("term"),"keydown", function(e){
+
+	}),
+	e(btn("encode"),"click", function (e){
+		stateChange()
+	})
+]});
 
 //creating rxtx db tool
 function rxtx(url){
@@ -372,5 +397,7 @@ b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
 b(s("tools"),s("extra"))
 b(s("tools"),s("encrypt"))
+b(s("tools"),s("encode"))
+
 b(document.body,s("wrapper"))
 stateChange() //init
