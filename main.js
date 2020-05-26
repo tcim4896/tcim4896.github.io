@@ -393,6 +393,10 @@ function rxtx(url){
 	return r;
 }
 
+function store(obj){
+	localStorage.setItem(obj.key,obj.value)
+}
+
 b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
 b(s("tools"),s("extra"))
