@@ -317,6 +317,17 @@ function encrypt(text,table1,table2){
     }
     return r; 
 }
+// creating up one tool
+function upOne(char){
+	let r="",abc="abcdefghijklmnopqrstuvwxyz";
+	if(abc.indexOf(char)==abc.length-1){
+		r=abc[0];
+	}else{
+		r=abc[abc.indexOf(char)+1];
+	}
+	return r;
+}
+
 // creating exclude one tool
 o({id:"encrypt",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
@@ -332,6 +343,30 @@ o({id:"encrypt",class:"method",siblings:[
 		stateChange()
 	})
 ]})
+
+//creating rxtx db tool
+function rxtx(url){
+	// XMLHttpRequest
+	const Http = new XMLHttpRequest();
+	Http.open("GET", url);
+	Http.send();
+	//
+	Http.onreadystatechange = (e) => {
+	  console.log(Http.responseText)
+	}
+	/* Fetch
+	https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+	*/
+	fetch(url)
+	  .then((response) => {
+	    return response.json();
+	  })
+	  .then((data) => {
+	    console.log(data);
+	  });
+
+	return r;
+}
 
 b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
