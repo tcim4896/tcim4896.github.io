@@ -421,7 +421,7 @@ _.ranking={
 function rank(userId,itemId){
 	let item=_.ranking.items[itemId];
 	if(typeof item !=="undefined"){
-		item.points+=item.accounts.indexOf(userId)!==-1?
+		item.points+=item.accounts.indexOf(userId)==-1?
 		1:0;
 	}
 	return item;
