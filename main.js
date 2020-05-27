@@ -403,29 +403,28 @@ function store(obj){
 
 // creating ranking service
 _.ranking={
-	items:[{
-		id:382494,
-		points:0,
-		accounts:[],
-	},
-	{
-		id:234890,
-		points:1,
-		accounts:[0],
-	}],
+	items:{
+		382494:{
+			points:0,
+			accounts:[],
+		},
+		234890:{
+			points:1,
+			accounts:[0]
+		}
+	}
 };
+/*
 
+	items={};items[id]={points:0,accounts:[]}
+*/
 function rank(userId,itemId){
-	let r;
-	_.ranking.items.forEach(item=>{
-		item.points+=item.id==itemId?
-		(()=>{r=item;
-			return !item.accounts
-				.indexOf(userId)==-1?1:0;
-		})():
-		0;
-	})
-	return r;
+	let item=_.ranking.items[itemId];
+	if(typeof item !=="undefined"){
+		item.points+=item.accounts.indexOf(userId)!==-1?
+		1:0;
+	}
+	return item;
 }
 
 cl(rank(0,382494))
