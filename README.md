@@ -7,3 +7,4 @@
 *langcheckup integrated
 *xhr db request incl. yynet abstraction
 *shortening words and save them (e.g. frquent, creat, ..)
+*spin up a server http handler

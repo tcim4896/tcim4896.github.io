@@ -401,6 +401,36 @@ function store(obj){
 	localStorage.setItem(obj.key,obj.value)
 }
 
+// creating ranking service
+_.ranking={
+	items:[{
+		id:382494,
+		points:0,
+		accounts:[],
+	},
+	{
+		id:234890,
+		points:1,
+		accounts:[0],
+	}],
+};
+
+function rank(userId,itemId){
+	let r;
+	_.ranking.items.forEach(item=>{
+		item.points+=item.id==itemId?
+		(()=>{r=item;
+			return !item.accounts
+				.indexOf(userId)==-1?1:0;
+		})():
+		0;
+	})
+	return r;
+}
+
+cl(rank(0,382494))
+cl(rank(0,234890))
+
 b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
 b(s("tools"),s("extra"))
