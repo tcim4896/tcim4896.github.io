@@ -176,13 +176,11 @@ e(document.body,"mouseup",function(e){
 })
 
 function input(placeholder){
-	let div=document.createElement("input");
+	let div=document.createElement("div");
 	div.setAttribute("contentEditable",true)
 	div.setAttribute("class","input")
 	// div.setAttribute("data-text",placeholder+"...")
-
-	// write attribute value
-	// div.prototype=HTMLInputElement.prototype;
+	// ffkeys	
 	return div;
 }
 
@@ -245,8 +243,26 @@ function replace(str,term,replacement){
 o({id:"replace",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
 		cl(e)
-		ss().replace["term"]=e.target.value;
-		cl(e.shiftKey)
+		function ffkeys(event){
+			let r;
+			let match=key=>key.match(/^[A-Za-z]+$/);
+			if(e.shiftKey==true && match(e.key)){
+				r="";
+			}
+			switch(event.key){
+				case "Shift":{
+					r=""
+				}
+				break;
+				default:{
+					r=event.key;
+				}
+			}
+			cl(r)
+			return r;
+		}
+
+		ss().replace["term"]+=ffkeys(e);
 	}),
 	e(input("replacement"),"keydown", function(e){
 		ss().replace["replacement"]=e.target.value; //excludes
