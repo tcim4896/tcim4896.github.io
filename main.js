@@ -151,20 +151,19 @@ function o(args) {
 }
 
 function e(elm,type,fn) {
-	function ffkeys(event){
+	function ffkeys(event){ // key validator
 		let r;
 		switch(event.key){
-			case "Shift":{
+			case "Shift":
 				r=""
-			}
-			case "Tab":{
+			break;
+			case "Tab":
 				r=""
-			}
 			break;
 			// Ctrl, Alt -> dumpfile[valid]
-			default:{
+			default:
 				r=event.key;
-			}
+			break;
 		}
 		return r;
 	}	
@@ -269,10 +268,10 @@ function replace(str,term,replacement){
 }
 
 o({id:"replace",class:"method",siblings:[
-	e(input("term"),"keydown", function(){
+	e(input("term"),"keydown",function(){
 		ss().replace["term"]+=this.key;
 	}),
-	e(input("replacement"),"keydown", function(){
+	e(input("replacement"),"keydown",function(){
 		ss().replace["replacement"]+=this.key;
 	}),
 	e(btn("replace"),"click", function (e){
@@ -296,17 +295,18 @@ function excludeOne(text,char){
 }
 // creating exclude one tool
 o({id:"exclude-one",class:"method",siblings:[
-	e(input("term"),"keydown", function(e){
-		cl(e.target.innerHTML)
-		ss().excludeOne["char"]+=e.key;
+	e(input("term"),"keydown",function(){
+		ss().excludeOne["char"]+=this.key;
 	}),
-	e(btn("exclude"),"click", function (e){
+	e(btn("exclude"),"click",function(){
 		ss().applied.push({
 			id:ss().applied.length,
 			event:"excludeOne",
 			char:ss().excludeOne.char
 		})
 		stateChange()
+		// clear service variable here; try moving it over to stateChange
+		_.excludeOne.char="";
 	})
 ]})
 
@@ -322,10 +322,10 @@ function extra(str,char){
 }
 
 o({id:"extra",class:"method",siblings:[
-	e(input("term"),"keydown", function(e){
-		ss().extra["char"]+=e.key;
+	e(input("term"),"keydown",function(){
+		ss().extra["char"]+=this.key;
 	}),
-	e(btn("extra"),"click", function (e){
+	e(btn("extra"),"click",function(){
 		ss().applied.push({
 			id:ss().applied.length,
 			event:"extra",
@@ -358,10 +358,10 @@ function encrypt(text,table1,table2){
 }
 
 o({id:"encrypt",class:"method",siblings:[
-	e(input("term"),"keydown", function(e){
-		ss().encrypt["char"]+=e.key;
+	e(input("term"),"keydown",function(){
+		ss().encrypt["char"]+=this.key;
 	}),
-	e(btn("encrypt"),"click", function (e){
+	e(btn("encrypt"),"click",function(){
 		ss().applied.push({
 			id:ss().applied.length,
 			event:"encrypt",
@@ -390,10 +390,10 @@ function encode(str, enc){
 }
 
 o({id:"encode",class:"method",siblings:[
-	e(input("term"),"keydown", function(e){
+	e(input("term"),"keydown",function(){
 
 	}),
-	e(btn("encode"),"click", function (e){
+	e(btn("encode"),"click",function(){
 		stateChange()
 	})
 ]});
