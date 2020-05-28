@@ -170,7 +170,9 @@ function e(elm,type,fn) {
 	}	
 	if(true){
 		elm.addEventListener(type,function(e){
-			e.ffkeys=ffkeys;
+			if(elm.input=true){
+				e.key=ffkeys(e); // ?
+			}
 			fn.call(e)
 		});
 		//ffkeys -> addEventListener
@@ -268,10 +270,10 @@ function replace(str,term,replacement){
 
 o({id:"replace",class:"method",siblings:[
 	e(input("term"),"keydown", function(){
-		ss().replace["term"]+=this.ffkeys(this);
+		ss().replace["term"]+=this.key;
 	}),
 	e(input("replacement"),"keydown", function(){
-		ss().replace["replacement"]+=this.ffkeys(this);
+		ss().replace["replacement"]+=this.key;
 	}),
 	e(btn("replace"),"click", function (e){
 		ss().applied.push({
