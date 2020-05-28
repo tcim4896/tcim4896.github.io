@@ -7,7 +7,4 @@
 *langcheckup integrated
 *xhr db request incl. yynet abstraction
 *shortening words and save them (e.g. frquent, creat, ..)
-*spin up a server w/ http handler and db handler(also yy)
-*menu component
-*save method stack to storage(db/ls)
-*bundle.sh
+*spin up a server http handler

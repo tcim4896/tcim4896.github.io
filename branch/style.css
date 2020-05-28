@@ -1,0 +1,104 @@
+html, body { 
+  width: 100%; 
+  height: 100%; 
+  margin:0; 
+  font-family: “Oxygen”, sans-serif;
+  font-size: 12px;
+}
+
+body {
+  flex-direction: row;
+}
+
+.input {
+  position:relative;
+  border:1px solid rgba(0,0,0,0.5);
+  line-height: 18px;
+  margin:5px;
+  height:auto;
+}
+
+.btn {
+  position:relative;
+  border:1px solid rgba(0,0,0,0.5);
+  line-height: 18px;
+  margin:5px;
+  height:auto;
+  text-align: center;
+  background-color:rgba(20,225,55,0.7);
+  cursor:pointer;
+}
+
+.col-resize {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 auto;
+  overflow: hidden;
+  background: rgb(221, 221, 221) none repeat scroll 0% 0%;
+  cursor: col-resize;
+  left: calc(13.4921% + 43.2539px);
+  top: calc(0px);
+  width: calc(0% + 11px);
+  height: calc(100%);
+}
+
+.wrapper {
+  display:flex;
+  height: 100%;
+}
+
+.viewer {
+  border: 1px solid rgba(0,0,0,0.5);
+  width: 100%;
+  margin:10px;
+  padding:5px;
+}
+
+.container {
+  position:relative;
+  border: 1px solid rgba(0,0,0,0.5);
+  margin:10px;
+  box-sizing:border-box;
+  padding:10px;
+  min-height: 200px;
+  height:250px;
+  overflow-y:scroll;
+}
+
+.toolbar {
+  position:relative;
+  border: 1px solid rgba(0,0,0,0.5);
+  width:40%;
+  margin:10px;
+  box-sizing:border-box;
+  padding:10px;
+}
+
+.tools {
+  position:absolute;
+  border: 1px solid rgba(0,0,0,0.5);
+  right:10px;
+  left:10px;
+  height: calc(50% - 21px);
+  overflow-y:scroll;
+}
+
+.applied {
+  position:absolute;
+  border: 1px solid rgba(0,0,0,0.5);
+  right:10px;
+  left:10px;
+  height: calc(50% - 11px);
+  bottom: 10px;
+  word-break: break-all;
+  overflow-y:scroll;
+}
+
+[contentEditable=true]:empty:not(:focus):before {
+    content:attr(data-text);
+    font-style:italic;
+    padding-left: 5px;
+    color: #999;
+}
