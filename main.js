@@ -52,7 +52,17 @@ d.fn(0).fn(1)
 
 ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-function stateChange(){
+function stateChange(service){
+	function clear(obj){
+		for(let prop in obj){
+			if(typeof prop=="string"){
+				obj[prop]="";
+			}
+		}
+		return;
+	}
+	clear(service)
+
 	s("applied").innerHTML="";
 	if(ss().applied.length>0){
 		ss().applied.forEach(function(method){
@@ -155,10 +165,13 @@ function e(elm,type,fn) {
 		let r;
 		switch(event.key){
 			case "Shift":
-				r=""
+				r="";
 			break;
 			case "Tab":
-				r=""
+				r="";
+			break;
+			case "Backspace":
+				r="";
 			break;
 			// Ctrl, Alt -> dumpfile[valid]
 			default:
@@ -166,19 +179,19 @@ function e(elm,type,fn) {
 			break;
 		}
 		return r;
-	}	
+	}
+
 	if(true){
 		elm.addEventListener(type,function(e){
-			if(elm.input=true){
-				e.key=ffkeys(e); // ?
-			}
+			cl(ffkeys(e))
+			e.value=ffkeys(e);
 			fn.call(e)
 		});
-		//ffkeys -> addEventListener
 	}else{
 		elm.addEventListener(type,fn)
 	}
    // state change
+   elm
   return elm;
 }
 
@@ -204,6 +217,7 @@ e(document.body,"mouseup",function(e){
 
 function input(placeholder){
 	let div=document.createElement("div");
+	div.input=true;
 	div.setAttribute("contentEditable",true)
 	div.setAttribute("class","input")
 	// div.setAttribute("data-text",placeholder+"...")
@@ -269,10 +283,10 @@ function replace(str,term,replacement){
 
 o({id:"replace",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-		ss().replace["term"]+=this.key;
+		ss().replace["term"]+=this.value;
 	}),
 	e(input("replacement"),"keydown",function(){
-		ss().replace["replacement"]+=this.key;
+		ss().replace["replacement"]+=this.value;
 	}),
 	e(btn("replace"),"click", function (e){
 		ss().applied.push({
@@ -296,7 +310,7 @@ function excludeOne(text,char){
 // creating exclude one tool
 o({id:"exclude-one",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-		ss().excludeOne["char"]+=this.key;
+		ss().excludeOne["char"]+=this.value;
 	}),
 	e(btn("exclude"),"click",function(){
 		ss().applied.push({
@@ -304,9 +318,8 @@ o({id:"exclude-one",class:"method",siblings:[
 			event:"excludeOne",
 			char:ss().excludeOne.char
 		})
-		stateChange()
+		stateChange(_.excludeOne)
 		// clear service variable here; try moving it over to stateChange
-		_.excludeOne.char="";
 	})
 ]})
 
@@ -323,7 +336,7 @@ function extra(str,char){
 
 o({id:"extra",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-		ss().extra["char"]+=this.key;
+		ss().extra["char"]+=this.value;
 	}),
 	e(btn("extra"),"click",function(){
 		ss().applied.push({
@@ -359,7 +372,7 @@ function encrypt(text,table1,table2){
 
 o({id:"encrypt",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-		ss().encrypt["char"]+=this.key;
+		ss().encrypt["char"]+=this.value;
 	}),
 	e(btn("encrypt"),"click",function(){
 		ss().applied.push({
