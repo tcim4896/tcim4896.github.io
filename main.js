@@ -151,6 +151,9 @@ function o(args) {
 }
 
 function e(elm,type,fn) {
+	if(elm.ffkeys==true){
+		//ffkeys -> addEventListener
+	}
   elm.addEventListener(type,fn); // state change
   return elm;
 }
@@ -177,10 +180,30 @@ e(document.body,"mouseup",function(e){
 
 function input(placeholder){
 	let div=document.createElement("div");
+	div.ffkeys=true;
 	div.setAttribute("contentEditable",true)
 	div.setAttribute("class","input")
 	// div.setAttribute("data-text",placeholder+"...")
-	// ffkeys	
+	// ffkeys
+
+	function ffkeys(event){
+		let r;
+
+		switch(event.key){
+			case "Shift":{
+				r=""
+			}
+			case "Tab":{
+				r=""
+			}
+			break;
+			// Ctrl, Alt -> dumpfile[valid]
+			default:{
+				r=event.key;
+			}
+		}
+		return r;
+	}
 	return div;
 }
 
@@ -242,26 +265,6 @@ function replace(str,term,replacement){
 
 o({id:"replace",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
-		cl(e)
-		function ffkeys(event){
-			let r;
-			let match=key=>key.match(/^[A-Za-z]+$/);
-			if(e.shiftKey==true && match(e.key)){
-				r="";
-			}
-			switch(event.key){
-				case "Shift":{
-					r=""
-				}
-				break;
-				default:{
-					r=event.key;
-				}
-			}
-			cl(r)
-			return r;
-		}
-
 		ss().replace["term"]+=ffkeys(e);
 	}),
 	e(input("replacement"),"keydown", function(e){
