@@ -176,10 +176,13 @@ e(document.body,"mouseup",function(e){
 })
 
 function input(placeholder){
-	let div=document.createElement("div");
+	let div=document.createElement("input");
 	div.setAttribute("contentEditable",true)
 	div.setAttribute("class","input")
-	//div.setAttribute("data-text",placeholder+"...")
+	// div.setAttribute("data-text",placeholder+"...")
+
+	// write attribute value
+	// div.prototype=HTMLInputElement.prototype;
 	return div;
 }
 
@@ -242,10 +245,11 @@ function replace(str,term,replacement){
 o({id:"replace",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
 		cl(e)
-		ss().replace["term"]+=e.key;
+		ss().replace["term"]=e.target.value;
+		cl(e.shiftKey)
 	}),
 	e(input("replacement"),"keydown", function(e){
-		ss().replace["replacement"]+=e.key; //excludes
+		ss().replace["replacement"]=e.target.value; //excludes
 	}),
 	e(btn("replace"),"click", function (e){
 		ss().applied.push({
@@ -269,6 +273,7 @@ function excludeOne(text,char){
 // creating exclude one tool
 o({id:"exclude-one",class:"method",siblings:[
 	e(input("term"),"keydown", function(e){
+		cl(e.target.innerHTML)
 		ss().excludeOne["char"]+=e.key;
 	}),
 	e(btn("exclude"),"click", function (e){
@@ -415,8 +420,8 @@ _.ranking={
 	}
 };
 /*
-
 	items={};items[id]={points:0,accounts:[]}
+	/ set i=length;
 */
 function rank(userId,itemId){
 	let item=_.ranking.items[itemId];
