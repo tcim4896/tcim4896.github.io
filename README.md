@@ -10,4 +10,5 @@
 *spin up a server w/ http handler and db handler(also yy)
 *menu component
 *save method stack to storage(db/ls)
+*dictionary store/read methods
 *bundle.sh
