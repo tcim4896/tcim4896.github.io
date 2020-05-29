@@ -491,11 +491,15 @@ function Router(pageId){
 			b(document.body,s("wrapper"))
 			b(document.body,o({id:"menu",class:"menu",siblings:[
 				o({class:"item", text:"Mangler"}),
-				o({class:"item", text:"Lang checkup"}),
+				o({class:"item", text:"Encryption"}),
+				o({class:"item", text:"Lang Checkup"}),
 				o({class:"item", text:"Dictionary"}),
-				o({class:"item", text:"Encryption"})
-
+				o({class:"item", text:"Science"}),
 				]}))
+		// menu build script
+		for(let item of menuStructure){
+			cl(item)
+		}
 		break;
 	}
 }	
