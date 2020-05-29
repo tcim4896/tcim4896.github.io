@@ -3,8 +3,19 @@ mState = {
 	elements:[],
 	services:{
 		router:{
-			pageId:0,
-			component: btn("Hello World")
+			currentPage: 0,
+			routes:{
+				0: {
+					path: "/",
+					componentName: "wrapper",
+				}
+			}
+		},
+		cursor: {
+			x:0,
+			y:0,
+			mousedown:false,
+			mousemove:false,
 		},
 		replace:{
 			term:"",
@@ -483,27 +494,37 @@ b(s("tools"),s("encrypt"))
 b(s("tools"),s("encode"))
 
 
-function Router(pageId){
-	switch(pageId){
-		case 0:
-		break;
-		default:
-			b(document.body,s("wrapper"))
-			b(document.body,o({id:"menu",class:"menu",siblings:[
-				o({class:"item", text:"Mangler"}),
-				o({class:"item", text:"Encryption"}),
-				o({class:"item", text:"Lang Checkup"}),
-				o({class:"item", text:"Dictionary"}),
-				o({class:"item", text:"Science"}),
-				]}))
-		// menu build script
-		for(let item of menuStructure){
-			cl(item)
+function registerService(service){
+	_[service.name]=service;
+}
+
+registerService({
+	name: "router",
+	init: function Router(pageId){ // handler for request and routes
+			switch(pageId){
+				case 0:
+					// get path and load component
+				break;
+			default:
+				b(document.body,s("wrapper"))
+				b(document.body,o({id:"menu",class:"menu",siblings:[
+					o({class:"item", text:"Mangler"}),
+					o({class:"item", text:"Encryption"}),
+					o({class:"item", text:"Lang Checkup"}),
+					o({class:"item", text:"Dictionary"}),
+					o({class:"item", text:"Science"}),
+					]}))
+			// menu build script
+			for(let item of menuStructure){
+				cl(item)
+			}
+			break;
 		}
-		break;
+	},
+	registerRoute: function registerRoute(id,component){
+		_.Router.routes[id]=component;
 	}
-}	
+})
 
-
-Router()
+_.router.init()
 stateChange() //init
