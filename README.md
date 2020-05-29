@@ -11,4 +11,5 @@
 *menu component
 *save method stack to storage(db/ls)
 *dictionary store/read methods
+*clear input fields b/f
 *bundle.sh

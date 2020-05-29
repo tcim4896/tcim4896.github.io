@@ -2,6 +2,10 @@ cl=console.log;
 mState = {
 	elements:[],
 	services:{
+		router:{
+			pageId:0,
+			component: btn("Hello World")
+		},
 		replace:{
 			term:"",
 			replacement:""
@@ -318,7 +322,7 @@ o({id:"exclude-one",class:"method",siblings:[
 			event:"excludeOne",
 			char:ss().excludeOne.char
 		})
-		stateChange(_.excludeOne)
+		stateChange(_.excludeOne) // *clear input field
 		// clear service variable here; try moving it over to stateChange
 	})
 ]})
@@ -478,5 +482,24 @@ b(s("tools"),s("extra"))
 b(s("tools"),s("encrypt"))
 b(s("tools"),s("encode"))
 
-b(document.body,s("wrapper"))
+
+function Router(pageId){
+	switch(pageId){
+		case 0:
+		break;
+		default:
+			b(document.body,s("wrapper"))
+			b(document.body,o({id:"menu",class:"menu",siblings:[
+				o({class:"item", text:"Mangler"}),
+				o({class:"item", text:"Lang checkup"}),
+				o({class:"item", text:"Dictionary"}),
+				o({class:"item", text:"Encryption"})
+
+				]}))
+		break;
+	}
+}	
+
+
+Router()
 stateChange() //init

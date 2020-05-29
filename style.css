@@ -10,6 +10,45 @@ body {
   flex-direction: row;
 }
 
+.menu {
+  position: fixed;
+  left:0;
+  bottom:0;
+  right:0;
+  height:60px;
+  background-color:rgba(0,0,0,0.5);
+  white-space: nowrap;
+  overflow-x:scroll;
+}
+
+.menu .item {
+  position: relative;
+  margin: 5px;
+  padding: 5px;
+  line-height: 20px;
+  float:left;
+  background-color:rgba(0,0,0,0.5);
+  color: #fff;
+  cursor: pointer;
+}
+
+.level {
+  position:fixed;
+  height:30%;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color:rgba(0,0,0,0.2);
+}
+
+.level .item{
+  line-height: 120px;
+  text-align: center;
+  color:#ededed;
+  position:relative;
+  float:none;
+}
+
 .input {
   position:relative;
   border:1px solid rgba(0,0,0,0.5);
