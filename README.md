@@ -8,7 +8,7 @@
 *xhr db request incl. yynet abstraction
 *shortening words and save them (e.g. frquent, creat, ..)
 *spin up a server w/ http handler and db handler(also yy)
-*menu component
+*menu component[*]
 *save method stack to storage(db/ls)
 *dictionary store/read methods
 *clear input fields b/f

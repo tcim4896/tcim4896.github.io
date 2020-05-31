@@ -34,7 +34,7 @@ body {
 
 .level {
   position:fixed;
-  height:calc(0px+10%);
+  height:calc(0%);
   left:0;
   right:0;
   bottom:60px;

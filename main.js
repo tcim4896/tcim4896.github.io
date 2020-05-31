@@ -4,22 +4,15 @@ mState = {
 	elements:[],
 	services:{
 		menu:{
-
+			open:[],
 		},
 		router:{
 			currentPage: 0,
-			routes:{
-				0: {
-					path: "/",
-					componentName: "wrapper",
-				}
-			}
+			routes:{}
 		},
 		cursor: {
 			x:0,
 			y:0,
-			mousedown:false,
-			mousemove:false,
 		},
 		replace:{
 			term:"",
@@ -27,6 +20,9 @@ mState = {
 		},
 		excludeOne:{
 			char:""
+		},
+		encrypt:{
+			type:"abc-up"
 		},
 		extra:{
 			char:""
@@ -37,29 +33,28 @@ mState = {
 _=mState.services;
 menuStructure = [
   {
-    text: "Mangler",
-    event: "open",
-    path: 0,
+    text: "Dictea",
+    event: {type:"open",path:0},
     list: [
       {
-        text: "item1",
-        event: {
-          type: "open",
-          path: 1
+        text: "Mangler",
+        event: {type:"route",path:"mangler"
         }
       },
       {
-        text: "item2",
-        event: {
-          type: "ref",
-          path: "/rss"
+        text: "Langcheckup",
+        event: {type:"route",path:"langcheckup"}
+      },
+      {
+        text: "Dictionary",
+        event: {type:"ref",path:"dictionary"
         }
       }
     ]
   }
 ];
 
-// use this in cases adding events
+// Propchaining
 d={
   value:{},
   fn(prop){
@@ -99,7 +94,7 @@ function stateChange(service){
 						text(method.replacement)
 					]}))
 					s("mangled-text").textContent=window[method.event](
-						s("original-text")
+						s("mangled-text")
 						.textContent,
 						method.term,
 						method.replacement
@@ -115,11 +110,9 @@ function stateChange(service){
 						}),
 						text(method.char),
 					]}))
-
-					cl(window[method.event])
 					s("mangled-text")
 					.textContent=window[method.event](
-						s("original-text").textContent,
+						s("mangled-text").textContent,
 						method.char,
 					);
 				break;
@@ -133,8 +126,6 @@ function stateChange(service){
 						}),
 						text("lowercase")
 					]}))
-
-					cl(window[method.event])
 					s("mangled-text")
 					.textContent=window[method.event](
 						s("mangled-text").textContent); //
@@ -150,13 +141,26 @@ function stateChange(service){
 						text(method.char),
 					]}))
 
-					cl(window[method.event])
 					s("mangled-text")
 					.textContent=window[method.event](
-						s("original-text").textContent,
+						s("mangled-text").textContent,
 						method.char,
 					);
-				break;				
+				break;
+				case "encrypt":
+					b(s("applied"),o({id:method.id,class:"method",siblings:[
+						e(btn("x"),"click",e=>{
+							ss().applied=ss().applied.filter(function(m){
+								return method.id !== m.id;
+							})
+							stateChange()
+						}),
+						text("encrypt"),
+					]}))
+					s("mangled-text")
+					.textContent=window[method.event](s("mangled-text")
+						.textContent);
+				break;								
 			}
 		})		
 	}else{
@@ -216,17 +220,14 @@ function e(elm,type,fn) {
 		return r;
 	}
 
-	if(true){
+	if(true){ // if elm.ffkeys
 		elm.addEventListener(type,function(e){
-			cl(ffkeys(e))
 			e.value=ffkeys(e);
 			fn.call(e)
 		});
 	}else{
 		elm.addEventListener(type,fn)
 	}
-   // state change
-   elm
   return elm;
 }
 
@@ -279,8 +280,9 @@ function Component(type){}
 o({id:"tools",class:"tools"})
 o({id:"applied",class:"applied"})
 o({id:"toolbar",class:"toolbar",siblings:[s("tools"),s("applied")]})
-e(o({id:"original-text",class:"container",text:ipsum}),"keydown",function(e){
-	stateChange(); // fix length bug
+e(o({id:"original-text",class:"container",text:ipsum}),"keydown",function(){
+	cl(s("mangled-text").textContent+=this.value) // fix bug here
+	stateChange();
 })
 s("original-text").setAttribute("contentEditable", true)
 o({id:"mangled-text",class:"container"})
@@ -385,7 +387,6 @@ o({id:"extra",class:"method",siblings:[
 ]})
 
 // creating toLowerCase tool
-
 function toLowerCase(str){
 	let r="",len=string=>string.length;
     for(let i=0;i<len(str);i++){
@@ -405,38 +406,36 @@ o({id:"lowercase",class:"method",siblings:[
 ]})
 
 // creating encrypt tool
-function encrypt(text,table1,table2){
-	for(;;)
-	// psuedo
-	// for every table1 idx replace text idxo with table2 idxo
-    var r="";
-    for(let i=0;i<text.length;i++){
-      text[i]!=char?
-      (r+=text[i]):0;
-    }
-    return r; 
-    // creating abc up tool
+function encrypt(text){
+	let r;
+	// creating abc-up encryption
 	function abcUp(char){
 		let r="",abc="abcdefghijklmnopqrstuvwxyz";
-		if(abc.indexOf(char)==abc.length-1){
+		if(char==" "){
+			r=" ";
+		}else if(abc.indexOf(char)==abc.length-1){
 			r=abc[0];
 		}else{
 			r=abc[abc.indexOf(char)+1];
 		}
 		return r;
 	}
+	text=toLowerCase(text);
+    for(let i=0;i<text.length;i++){
+      (r+=abcUp(text[i])) //abcUp as default temp.
+    }
+    return r;
 }
 
 o({id:"encrypt",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-		ss().encrypt["char"]+=this.value;
+		ss().encrypt.type+=this.value;
 	}),
 	e(btn("encrypt"),"click",function(){
 		ss().applied.push({
 			id:ss().applied.length,
 			event:"encrypt",
-			table1:ss().encrypt.table1,
-			table2:ss().encrypt.table2
+			type:_.encrypt.type,
 		})
 		stateChange()
 	})
@@ -477,7 +476,7 @@ function rxtx(url){
 	Http.send();
 	//
 	Http.onreadystatechange = (e) => {
-	  console.log(Http.responseText)
+	  cl(Http.responseText)
 	}
 	/* Fetch
 	https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
@@ -487,12 +486,11 @@ function rxtx(url){
 	    return response.json();
 	  })
 	  .then((data) => {
-	    console.log(data);
+	    cl(data);
 	  });
 
 	return r;
 }
-//user:pass@localhost:port,anotherhost:port,yetanother:port/database', opts);
 
 rxtx("http://10.0.0.127:80")
 
@@ -513,10 +511,7 @@ _.ranking={
 		}
 	}
 };
-/*
-	items={};items[id]={points:0,accounts:[]}
-	/ set i=length;
-*/
+
 function rank(userId,itemId){
 	let item=_.ranking.items[itemId];
 	if(typeof item !=="undefined"){
@@ -537,46 +532,79 @@ b(s("tools"),s("encrypt"))
 b(s("tools"),s("encode"))
 
 // building langcheckup gui
-
 o({id:"langcheckup", class:"langcheckup",siblings:[
 	input(), // e
 	btn("Check"),
 	text("Result:false"),
 ]})
 
-
-
-// end langcheckup
-
+// register service
 function registerService(service){
 	_[service.name]=service;
 }
 
+// registering Router service
 registerService({
 	name: "router",
 	init: function Router(pageId){ // handler for request and routes
-			switch(pageId){
-				case 0:
-					root.innerHTML='';
-				break;
-			default:
-				root.innerHTML='';
-				b(root,s("mangler"))
-				// dynamic menu build script
-				b(root,o({id:"menu",class:"menu"}))
-
-				for(let item of menuStructure){
-					cl(item) // Menu items
-					b(s("menu"),e(o({class:"item", text:item.text}),"click",function(){
-						_.router.init(item.path);
-					}))
-					b(root,o({id:"level"+item.path, class:"level"}))
-					// Level list items
-					for(let li of item.list){
-						b(s("level"+item.path),o({class:"item", text:li.text}))
-					}
-				}
+		root.innerHTML='';
+		switch(pageId){
+			case "langcheckup":
+				b(root,s("langcheckup"))
 			break;
+			default:
+				b(root,s("mangler"))
+			break;
+		}
+		// Dynamic menu build
+		b(root,o({id:"menu",class:"menu"}))
+
+		function menuAction(menuItem){
+			function openLevel(id){
+				let level=s("level"+id);
+				// javascript animation..
+				if(_.menu.open.indexOf(id)==-1){
+					_.menu.open.push(id);
+					level.style.height="calc(20%)";
+				}else{
+					_.menu.open=_.menu.open.filter(open=>open!==id)
+					level.style.height="calc(0%)";
+				}
+			}
+
+			switch(menuItem.event.type){
+				case "open":
+					openLevel(menuItem.event.path);
+				break;
+				case "route":
+					_.menu.open=_.menu
+						.open
+						.filter(open=>{
+							open!==menuItem.event.path
+						});
+					_.router.init(menuItem.event.path);
+				break;
+				case "ref":
+					// window location =
+				break;
+				default:
+					cl("No matching route..")
+				break;
+			}
+		}
+
+		for(let item of menuStructure){
+			b(s("menu"),e(o({class:"item", text:item.text}),"click",function(){		
+				menuAction(item)
+			}))
+
+			b(root,o({id:"level"+item.event.path, class:"level"}))
+			// Level list items
+			for(let li of item.list){
+				b(s("level"+item.event.path),e(o({id:"level"+li.event.path,class:"item", text:li.text}),"click",function(){
+					menuAction(li)
+				}))
+			}
 		}
 	},
 	registerRoute: function registerRoute(id,component){
