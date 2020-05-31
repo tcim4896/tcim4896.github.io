@@ -485,8 +485,8 @@ function rank(userId,itemId){
 	return item;
 }
 
-cl(rank(0,382494))
-cl(rank(0,234890))
+// cl(rank(0,382494))
+// cl(rank(0,234890))
 
 b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
@@ -497,7 +497,7 @@ b(s("tools"),s("encode"))
 // building langcheckup gui
 
 o({id:"langcheckup", class:"langcheckup",siblings:[
-	input(),
+	input(), // e
 	btn("Check"),
 	text("Result:false"),
 ]})
@@ -519,7 +519,9 @@ registerService({
 					b(root,s("langcheckup"))
 					//copy of menu -> dynamic
 					b(root,o({id:"menu",class:"menu",siblings:[
-					o({class:"item", text:"Mangler"}),
+					e(o({class:"item", text:"Mangler"}),"click",function(){
+						_.router.init();
+					}),
 					o({class:"item", text:"Encryption"}),
 					e(o({class:"item", text:"Lang Checkup"}),"click",function(){
 						_.router.init(0);
@@ -532,7 +534,9 @@ registerService({
 				root.innerHTML='';
 				b(root,s("mangler"))
 				b(root,o({id:"menu",class:"menu",siblings:[
-					o({class:"item", text:"Mangler"}),
+					e(o({class:"item", text:"Mangler"}),"click",function(){
+						_.router.init();
+					}),
 					o({class:"item", text:"Encryption"}),
 					e(o({class:"item", text:"Lang Checkup"}),"click",function(){
 						_.router.init(0);

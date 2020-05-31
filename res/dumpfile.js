@@ -40,3 +40,20 @@ button.addEventListener("click", (e)=>{
 <div class="viewer" id="viewer"></div>
 
 */
+
+
+/*
+UNICODE SYMBOLS
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>All assigned Unicode v6.3.0 symbols</title>
+<script src="http://mathias.html5.org/data/unicode/format?version=6.3.0&property=Assigned&type=symbols&prepend=window.symbols%20%3D%20&append=%3B"></script>
+<script>
+  window.symbols.forEach(function(symbol) {
+    // Do what you want to do with `symbol` here, e.g.
+    console.log(symbol);
+  });
+</script>
+
+*/
