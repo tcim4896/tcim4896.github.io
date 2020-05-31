@@ -32,26 +32,50 @@ mState = {
 };
 _=mState.services;
 menuStructure = [
-  {
-    text: "Dictea",
-    event: {type:"open",path:0},
-    list: [
-      {
-        text: "Mangler",
-        event: {type:"route",path:"mangler"
-        }
-      },
-      {
-        text: "Langcheckup",
-        event: {type:"route",path:"langcheckup"}
-      },
-      {
-        text: "Dictionary",
-        event: {type:"ref",path:"dictionary"
-        }
-      }
-    ]
-  }
+ 	{
+	    text: "Dictea",
+	    event: {type:"open",path:0},
+	    list: [
+	      {
+	        text: "Mangler",
+	        event: {type:"route",path:"mangler"
+	        }
+	      },
+	      {
+	        text: "Langcheckup",
+	        event: {type:"route",path:"langcheckup"}
+	      },
+	      {
+	        text: "Dictionary",
+	        event: {type:"ref",path:"dictionary"
+	        }
+	      },
+	    ],
+	},
+	{
+	    text: "Leke.js",
+	    event: {type:"open",path:0},
+	    list: [
+	       {
+	        text: "Quick start",
+	        event: {type:"route",path:"langcheckup"}
+	      },   
+	      {
+	        text: "API Reference",
+	        event: {type:"route",path:"mangler"
+	        }
+	      },
+	      {
+	        text: "Download",
+	        event: {type:"ref",path:"dictionary"
+	        }
+	      },
+	    ]
+  	},
+	{
+	    text: "Music",
+	    event: {type:"ref",path:"https://www.youtube.com/watch?v=W-KpT2o1xXY"},
+  	}
 ];
 
 // Propchaining
@@ -585,7 +609,7 @@ registerService({
 					_.router.init(menuItem.event.path);
 				break;
 				case "ref":
-					// window location =
+					window.open(menuItem.event.path)
 				break;
 				default:
 					cl("No matching route..")
