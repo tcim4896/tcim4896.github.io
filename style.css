@@ -34,11 +34,12 @@ body {
 
 .level {
   position:fixed;
-  height:30%;
+  height:calc(0px+10%);
   left:0;
   right:0;
-  bottom:0;
+  bottom:60px;
   background-color:rgba(0,0,0,0.2);
+  overflow:hidden;
 }
 
 .level .item{
