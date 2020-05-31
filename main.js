@@ -494,6 +494,17 @@ b(s("tools"),s("extra"))
 b(s("tools"),s("encrypt"))
 b(s("tools"),s("encode"))
 
+// building langcheckup gui
+
+o({id:"langcheckup", class:"langcheckup",siblings:[
+	input(),
+	btn("Check"),
+	text("Result:false"),
+]})
+
+
+
+// end langcheckup
 
 function registerService(service){
 	_[service.name]=service;
@@ -505,14 +516,27 @@ registerService({
 			switch(pageId){
 				case 0:
 					root.innerHTML='';
-					b(root,input());
+					b(root,s("langcheckup"))
+					//copy of menu -> dynamic
+					b(root,o({id:"menu",class:"menu",siblings:[
+					o({class:"item", text:"Mangler"}),
+					o({class:"item", text:"Encryption"}),
+					e(o({class:"item", text:"Lang Checkup"}),"click",function(){
+						_.router.init(0);
+					}),
+					o({class:"item", text:"Dictionary"}),
+					o({class:"item", text:"Science"}),
+					]}))
 				break;
 			default:
+				root.innerHTML='';
 				b(root,s("mangler"))
 				b(root,o({id:"menu",class:"menu",siblings:[
 					o({class:"item", text:"Mangler"}),
 					o({class:"item", text:"Encryption"}),
-					o({class:"item", text:"Lang Checkup"}),
+					e(o({class:"item", text:"Lang Checkup"}),"click",function(){
+						_.router.init(0);
+					}),
 					o({class:"item", text:"Dictionary"}),
 					o({class:"item", text:"Science"}),
 					]}))
