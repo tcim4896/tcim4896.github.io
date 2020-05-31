@@ -510,6 +510,7 @@ function encode(str, type){
 		}
 		cl(indxx);
 		r=JSON.stringify(indxx);
+		// multi occurance mapping here..
 		return r;
 	}
 	switch(type){
