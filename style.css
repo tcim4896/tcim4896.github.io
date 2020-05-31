@@ -42,11 +42,19 @@ body {
 }
 
 .level .item{
-  line-height: 120px;
+  line-height: 18px;
+  width: 200px;
+  margin:5px;
   text-align: center;
   color:#ededed;
   position:relative;
   float:none;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.level .item:hover{
+  background-color: rgba(0,0,0,0.3);
+  cursor: pointer;
 }
 
 .input {

@@ -36,7 +36,7 @@ menuStructure = [
   {
     text: "Mangler",
     event: "open",
-    path: undefined,
+    path: 0,
     list: [
       {
         text: "item1",
@@ -555,42 +555,27 @@ registerService({
 			switch(pageId){
 				case 0:
 					root.innerHTML='';
-					b(root,s("langcheckup"))
-					//copy of menu -> dynamic
-					b(root,o({id:"menu",class:"menu",siblings:[
-					e(o({class:"item", text:"Mangler"}),"click",function(){
-						_.router.init();
-					}),
-					o({class:"item", text:"Encryption"}),
-					e(o({class:"item", text:"Lang Checkup"}),"click",function(){
-						_.router.init(0);
-					}),
-					o({class:"item", text:"Dictionary"}),
-					o({class:"item", text:"Science"}),
-					]}))
 				break;
 			default:
 				root.innerHTML='';
 				b(root,s("mangler"))
-				b(root,o({id:"menu",class:"menu",siblings:[
-					e(o({class:"item", text:"Mangler"}),"click",function(){
-						_.router.init();
-					}),
-					o({class:"item", text:"Encryption"}),
-					e(o({class:"item", text:"Lang Checkup"}),"click",function(){
-						_.router.init(0);
-					}),
-					o({class:"item", text:"Dictionary"}),
-					o({class:"item", text:"Science"}),
-					]}))
-			// dynamic menu build script
-			for(let item of menuStructure){
-				cl(item) // Lang Checkup, Dictionary..
+				// dynamic menu build script
+				b(root,o({id:"menu",class:"menu"}))
 
+				for(let item of menuStructure){
+					cl(item) // Menu items
+					b(s("menu"),e(o({class:"item", text:item.text}),"click",function(){
+						_.router.init(item.path);
+					}))
+					b(root,o({id:"level"+item.path, class:"level"}))
+					// Level list items
+					for(let li of item.list){
+						b(s("level"+item.path),o({class:"item", text:li.text}))
+					}
 
-				// every menu item = level
-				// level items -> level
-			}
+					// every menu item = level
+					// level items -> level
+				}
 			break;
 		}
 	},
