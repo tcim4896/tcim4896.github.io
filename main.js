@@ -128,7 +128,7 @@ function stateChange(service){
 							})
 							stateChange()
 						}),
-						text(method.char),
+						text("lowercase")
 					]}))
 
 					cl(window[method.event])
@@ -583,9 +583,13 @@ registerService({
 					o({class:"item", text:"Dictionary"}),
 					o({class:"item", text:"Science"}),
 					]}))
-			// menu build script
+			// dynamic menu build script
 			for(let item of menuStructure){
 				cl(item) // Lang Checkup, Dictionary..
+
+
+				// every menu item = level
+				// level items -> level
 			}
 			break;
 		}
