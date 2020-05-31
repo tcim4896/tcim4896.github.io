@@ -3,6 +3,9 @@ root=document.querySelector("[root]");
 mState = {
 	elements:[],
 	services:{
+		menu:{
+
+		},
 		router:{
 			currentPage: 0,
 			routes:{
@@ -572,9 +575,6 @@ registerService({
 					for(let li of item.list){
 						b(s("level"+item.path),o({class:"item", text:li.text}))
 					}
-
-					// every menu item = level
-					// level items -> level
 				}
 			break;
 		}
