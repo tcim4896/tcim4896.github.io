@@ -18,14 +18,17 @@ mState = {
 			term:"",
 			replacement:""
 		},
-		excludeOne:{
+		exclude:{
 			char:""
-		},
-		encrypt:{
-			type:"abc-up"
 		},
 		extra:{
 			char:""
+		},
+		encrypt:{
+			type:"abcup"
+		},
+		encode:{
+			type:""
 		},
 		applied:[]
 	}
@@ -103,13 +106,13 @@ function stateChange(service){
 	clear(service)
 
 	s("applied").innerHTML="";
-	if(ss().applied.length>0){
-		ss().applied.forEach(function(method){
+	if(_.applied.length>0){
+		_.applied.forEach(function(method){
 			switch(method.event){
 				case "replace":
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
-							ss().applied=ss().applied.filter(function(m){
+							_.applied=_.applied.filter(function(m){
 								return method.id !== m.id;
 							})
 							stateChange()
@@ -125,10 +128,10 @@ function stateChange(service){
 						method.replacement
 					);
 				break;
-				case "excludeOne":
+				case "exclude":
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
-							ss().applied=ss().applied.filter(function(m){
+							_.applied=_.applied.filter(function(m){
 								return method.id !== m.id;
 							})
 							stateChange()
@@ -144,7 +147,7 @@ function stateChange(service){
 				case "toLowerCase":
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
-							ss().applied=ss().applied.filter(function(m){
+							_.applied=_.applied.filter(function(m){
 								return method.id !== m.id;
 							})
 							stateChange()
@@ -158,7 +161,7 @@ function stateChange(service){
 				case "extra":
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
-							ss().applied=ss().applied.filter(function(m){
+							_.applied=_.applied.filter(function(m){
 								return method.id !== m.id;
 							})
 							stateChange()
@@ -175,7 +178,7 @@ function stateChange(service){
 				case "encrypt":
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
-							ss().applied=ss().applied.filter(function(m){
+							_.applied=_.applied.filter(function(m){
 								return method.id !== m.id;
 							})
 							stateChange()
@@ -185,7 +188,22 @@ function stateChange(service){
 					s("mangled-text")
 					.textContent=window[method.event](s("mangled-text")
 						.textContent,_.encrypt.type);
-				break;								
+				break;
+				case "encode":
+					b(s("applied"),o({id:method.id,class:"method",siblings:[
+						e(btn("x"),"click",e=>{
+							_.applied=_.applied.filter(function(m){
+								return method.id !== m.id;
+							})
+							stateChange()
+						}),
+						text("encode"),
+						text(_.encode.type),
+					]}))
+					s("mangled-text")
+					.textContent=window[method.event](s("mangled-text")
+						.textContent,_.encode.type);
+				break;														
 			}
 		})		
 	}else{
@@ -258,10 +276,6 @@ function e(elm,type,fn) {
 
 function s(id) {
   return mState[id];
-}
-
-function ss(){
-	return mState.services;
 }
 
 function b(elm, sibling) {
@@ -345,23 +359,23 @@ function replace(str,term,replacement){
 
 o({id:"replace",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-		ss().replace["term"]+=this.value;
+		_.replace["term"]+=this.value;
 	}),
 	e(input("replacement"),"keydown",function(){
-		ss().replace["replacement"]+=this.value;
+		_.replace["replacement"]+=this.value;
 	}),
 	e(btn("replace"),"click", function (e){
-		ss().applied.push({
-			id:ss().applied.length,
+		_.applied.push({
+			id:_.applied.length,
 			event:"replace",
-			term:ss().replace.term,
-			replacement:ss().replace.replacement
+			term:_.replace.term,
+			replacement:_.replace.replacement
 		})
 		stateChange()
 	})
 ]})
 
-function excludeOne(text,char){
+function exclude(text,char){
     var r="";
     for(let i=0;i<text.length;i++){
       text[i]!=char?
@@ -370,18 +384,18 @@ function excludeOne(text,char){
     return r; 
 }
 
-// creating exclude one tool
-o({id:"exclude-one",class:"method",siblings:[
+// creating exclude tool
+o({id:"exclude",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-		ss().excludeOne["char"]+=this.value;
+		_.exclude.char+=this.value;
 	}),
 	e(btn("exclude"),"click",function(){
-		ss().applied.push({
-			id:ss().applied.length,
-			event:"excludeOne",
-			char:ss().excludeOne.char
+		_.applied.push({
+			id:_.applied.length,
+			event:"exclude",
+			char:_.exclude.char
 		})
-		stateChange(_.excludeOne) // *clear input field
+		stateChange(_.exclude) // *clear input field
 		// clear service variable here; try moving it over to stateChange
 	})
 ]})
@@ -399,13 +413,13 @@ function extra(str,char){
 
 o({id:"extra",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-		ss().extra["char"]+=this.value;
+		_.extra["char"]+=this.value;
 	}),
 	e(btn("extra"),"click",function(){
-		ss().applied.push({
-			id:ss().applied.length,
+		_.applied.push({
+			id:_.applied.length,
 			event:"extra",
-			char:ss().extra.char
+			char:_.extra.char
 		})
 		stateChange()
 	})
@@ -422,8 +436,8 @@ function toLowerCase(str){
 
 o({id:"lowercase",class:"method",siblings:[
 	e(btn("lowercase"),"click",function(){
-		ss().applied.push({
-			id:ss().applied.length,
+		_.applied.push({
+			id:_.applied.length,
 			event:"toLowerCase"
 		})
 		stateChange()
@@ -470,11 +484,11 @@ function encrypt(text,type){
 
 o({id:"encrypt",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-		ss().encrypt.type+=this.value;
+		_.encrypt.type+=this.value;
 	}),
 	e(btn("encrypt"),"click",function(){
-		ss().applied.push({
-			id:ss().applied.length,
+		_.applied.push({
+			id:_.applied.length,
 			event:"encrypt",
 			type:_.encrypt.type,
 		})
@@ -482,18 +496,29 @@ o({id:"encrypt",class:"method",siblings:[
 	})
 ]})
 
-function encode(str, enc){
+function encode(str, type){
 	let r;
-	function l2idxx(str){
-		return str;
+	function l2i(str){
+		let r="",len=str.length;
+		let indxx={};
+		for(let i=0;i<len-1;i++){
+			if(typeof indxx[str[i]]=="undefined"){
+				indxx[str[i]]=[i];
+			}else{
+				indxx[str[i]].push(i);
+			}
+		}
+		cl(indxx);
+		r=JSON.stringify(indxx);
+		return r;
 	}
-	switch(enc){
-		case "l2idxx": {
-			r=l2idxx(str);
+	switch(type){
+		case "l2i": {
+			r=l2i(str);
 		}
 		break;
 		default:
-			r="sha256";
+			r=l2i(str);
 		break;
 	}
 	return r;
@@ -501,9 +526,14 @@ function encode(str, enc){
 
 o({id:"encode",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
-
+		_.encode.type+=this.value;
 	}),
 	e(btn("encode"),"click",function(){
+		_.applied.push({
+			id:_.applied.length,
+			event:"encode",
+			type:_.encode.type,
+		})
 		stateChange()
 	})
 ]});
@@ -566,7 +596,7 @@ function rank(userId,itemId){
 // cl(rank(0,234890))
 
 b(s("tools"),s("replace"))
-b(s("tools"),s("exclude-one"))
+b(s("tools"),s("exclude"))
 b(s("tools"),s("extra"))
 b(s("tools"),s("lowercase"))
 b(s("tools"),s("encrypt"))
