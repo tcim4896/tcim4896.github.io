@@ -184,7 +184,7 @@ function stateChange(service){
 					]}))
 					s("mangled-text")
 					.textContent=window[method.event](s("mangled-text")
-						.textContent);
+						.textContent,_.encrypt.type);
 				break;								
 			}
 		})		
@@ -431,7 +431,7 @@ o({id:"lowercase",class:"method",siblings:[
 ]})
 
 // creating encrypt tool
-function encrypt(text){
+function encrypt(text,type){
 	let r;
 	// creating abc-up encryption
 	function abcUp(char){
@@ -445,10 +445,26 @@ function encrypt(text){
 		}
 		return r;
 	}
-	text=toLowerCase(text);
-    for(let i=0;i<text.length;i++){
-      (r+=abcUp(text[i])) //abcUp as default temp.
-    }
+
+	function base64(string){
+		return btoa(string)
+	}
+
+	switch(type){
+		case "base64":
+			r=base64(text);
+		break;
+		case "abcup":
+			text=toLowerCase(text);
+			for(let i=0;i<text.length;i++){
+			  (r+=abcUp(text[i])) //abcUp as default temp.
+			}
+		break;
+		default:
+			r=base64(text);
+		break;
+	}
+
     return r;
 }
 
