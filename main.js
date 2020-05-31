@@ -120,6 +120,22 @@ function stateChange(service){
 						method.char,
 					);
 				break;
+				case "toLowerCase":
+					b(s("applied"),o({id:method.id,class:"method",siblings:[
+						e(btn("x"),"click",e=>{
+							ss().applied=ss().applied.filter(function(m){
+								return method.id !== m.id;
+							})
+							stateChange()
+						}),
+						text(method.char),
+					]}))
+
+					cl(window[method.event])
+					s("mangled-text")
+					.textContent=window[method.event](
+						s("mangled-text").textContent); //
+				break;
 				case "extra":
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
@@ -323,6 +339,7 @@ function excludeOne(text,char){
     }
     return r; 
 }
+
 // creating exclude one tool
 o({id:"exclude-one",class:"method",siblings:[
 	e(input("term"),"keydown",function(){
@@ -363,6 +380,27 @@ o({id:"extra",class:"method",siblings:[
 		stateChange()
 	})
 ]})
+
+// creating toLowerCase tool
+
+function toLowerCase(str){
+	let r="",len=string=>string.length;
+    for(let i=0;i<len(str);i++){
+    	r+=str[i].toLowerCase();
+    }
+    return r;
+}
+
+o({id:"lowercase",class:"method",siblings:[
+	e(btn("lowercase"),"click",function(){
+		ss().applied.push({
+			id:ss().applied.length,
+			event:"toLowerCase"
+		})
+		stateChange()
+	})
+]})
+
 // creating encrypt tool
 function encrypt(text,table1,table2){
 	for(;;)
@@ -491,6 +529,7 @@ function rank(userId,itemId){
 b(s("tools"),s("replace"))
 b(s("tools"),s("exclude-one"))
 b(s("tools"),s("extra"))
+b(s("tools"),s("lowercase"))
 b(s("tools"),s("encrypt"))
 b(s("tools"),s("encode"))
 
@@ -557,4 +596,4 @@ registerService({
 })
 
 _.router.init()
-//stateChange() //init
+stateChange() //init
