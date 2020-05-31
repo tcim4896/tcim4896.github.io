@@ -57,7 +57,7 @@ menuStructure = [
 	},
 	{
 	    text: "Leke.js",
-	    event: {type:"open",path:0},
+	    event: {type:"open",path:1},
 	    list: [
 	       {
 	        text: "Quick start",
@@ -76,10 +76,24 @@ menuStructure = [
 	    ]
   	},
 	{
+	    text: "Noteshare",
+	    event: {type:"open",path:2},
+	    list:[
+		    {
+		        text: "Quick start",
+		        event: {type:"route",path:"noteshare"}
+		    },
+			{
+		        text: "Register",
+		        event: {type:"ref",path:"http://pinterest.com/"}
+		    },
+	    ]
+	},
+	{
 	    text: "Music",
 	    event: {type:"ref",path:"https://www.youtube.com/watch?v=W-KpT2o1xXY"},
 	    list:[],
-  	}
+  	},
 ];
 
 // Propchaining
@@ -610,6 +624,20 @@ o({id:"langcheckup", class:"langcheckup",siblings:[
 	text("Result:false"),
 ]})
 
+// noteshare
+o({id:"noteshare", class:"noteshare",siblings:[
+	text("Noteshare"),
+	e(btn("Upload"),"click",function(){
+		let url ="https://i.pinimg.com/originals/ef/0b/66/ef0b668ba1c367ec629cd9419016ee44.jpg";
+		let img=document.createElement("img");
+		img.src=url;
+		img.style.height="100%";
+		img.style.width="auto";
+		img.style.border="1px solid #000";
+		b(s("noteshare"),img)
+	})
+]})
+
 // register service
 function registerService(service){
 	_[service.name]=service;
@@ -624,11 +652,14 @@ registerService({
 			case "langcheckup":
 				b(root,s("langcheckup"))
 			break;
+			case "noteshare":
+				b(root,s("noteshare"))
+			break;
 			default:
 				b(root,s("mangler"))
 			break;
 		}
-		// Dynamic menu build
+		// Dynamic menu
 		b(root,o({id:"menu",class:"menu"}))
 
 		function menuAction(menuItem){
@@ -643,12 +674,14 @@ registerService({
 					level.style.height="calc(0%)";
 				}
 			}
-
+			cl(menuItem);
 			switch(menuItem.event.type){
+
 				case "open":
 					openLevel(menuItem.event.path);
 				break;
 				case "route":
+				cl(menuItem.event)
 					_.menu.open=_.menu
 						.open
 						.filter(open=>{
@@ -670,12 +703,21 @@ registerService({
 				menuAction(item)
 			}))
 
-			b(root,o({id:"level"+item.event.path, class:"level"}))
+			if(item.event.type=="open"){
+				b(root,o({id:"level"+item.event.path, class:"level"}))
+			}
+
 			// Level list items
 			for(let li of item.list){
-				b(s("level"+item.event.path),e(o({id:"level"+li.event.path,class:"item", text:li.text}),"click",function(){
-					menuAction(li)
-				}))
+				if(li.event.type=="open"){
+					b(s("level"+item.event.path),e(o({id:"level"+li.event.path,class:"item", text:li.text}),"click",function(){
+						menuAction(li)
+					}))					
+				}else{
+					b(s("level"+item.event.path),e(o({class:"item", text:li.text}),"click",function(){
+						menuAction(li)
+					}))
+				}
 			}
 		}
 	},
