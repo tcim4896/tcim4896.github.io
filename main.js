@@ -1,4 +1,5 @@
 cl=console.log;
+root=document.querySelector("[root]");
 mState = {
 	elements:[],
 	services:{
@@ -265,7 +266,7 @@ e(o({id:"original-text",class:"container",text:ipsum}),"keydown",function(e){
 s("original-text").setAttribute("contentEditable", true)
 o({id:"mangled-text",class:"container"})
 o({id:"viewer",class:"viewer",siblings:[s("original-text"),s("mangled-text")]})
-o({id:"wrapper",class:"wrapper",siblings:[s("toolbar"),s("viewer")]})
+o({id:"mangler",class:"wrapper",siblings:[s("toolbar"),s("viewer")]})
 // or propchaining
 
 // creating replace tool
@@ -503,11 +504,12 @@ registerService({
 	init: function Router(pageId){ // handler for request and routes
 			switch(pageId){
 				case 0:
-					// get path and load component
+					root.innerHTML='';
+					b(root,input());
 				break;
 			default:
-				b(document.body,s("wrapper"))
-				b(document.body,o({id:"menu",class:"menu",siblings:[
+				b(root,s("mangler"))
+				b(root,o({id:"menu",class:"menu",siblings:[
 					o({class:"item", text:"Mangler"}),
 					o({class:"item", text:"Encryption"}),
 					o({class:"item", text:"Lang Checkup"}),
@@ -522,7 +524,7 @@ registerService({
 		}
 	},
 	registerRoute: function registerRoute(id,component){
-		_.Router.routes[id]=component;
+		_.router.routes[id]=component;
 	}
 })
 
