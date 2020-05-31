@@ -88,13 +88,6 @@ body {
   height: 100%;
 }
 
-.viewer {
-  border: 1px solid rgba(0,0,0,0.5);
-  width: 100%;
-  margin:10px;
-  padding:5px;
-}
-
 .container {
   position:relative;
   border: 1px solid rgba(0,0,0,0.5);
@@ -106,10 +99,18 @@ body {
   overflow-y:scroll;
 }
 
+.viewer {
+  border: 1px solid rgba(0,0,0,0.5);
+  width: 70%;
+  max-width:70%;
+  margin:10px;
+  padding:5px;
+}
+
 .toolbar {
   position:relative;
   border: 1px solid rgba(0,0,0,0.5);
-  width:40%;
+  width:30%;
   margin:10px;
   box-sizing:border-box;
   padding:10px;

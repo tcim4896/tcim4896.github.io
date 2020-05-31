@@ -546,7 +546,7 @@ registerService({
 					]}))
 			// menu build script
 			for(let item of menuStructure){
-				cl(item)
+				cl(item) // Lang Checkup, Dictionary..
 			}
 			break;
 		}
@@ -557,4 +557,4 @@ registerService({
 })
 
 _.router.init()
-stateChange() //init
+//stateChange() //init
