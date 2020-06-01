@@ -53,7 +53,7 @@ menuStructure = [
 	      },
 	      {
 	        text: "Dictionary",
-	        event: {type:"ref",path:"dictionary"
+	        event: {type:"route",path:"dictionary"
 	        }
 	      },
 	    ],
@@ -660,6 +660,14 @@ o({id:"noteshare", class:"noteshare",siblings:[
 	})
 ]})
 
+o({id:"dictionary", class:"dictionary",siblings:[
+	text(`mangle1[ mang-guh l ]
+		verb (used with object), man·gled, man·gling.
+		to injure severely, disfigure, or mutilate by cutting, slashing, or crushing:
+		The coat sleeve was mangled in the gears of the machine.
+		to spoil; ruin; mar badly:
+		to mangle a text by careless typesetting.`),
+]})
 // register service
 function registerService(service){
 	_[service.name]=service;
@@ -677,6 +685,10 @@ registerService({
 			case "noteshare":
 				b(root,s("noteshare"))
 			break;
+			case "dictionary":
+				b(root,s("dictionary"))
+			break;
+
 			case "mangler":
 				b(root,s("mangler"))
 			break;
