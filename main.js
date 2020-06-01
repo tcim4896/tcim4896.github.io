@@ -72,8 +72,8 @@ menuStructure = [
 	        }
 	      },
 	      {
-	        text: "Download",
-	        event: {type:"ref",path:"dictionary"
+	        text: "Downloads",
+	        event: {type:"route",path:"leke/downloads"
 	        }
 	      },
 	    ]
@@ -668,6 +668,28 @@ o({id:"dictionary", class:"dictionary",siblings:[
 		to spoil; ruin; mar badly:
 		to mangle a text by careless typesetting.`),
 ]})
+
+o({id:"leke/downloads", class:"dictionary",siblings:[
+	text("Leke.js Framework"),
+	text("Window System"),
+	text("Nucleus"),
+	text("Health Daemon"),
+	text("Pattern Generator"),
+	text("Export script"),
+	text("Upload script"),
+	text("Cross Origin Bypass"),
+	text("Dynamic Form"),
+	text("Multiple Finds"),
+	text("huh Synthesizer"),
+	text("Drum sampler"),
+	text("Arrow game"),
+	text("Darts Trainer"),
+	text("Poule Generator"),
+	text("Push Menu"),
+	text("HTML5 Snippet"),
+	text("Default Node Server"),
+	text("Firefox Bookmarks to playlist"),
+]})
 // register service
 function registerService(service){
 	_[service.name]=service;
@@ -688,7 +710,9 @@ registerService({
 			case "dictionary":
 				b(root,s("dictionary"))
 			break;
-
+			case "leke/downloads":
+				b(root,s("leke/downloads"))
+			break;
 			case "mangler":
 				b(root,s("mangler"))
 			break;
