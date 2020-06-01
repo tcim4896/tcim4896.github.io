@@ -622,18 +622,27 @@ b(s("tools"),s("encode"))
 
 // building langcheckup gui
 o({id:"langcheckup", class:"langcheckup",siblings:[
-	text("New"),
+	text("Language Checkup Tool"),
 	e(input(),"keydown",function(){
 		_.langCheckup.inputStr+=this.value;
 	}),
 	e(btn("Input"),"click",function(){
 		// storing a sentence into localStorage
-		store({"key":2,"value":_.langCheckup.inputStr})
+		store({"key":localStorage.length,"value":_.langCheckup.inputStr})
 		_.langCheckup.inputStr="";
 	}),
 	e(btn("Check"),"click",function(){
-		// check occurance of string in localStorage
-		b(s("langcheckup"),text("Sorry no occurance of this language.."))
+		let r=false;
+		for(let i=0;i<localStorage.length-1;i++){
+			r=localStorage.getItem(i)==_.langCheckup.inputStr;
+		}
+		if(r){
+			b(s("langcheckup"),text("Yes!"))
+		}else{
+			// check occurance of string in localStorage
+			b(s("langcheckup"),text("Sorry no occurance of this language.."))
+		}
+		
 	})
 ]})
 
