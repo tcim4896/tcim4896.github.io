@@ -10,6 +10,9 @@ mState = {
 			currentPage: 0,
 			routes:{}
 		},
+		langCheckup:{
+			inputStr:""
+		},
 		cursor: {
 			x:0,
 			y:0,
@@ -619,9 +622,19 @@ b(s("tools"),s("encode"))
 
 // building langcheckup gui
 o({id:"langcheckup", class:"langcheckup",siblings:[
-	input(), // e
-	btn("Check"),
-	text("Result:false"),
+	text("New"),
+	e(input(),"keydown",function(){
+		_.langCheckup.inputStr+=this.value;
+	}),
+	e(btn("Input"),"click",function(){
+		// storing a sentence into localStorage
+		store({"key":2,"value":_.langCheckup.inputStr})
+		_.langCheckup.inputStr="";
+	}),
+	e(btn("Check"),"click",function(){
+		// check occurance of string in localStorage
+		b(s("langcheckup"),text("Sorry no occurance of this language.."))
+	})
 ]})
 
 // noteshare
@@ -655,8 +668,11 @@ registerService({
 			case "noteshare":
 				b(root,s("noteshare"))
 			break;
-			default:
+			case "mangler":
 				b(root,s("mangler"))
+			break;
+			default:
+				b(root,s("langcheckup"))
 			break;
 		}
 		// Dynamic menu
