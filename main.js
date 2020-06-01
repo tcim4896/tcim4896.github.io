@@ -717,7 +717,7 @@ registerService({
 				b(root,s("mangler"))
 			break;
 			default:
-				b(root,s("langcheckup"))
+				b(root,s("mangler"))
 			break;
 		}
 		// Dynamic menu
