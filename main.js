@@ -735,7 +735,6 @@ registerService({
 						s("level"+item.event.path).style.height="calc(0%)";
 					}
 				}
-				cl(id)
 				if(_.menu.open.id==id&&_.menu.open.open==true){
 					_.menu.open={id,open:false};
 						s("level"+id).style.height="calc(0%)";
@@ -743,11 +742,6 @@ registerService({
 					_.menu.open={id,open:true};
 						s("level"+id).style.height="calc(20%)";
 				}
-
-
-				/*
-					
-				*/
 			}
 			switch(menuItem.event.type){
 				case "open":
@@ -779,8 +773,11 @@ registerService({
 
 			if(item.event.type=="open"){
 				b(root,o({id:"level"+item.event.path, class:"level", siblings:[
-					o({class:"bar", text:item.text})
-				]}))
+					o({class:"bar", text:item.text,siblings:[
+						e(btn("x"),"mousedown",()=>menuAction(item))
+						]})
+					]})
+				)
 			}
 
 			// Level list items
