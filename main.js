@@ -671,8 +671,10 @@ o({id:"dictionary", class:"dictionary",siblings:[
 
 o({id:"leke/downloads", class:"dictionary",siblings:[
 	text("Leke.js Framework"),
+	text("Mangler"),
 	text("Window System"),
 	text("Nucleus"),
+	text("Matrix operators"),
 	text("Health Daemon"),
 	text("Pattern Generator"),
 	text("Export script"),
@@ -680,7 +682,7 @@ o({id:"leke/downloads", class:"dictionary",siblings:[
 	text("Cross Origin Bypass"),
 	text("Dynamic Form"),
 	text("Multiple Finds"),
-	text("huh Synthesizer"),
+	text("huh? Synthesizer"),
 	text("Drum sampler"),
 	text("Arrow game"),
 	text("Darts Trainer"),
@@ -688,7 +690,7 @@ o({id:"leke/downloads", class:"dictionary",siblings:[
 	text("Push Menu"),
 	text("HTML5 Snippet"),
 	text("Default Node Server"),
-	text("Firefox Bookmarks to playlist"),
+	text("Firefox Bookmarks to Playlist"),
 ]})
 // register service
 function registerService(service){
@@ -724,22 +726,23 @@ registerService({
 		b(root,o({id:"menu",class:"menu"}))
 
 		function menuAction(menuItem){
-			function openLevel(id){
+			function toggle(id){
 				let level=s("level"+id);
+				let open=s("level"+_.menu.open[0]);
 				// javascript animation..
 				if(_.menu.open.indexOf(id)==-1){
-					_.menu.open.push(id);
+					_.menu.open=[id];
 					level.style.height="calc(20%)";
+					open.style.height="calc(0%)";
 				}else{
-					_.menu.open=_.menu.open.filter(open=>open!==id)
-					level.style.height="calc(0%)";
+					level.style.height="calc(0%)";					
 				}
 			}
 			cl(menuItem);
 			switch(menuItem.event.type){
 
 				case "open":
-					openLevel(menuItem.event.path);
+					toggle(menuItem.event.path);
 				break;
 				case "route":
 				cl(menuItem.event)
@@ -760,12 +763,15 @@ registerService({
 		}
 
 		for(let item of menuStructure){
+			// init all menu items false
 			b(s("menu"),e(o({class:"item", text:item.text}),"click",function(){		
 				menuAction(item)
 			}))
 
 			if(item.event.type=="open"){
-				b(root,o({id:"level"+item.event.path, class:"level"}))
+				b(root,o({id:"level"+item.event.path, class:"level", siblings:[
+					o({class:"bar", text:item.text})
+				]}))
 			}
 
 			// Level list items

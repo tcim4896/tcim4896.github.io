@@ -42,6 +42,16 @@ body {
   overflow:hidden;
 }
 
+.level .bar{
+  position:absolute;
+  line-height:12px;
+  text-align:left;
+}
+
+.level .div{
+
+}
+
 .level .item{
   line-height: 18px;
   width: 200px;
@@ -120,6 +130,7 @@ body {
 .toolbar {
   position:relative;
   border: 1px solid rgba(0,0,0,0.5);
+  max-width:30%;
   width:30%;
   margin:10px;
   box-sizing:border-box;
@@ -136,7 +147,7 @@ body {
 }
 
 .applied {
-  position:absolute;
+  position:absolute; /* relative to toolbar*/
   border: 1px solid rgba(0,0,0,0.5);
   right:10px;
   left:10px;
