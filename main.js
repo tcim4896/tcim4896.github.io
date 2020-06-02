@@ -4,7 +4,10 @@ mState = {
 	elements:[],
 	services:{
 		menu:{
-			open:[],
+			open:{
+				id:0,
+				open:false
+			},
 		},
 		router:{
 			currentPage: 0,
@@ -727,20 +730,26 @@ registerService({
 
 		function menuAction(menuItem){
 			function toggle(id){
-				let level=s("level"+id);
-				let open=s("level"+_.menu.open[0]);
-				// javascript animation..
-				if(_.menu.open.indexOf(id)==-1){
-					_.menu.open=[id];
-					level.style.height="calc(20%)";
-					open.style.height="calc(0%)";
-				}else{
-					level.style.height="calc(0%)";					
+				for(let item of menuStructure){
+					if(item.event.type=="open"){
+						s("level"+item.event.path).style.height="calc(0%)";
+					}
 				}
-			}
-			cl(menuItem);
-			switch(menuItem.event.type){
+				cl(id)
+				if(_.menu.open.id==id&&_.menu.open.open==true){
+					_.menu.open={id,open:false};
+						s("level"+id).style.height="calc(0%)";
+				}else{
+					_.menu.open={id,open:true};
+						s("level"+id).style.height="calc(20%)";
+				}
 
+
+				/*
+					
+				*/
+			}
+			switch(menuItem.event.type){
 				case "open":
 					toggle(menuItem.event.path);
 				break;

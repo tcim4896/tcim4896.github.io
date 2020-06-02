@@ -40,12 +40,16 @@ body {
   bottom:60px;
   background-color:rgba(0,0,0,0.2);
   overflow:hidden;
+  padding-top:20px;
 }
 
 .level .bar{
   position:absolute;
-  line-height:12px;
+  line-height:20px;
   text-align:left;
+  top:0;
+  left:0;
+  right:0;
 }
 
 .level .div{
