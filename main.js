@@ -675,25 +675,25 @@ o({id:"dictionary", class:"dictionary",siblings:[
 o({id:"leke/downloads", class:"dictionary",siblings:[
 	text("Leke.js Framework"),
 	text("Mangler"),
-	text("Window System"),
-	text("Nucleus"),
-	text("Matrix operators"),
-	text("Health Daemon"),
-	text("Pattern Generator"),
-	text("Export script"),
-	text("Upload script"),
-	text("Cross Origin Bypass"),
-	text("Dynamic Form"),
-	text("Multiple Finds"),
-	text("huh? Synthesizer"),
-	text("Drum sampler"),
-	text("Arrow game"),
-	text("Darts Trainer"),
-	text("Poule Generator"),
-	text("Push Menu"),
-	text("HTML5 Snippet"),
-	text("Default Node Server"),
-	text("Firefox Bookmarks to Playlist"),
+	// text("Window System"),
+	// text("Nucleus"),
+	// text("Matrix operators"),
+	// text("Health Daemon"),
+	// text("Pattern Generator"),
+	// text("Export script"),
+	// text("Upload script"),
+	// text("Cross Origin Bypass"),
+	// text("Dynamic Form"),
+	// text("Multiple Finds"),
+	// text("huh? Synthesizer"),
+	// text("Drum sampler"),
+	// text("Arrow game"),
+	// text("Darts Trainer"),
+	// text("Poule Generator"),
+	// text("Push Menu"),
+	// text("HTML5 Snippet"),
+	// text("Default Node Server"),
+	// text("Firefox Bookmarks to Playlist"),
 ]})
 // register service
 function registerService(service){
@@ -748,12 +748,6 @@ registerService({
 					toggle(menuItem.event.path);
 				break;
 				case "route":
-				cl(menuItem.event)
-					_.menu.open=_.menu
-						.open
-						.filter(open=>{
-							open!==menuItem.event.path
-						});
 					_.router.init(menuItem.event.path);
 				break;
 				case "ref":
@@ -774,7 +768,7 @@ registerService({
 			if(item.event.type=="open"){
 				b(root,o({id:"level"+item.event.path, class:"level", siblings:[
 					o({class:"bar", text:item.text,siblings:[
-						e(btn("x"),"mousedown",()=>menuAction(item))
+						e(o({class:"close-btn",text:"x"}),"mousedown",()=>menuAction(item))
 						]})
 					]})
 				)

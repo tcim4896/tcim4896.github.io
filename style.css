@@ -43,13 +43,22 @@ body {
   padding-top:20px;
 }
 
-.level .bar{
+.level .bar {
   position:absolute;
   line-height:20px;
   text-align:left;
   top:0;
   left:0;
   right:0;
+}
+.level .bar .close-btn {
+  position: absolute;
+  right:0;
+  top:0;
+  line-height: 20px;
+  padding: 0px 5px;
+  border: 1px solid rgba(0,0,0,0.3);
+  cursor:pointer;
 }
 
 .level .div{
