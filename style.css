@@ -40,14 +40,14 @@ body {
   bottom:60px;
   background-color:rgba(0,0,0,0.2);
   overflow:hidden;
-  padding-top:20px;
 }
 
 .level .bar {
   position:relative;
   line-height:20px;
   text-align:left;
-  margin:auto;
+  margin:0px auto;
+  background-color: rgba(0,0,0,0.1);
 }
 
 .level .bar .close-btn {
