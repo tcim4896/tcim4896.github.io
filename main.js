@@ -742,6 +742,9 @@ registerService({
 					_.menu.open={id,open:true};
 						s("level"+id).style.height="calc(20%)";
 				}
+				if(item.event.type=="route"){
+					_.menu.open={id,open:false};
+				}
 			}
 			switch(menuItem.event.type){
 				case "open":
@@ -749,6 +752,7 @@ registerService({
 				break;
 				case "route":
 					_.router.init(menuItem.event.path);
+					toggle();
 				break;
 				case "ref":
 					window.open(menuItem.event.path)
