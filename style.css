@@ -44,12 +44,10 @@ body {
 }
 
 .level .bar {
-  position:absolute;
+  position:relative;
   line-height:20px;
   text-align:left;
-  top:0;
-  left:0;
-  right:0;
+  margin:auto;
 }
 .level .bar .close-btn {
   position: absolute;
