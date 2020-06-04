@@ -203,8 +203,8 @@ function stateChange(service){
 							})
 							stateChange()
 						}),
-						text("encrypt"),
-					]}))
+						text("encrypt:"+method.type),
+					]})).
 					s("mangled-text")
 					.textContent=window[method.event](s("mangled-text")
 						.textContent,_.encrypt.type);
@@ -314,7 +314,7 @@ function input(placeholder){
 	div.setAttribute("contentEditable",true)
 	div.setAttribute("class","input")
 	// div.setAttribute("data-text",placeholder+"...")
-	// ffkeys
+	// clear input..
 	return div;
 }
 

@@ -42,10 +42,14 @@ function reverseCol(col,matrix){
 	}
 	return r;
 }	
+var matrix1=[1,2,3,4,5,6,7,8,9];
+function reverseRow(row,matrix){
+	let r=matrix;
 
+	return r;
+}
 
-
-cl(reverseCol(0,matrix1))
+cl(reverseRow(0,matrix1))
 /*
  * allows more verbose coding
  * set this[id] vs. this.storage[id]
