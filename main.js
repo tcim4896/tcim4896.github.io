@@ -345,7 +345,7 @@ function dropdown(props){
 	dropdown.setAttribute("class","dropdown");
   	dropdown.addEventListener("click",function(e){
 	    s(props.id).open=!s(props.id).open;
-	    if(s(props.id).open){
+	    if(!s(props.id).open){
 	    	s(props.id).style.height="20px";
 	    }else{
 	    	s(props.id).style.height=(props.options.length+1)*20+"px";
@@ -361,7 +361,7 @@ function dropdown(props){
 		opt.setAttribute("class","option")
 		opt.textContent=option.text;
 		opt.addEventListener("click",function(e){
-			s(props.id).value=option.text;
+			s(props.id).value=option.value;
 		})
     	dropdown.appendChild(opt);
 	}
@@ -554,14 +554,15 @@ function encrypt(text,type){
 }
 
 o({id:"encrypt",class:"method",siblings:[
-	e(input("term"),"keydown",function(){
-		_.encrypt.type+=this.value;
-	}),
+	dropdown({id:"encryptionType",text:"type",options:[
+		{text:"base64",value:"base64"},
+		{text:"abcup",value:"abcup"},
+	]}),
 	e(btn("encrypt"),"click",function(){
 		_.applied.push({
 			id:_.applied.length,
 			event:"encrypt",
-			type:_.encrypt.type,
+			type:s("encryptionType").value,
 		})
 		stateChange()
 	})

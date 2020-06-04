@@ -106,6 +106,7 @@ body {
   height:20px;
   border:1px solid rgba(0,0,0,0.5);
   background-color:rgba(0,0,0,0.5);
+  margin:5px;
   overflow:hidden;
   cursor:pointer;
 }
