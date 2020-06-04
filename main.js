@@ -257,8 +257,6 @@ function o(args) {
   			break;
 		}
 	}
-	mState["elements"].push(r);
-	// or propchaining
   return r;
 }
 
@@ -334,8 +332,44 @@ function text(text){
 	return div;
 }
 
-function Component(type){}
+cl=console.log;
+mState={};
+function s(id){
+  return mState[id];
+}
+// dropdown
+function dropdown(props){
+	let dropdown=document.createElement("div");
+	dropdown.open=false;
+  	dropdown.textContent=props.text;
+	dropdown.setAttribute("class","dropdown");
+  	dropdown.addEventListener("click",function(e){
+	    s(props.id).open=!s(props.id).open;
+	    if(s(props.id).open){
+	    	s(props.id).style.height="20px";
+	    }else{
+	    	s(props.id).style.height=(props.options.length+1)*20+"px";
+	    }
+ 	})
+ 	let icon=document.createElement("div");
+	icon.setAttribute("class","icon")
+	icon.innerHTML="&#x25BC";
+ 	dropdown.appendChild(icon);
 
+	for(let option of props.options){
+		let opt=document.createElement("div");
+		opt.setAttribute("class","option")
+		opt.textContent=option.text;
+		opt.addEventListener("click",function(e){
+			s(props.id).value=option.text;
+		})
+    	dropdown.appendChild(opt);
+	}
+  	mState[props.id]=dropdown;
+	return dropdown;
+}
+
+// body
 o({id:"tools",class:"tools"})
 o({id:"applied",class:"applied"})
 o({id:"toolbar",class:"toolbar",siblings:[s("tools"),s("applied")]})
@@ -453,6 +487,24 @@ function toLowerCase(str){
     }
     return r;
 }
+// tool
+o({id:"lowercase",class:"method",siblings:[
+	e(btn("lowercase"),"click",function(){
+		_.applied.push({
+			id:_.applied.length,
+			event:"toLowerCase"
+		})
+		stateChange()
+	})
+]})
+
+function toLowerCase(str){
+	let r="",len=string=>string.length;
+    for(let i=0;i<len(str);i++){
+    	r+=str[i].toLowerCase();
+    }
+    return r;
+}
 
 o({id:"lowercase",class:"method",siblings:[
 	e(btn("lowercase"),"click",function(){
@@ -498,7 +550,6 @@ function encrypt(text,type){
 			r=base64(text);
 		break;
 	}
-
     return r;
 }
 
@@ -700,6 +751,25 @@ function registerService(service){
 	_[service.name]=service;
 }
 
+// toggle menu
+function toggle(id){
+	for(let item of menuStructure){
+		if(item.event.type=="open"){
+			s("level"+item.event.path).style.height="calc(0%)";
+		}
+	}
+	if(typeof id!=="undefined"){
+		if(_.menu.open.id==id&&_.menu.open.open==true){
+		_.menu.open={id,open:false};
+			s("level"+id).style.height="calc(0%)";
+		}else{
+			_.menu.open={id,open:true};
+			s("level"+id).style.height="calc(20%)";
+		}
+	}
+
+}
+
 // registering Router service
 registerService({
 	name: "router",
@@ -729,26 +799,13 @@ registerService({
 		b(root,o({id:"menu",class:"menu"}))
 
 		function menuAction(menuItem){
-			function toggle(id){
-				for(let item of menuStructure){
-					if(item.event.type=="open"){
-						s("level"+item.event.path).style.height="calc(0%)";
-					}
-				}
-				if(_.menu.open.id==id&&_.menu.open.open==true){
-					_.menu.open={id,open:false};
-						s("level"+id).style.height="calc(0%)";
-				}else{
-					_.menu.open={id,open:true};
-						s("level"+id).style.height="calc(20%)";
-				}
-				if(item.event.type=="route"){
-					_.menu.open={id,open:false};
-				}
-			}
 			switch(menuItem.event.type){
 				case "open":
 					toggle(menuItem.event.path);
+				break;
+				case "close":
+					_.menu.open.open=false;
+					toggle()
 				break;
 				case "route":
 					_.router.init(menuItem.event.path);
@@ -791,6 +848,13 @@ registerService({
 				}
 			}
 		}
+		e(document.body,"mousedown",function(){
+
+			// clientY < menuHeight + getLevelHeight
+			// condition 
+			menuAction({event:{type:"close"}});
+
+		})
 	},
 	registerRoute: function registerRoute(id,component){
 		_.router.routes[id]=component;

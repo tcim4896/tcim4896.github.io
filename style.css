@@ -97,6 +97,33 @@ body {
   text-align: center;
   background-color:rgba(20,225,55,0.7);
   cursor:pointer;
+  word-break: break-all;
+}
+
+.dropdown {
+  position:relative;
+  line-height: 20px;
+  height:20px;
+  border:1px solid rgba(0,0,0,0.5);
+  background-color:rgba(0,0,0,0.5);
+  overflow:hidden;
+  cursor:pointer;
+}
+.dropdown .icon {
+  position:absolute;
+  top:0;
+  right:0;
+  cursor:pointer;
+}
+
+.dropdown .option{
+  position:relative;
+  line-height:20px;
+  cursor:pointer;
+}
+
+.dropdown .option:hover{
+  background-color: rgba(255,255,255,0.5)
 }
 
 .col-resize {
