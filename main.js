@@ -332,12 +332,6 @@ function text(text){
 	return div;
 }
 
-cl=console.log;
-mState={};
-function s(id){
-  return mState[id];
-}
-// dropdown
 function dropdown(props){
 	let dropdown=document.createElement("div");
 	dropdown.open=false;
