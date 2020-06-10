@@ -5,10 +5,6 @@ mState = {
 		order:[],
 		x:0,
 		y:0,
-		cursor:{
-			x:0,
-			y:0,
-		}
 	}
 };
 _=mState.services;
@@ -166,50 +162,50 @@ console.log("Welcome!")
 e(root,"mousemove",function(){
 	_.x=this.clientX;
 	_.y=this.clientY;
-	cl(_.x,_.y)
+	//cl(_.x,_.y)
+	for(let prop in _){
+		//cl(prop,_[prop])
+	}
+
 })
 
-function style(elm,obj){
-	for(let prop in obj){
-		elm.style[prop]=obj[prop];
-	}
-	return elm;
-}
 b(root,o({id:"wrapper",class:"wrapper"}))
 let i=0;
 for(let item of items){
 	b(s("wrapper"),
-		e(e(o({
+		e(e(e(o({
 			id:i,
 			text:item,
 			class:"item"
 		}),"mousedown",function(){
-			// this.target.style.position="fixed";
-			// this.target.style.width="200px";
-			this.target.setAttribute("class","dummy");
+			cl("mousedown")
+			 this.target.style.position="fixed";
+			 this.target.style.width="200px";
 			_.cursor={
-				y:_.y-this.layerY,
-				x:_.x-this.layerX,
+				y:this.layerY,
+				x:this.layerX,
 			}
-			cl(_.cursor)
-			b(s("wrapper"),e(e(style(o({
-				id:i,
-				class:"item",
-				text:"item"
-			}),{
-				position:"fixed",
-				top:_.cursor.y+"px",
-				left:_.cursor.x+"px",
-			}),"mousemove",function(){
-
-			}),"mouseup",function(){
-
-			}))
-			// s("wrapper")
-			// 	.children[1]
-			// 	.insertAdjacentElement("afterEnd", o({class:"dummy"}));
+			s("wrapper")
+				.children[0]
+				.insertAdjacentElement("afterEnd", o({class:"dummy"}));
 		}),"mousemove",function(){
-			cl(_.x,this.layerX,_.y,this.layerY)
+			
+			cl("mousemove")
+			if(typeof _.cursor=="object"){
+				this.target.style.top=_.y-_.cursor.y+"px";
+				this.target.style.left=_.x-_.cursor.x+"px";
+			}
+
+			/*
+			loop over every item?
+			*/
+			cl(s(1).offsetTop==this.target.offsetTop)
+		}),"mouseup",function(){
+			cl("mouseup")
+			_.cursor=undefined;
+			this.target.style.position="relative";
+			this.target.style.top="auto";
+			this.target.style.left="auto";
 		})
 	)
 	i++;
