@@ -165,47 +165,55 @@ e(root,"mousemove",function(){
 	cl(_.x,_.y)
 	for(let prop in _){
 		cl(prop,_[prop])
-		cl(s(1).mousedown)
 	}
 
 })
 
+function style(elm,obj){
+	for(let prop in obj){
+		elm.style[prop]=obj[prop];
+	}
+	return elm;
+}
 b(root,o({id:"wrapper",class:"wrapper"}))
 let i=0;
 for(let item of items){
 	b(s("wrapper"),
-		e(e(o({id:i,text:item,class:"item"}),"mousedown",function(){
-			this.target.mousedown=true;
-			this.target.style.position="fixed";
-			this.target.style.width="200px";
+		e(e(e(o({
+			id:i,
+			text:item,
+			class:"item"
+		}),"mousedown",function(){
+			// this.target.style.position="fixed";
+			// this.target.style.width="200px";
+			this.target.setAttribute("class","dummy");
 			this.target.cursor={
 				y:this.layerY,
 				x:this.layerX,
 			}
-			s("wrapper")
-			function put(item,idx){
-				let r=[],arr=[0,1,2,3];
-				for(let i=0;i<arr.length;i++){
-					if(i==idx){
-						r.push(item)
-						r.push(arr[i])
-					}else{
-						r.push(arr[i])
-					}
-				}
-				if(idx==arr.length){
-					r.push(item)
-				}
-				cl(r)
-				return r;
-			}
-
-			put(1,0)
-			cl(this.layerY,this.layerX)
+			b(s("wrapper"),style(o({
+				id:i,
+				class:"item",
+				text:"item"
+			}),{
+				position:"fixed",
+				top:"50px",
+				left:"50px"
+			}))
+			// s("wrapper")
+			// 	.children[1]
+			// 	.insertAdjacentElement("afterEnd", o({class:"dummy"}));
 		}),"mousemove",function(){
 			cl("mousemove")
-			this.target.style.top=_.y-this.target.cursor.y+"px";
-			this.target.style.left=_.x-this.target.cursor.x+"px";
+			if(typeof this.target.cursor=="object"){
+				this.target.style.top=_.y-this.target.cursor.y+"px";
+				this.target.style.left=_.x-this.target.cursor.x+"px";
+			}
+			
+		}),"mouseup",function(){
+			cl("mouseup")
+			this.target.cursor=undefined;
+			this.target.style.position="relative";
 		})
 	)
 	i++;

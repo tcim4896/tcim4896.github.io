@@ -57,3 +57,20 @@ UNICODE SYMBOLS
 </script>
 
 */
+
+function insert(item,arr=[0,1,2,3],idx){
+  let r=[];
+  for(let i=0;i<arr.length;i++){
+    if(i==idx){
+      r.push(item)
+      r.push(arr[i])
+    }else{
+      r.push(arr[i])
+    }
+  }
+  if(idx==arr.length){
+    r.push(item)
+  }
+  cl(r)
+  return r;
+}
