@@ -22,10 +22,17 @@ body {
   padding:5px;
 }
 
-.wrapper .item{
+.wrapper .item {
   width:200px;
   line-height:30px;
   background:white;
   margin-bottom:5px;
   border:1px solid rgba(0,0,0,0.5);
+}
+.wrapper .dummy {
+  width:200px;
+  line-height:30px;
+  background:transparent;
+  margin-bottom:5px;
+  border:1px solid transparent;
 }

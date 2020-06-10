@@ -156,7 +156,7 @@ function dropdown(props){
 	return dropdown;
 }
 
-items=["item1","item2"];
+items=["item1","item2","item3"];
 
 console.log("Welcome!")
 e(root,"mousemove",function(){
@@ -182,6 +182,25 @@ for(let item of items){
 				y:this.layerY,
 				x:this.layerX,
 			}
+			s("wrapper")
+			function put(item,idx){
+				let r=[],arr=[0,1,2,3];
+				for(let i=0;i<arr.length;i++){
+					if(i==idx){
+						r.push(item)
+						r.push(arr[i])
+					}else{
+						r.push(arr[i])
+					}
+				}
+				if(idx==arr.length){
+					r.push(item)
+				}
+				cl(r)
+				return r;
+			}
+
+			put(1,0)
 			cl(this.layerY,this.layerX)
 		}),"mousemove",function(){
 			cl("mousemove")
