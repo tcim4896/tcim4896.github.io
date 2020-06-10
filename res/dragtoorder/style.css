@@ -13,7 +13,7 @@ body {
 }
 
 .wrapper {
-  width: 100px;
+  width:auto;
   position:fixed;
   top:0;
   left:0;
@@ -23,7 +23,8 @@ body {
 }
 
 .wrapper .item{
-  width:100%;
+  width:200px;
+  line-height:30px;
   background:white;
   margin-bottom:5px;
   border:1px solid rgba(0,0,0,0.5);

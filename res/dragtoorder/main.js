@@ -2,7 +2,9 @@ cl=console.log;
 root=document.querySelector("[root]");
 mState = {
 	services:{
-		order:[]
+		order:[],
+		x:0,
+		y:0,
 	}
 };
 _=mState.services;
@@ -157,15 +159,37 @@ function dropdown(props){
 items=["item1","item2"];
 
 console.log("Welcome!")
+e(root,"mousemove",function(){
+	_.x=this.clientX;
+	_.y=this.clientY;
+	cl(_.x,_.y)
+	for(let prop in _){
+		cl(prop,_[prop])
+		cl(s(1).mousedown)
+	}
+
+})
 
 b(root,o({id:"wrapper",class:"wrapper"}))
-
+let i=0;
 for(let item of items){
 	b(s("wrapper"),
-		e(o({text:item,class:"item"}),"mousedown",function(){
-			console.log(this)
+		e(e(o({id:i,text:item,class:"item"}),"mousedown",function(){
+			this.target.mousedown=true;
+			this.target.style.position="fixed";
+			this.target.style.width="200px";
+			this.target.cursor={
+				y:this.layerY,
+				x:this.layerX,
+			}
+			cl(this.layerY,this.layerX)
+		}),"mousemove",function(){
+			cl("mousemove")
+			this.target.style.top=_.y-this.target.cursor.y+"px";
+			this.target.style.left=_.x-this.target.cursor.x+"px";
 		})
 	)
+	i++;
 }
 
 stateChange() //init
