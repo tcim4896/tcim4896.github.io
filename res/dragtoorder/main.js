@@ -202,6 +202,7 @@ for(let item of items){
 			cl(s(1).offsetTop==this.target.offsetTop)
 		}),"mouseup",function(){
 			cl("mouseup")
+			s("wrapper").removeChild(s("wrapper").childNodes[1])
 			_.cursor=undefined;
 			this.target.style.position="relative";
 			this.target.style.top="auto";
