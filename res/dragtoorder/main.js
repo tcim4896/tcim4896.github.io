@@ -167,16 +167,13 @@ e(root,"mousemove",function(){
 	_.y=this.clientY;
 	//cl(_.x,_.y)
 
-	if(_.cursor.dragging==true){
+	if(_.cursor.dragging==true&&
+		typeof _.cursor.target == "object"){
 		_.cursor.target.style.left=_.x-_.cursor.x+"px";
 		_.cursor.target.style.top=_.y-_.cursor.y+"px";
-	}else if(typeof _.cursor.target=="object"){
-		_.cursor.target.style.position="relative";
-		_.cursor.target.style.left="auto";
-		_.cursor.target.style.top="auto";
-		_.cursor.target=undefined;
 	}
 })
+
 e(document.documentElement,"mouseup",function(){
 	cl("mouseup")
 	_.cursor.dragging==false;
@@ -187,11 +184,12 @@ e(document.documentElement,"mouseup",function(){
 		_.cursor.target=undefined;
 	}
 })
+
 b(root,o({id:"wrapper",class:"wrapper"}))
 let i=0;
 for(let item of items){
 	b(s("wrapper"),
-		e(e(o({
+		e(o({
 			id:i,
 			text:item,
 			class:"item"
@@ -205,15 +203,9 @@ for(let item of items){
 				y:this.layerY,
 				x:this.layerX,
 			};
-			// s("wrapper")
-			// 	.children[0] // dummy item position
-			// 	.insertAdjacentElement("afterEnd", o({class:"dummy"}));
-		}),"mouseup",function(){
-			_.cursor.dragging=false;
-			_.cursor.target.style.position="relative";
-			_.cursor.target.style.left="auto";
-			_.cursor.target.style.top="auto";
-			_.cursor.target=undefined;
+			s("wrapper")
+				.children[0] // dummy item position
+				.insertAdjacentElement("afterEnd", o({class:"dummy"}));
 		})
 	)
 	i++;
