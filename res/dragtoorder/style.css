@@ -33,6 +33,7 @@ div[root]{
   background:white;
   margin-bottom:5px;
   border:1px solid rgba(0,0,0,0.5);
+  user-select: none;
 }
 
 .wrapper .dummy {
