@@ -3,6 +3,9 @@ root=document.querySelector("[root]");
 mState = {
 	services:{
 		order:[],
+		cursor:{
+			dragging: false,
+		},
 		x:0,
 		y:0,
 	}
@@ -163,17 +166,30 @@ e(root,"mousemove",function(){
 	_.x=this.clientX;
 	_.y=this.clientY;
 	//cl(_.x,_.y)
-	for(let prop in _){
-		//cl(prop,_[prop])
+
+	if(_.cursor.dragging==true){
+		_.cursor.target.style.left=_.x-_.cursor.x+"px";
+		_.cursor.target.style.top=_.y-_.cursor.y+"px";
+	}else if(typeof _.cursor.target=="object"){
+		_.cursor.target.style.position="relative";
+		_.cursor.target.style.left="auto";
+		_.cursor.target.style.top="auto";
+		_.cursor.target=undefined;
 	}
-
 })
-
+e(root,"mouseup",function(){
+	if(typeof _.cursor.target=="object"){
+		_.cursor.target.style.position="relative";
+		_.cursor.target.style.left="auto";
+		_.cursor.target.style.top="auto";
+		_.cursor.target=undefined;
+	}
+})
 b(root,o({id:"wrapper",class:"wrapper"}))
 let i=0;
 for(let item of items){
 	b(s("wrapper"),
-		e(e(e(o({
+		e(e(o({
 			id:i,
 			text:item,
 			class:"item"
@@ -182,31 +198,20 @@ for(let item of items){
 			 this.target.style.position="fixed";
 			 this.target.style.width="200px";
 			_.cursor={
+				target:this.target,
+				dragging:true,
 				y:this.layerY,
 				x:this.layerX,
-			}
-			s("wrapper")
-				.children[0]
-				.insertAdjacentElement("afterEnd", o({class:"dummy"}));
-		}),"mousemove",function(){
-			
-			cl("mousemove")
-			if(typeof _.cursor=="object"){
-				this.target.style.top=_.y-_.cursor.y+"px";
-				this.target.style.left=_.x-_.cursor.x+"px";
-			}
-
-			/*
-			loop over every item?
-			*/
-			cl(s(1).offsetTop==this.target.offsetTop)
+			};
+			// s("wrapper")
+			// 	.children[0] // dummy item position
+			// 	.insertAdjacentElement("afterEnd", o({class:"dummy"}));
 		}),"mouseup",function(){
-			cl("mouseup")
-			s("wrapper").removeChild(s("wrapper").childNodes[1])
-			_.cursor=undefined;
-			this.target.style.position="relative";
-			this.target.style.top="auto";
-			this.target.style.left="auto";
+			_.cursor.dragging=false;
+			_.cursor.target.style.position="relative";
+			_.cursor.target.style.left="auto";
+			_.cursor.target.style.top="auto";
+			_.cursor.target=undefined;
 		})
 	)
 	i++;
