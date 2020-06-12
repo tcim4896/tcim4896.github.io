@@ -191,6 +191,8 @@ e(document.documentElement,"mouseup",function(){
 	cl("mouseup")
 	_.cursor.dragging==false;
 	if(typeof _.cursor.target=="object"){
+		// replace dummy with cursor target
+		s("dummy").remove();
 		_.cursor.target.style.position="relative";
 		_.cursor.target.style.left="auto";
 		_.cursor.target.style.top="auto";
