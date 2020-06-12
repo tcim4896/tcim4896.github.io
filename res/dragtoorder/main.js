@@ -177,7 +177,6 @@ e(root,"mousemove",function(){
 	for(let item of s("wrapper").children){
 		if(typeof _.cursor.target == "object"&&
 			_.cursor.target.offsetTop==item.offsetTop){
-			item.insertAdjacentElement('afterEnd',o({class:"dummy"}));
 			_.cursor.pos=i;
 		cl(i)
 		}
@@ -219,9 +218,7 @@ for(let item of items){
 				y:this.layerY,
 				x:this.layerX,
 			};
-			// s("wrapper")
-			// 	.children[0] // dummy item position
-			// 	.insertAdjacentElement("afterEnd", o({class:"dummy"}));
+			_.cursor.target.insertAdjacentElement('beforeBegin',o({class:"dummy"}));
 		})
 	)
 	i++;
