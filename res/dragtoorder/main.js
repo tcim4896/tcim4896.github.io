@@ -166,7 +166,7 @@ console.log("Welcome!")
 e(root,"mousemove",function(){
 	_.x=this.clientX;
 	_.y=this.clientY;
-	//cl(_.x,_.y)
+	cl(_.x,_.y)
 
 	if(_.cursor.dragging==true&&
 		typeof _.cursor.target == "object"){
@@ -176,7 +176,7 @@ e(root,"mousemove",function(){
 
 	for(let i=0;i<s("wrapper").children.length;i++){
 		if(typeof _.cursor.target == "object"&&
-			(_.cursor.target.offsetTop> // layer pos
+			(_.cursor.target.offsetTop+_.cursor.y> // layer pos
 				s("wrapper").children[i].offsetTop+
 				s("wrapper").children[i].style.height)){
 			cl("in-range")
