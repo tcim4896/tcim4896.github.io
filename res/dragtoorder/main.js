@@ -192,6 +192,12 @@ e(root,"mousemove",function(){
 			s("wrapper").children[i] // depends om target index beforebegin if 0
 			// 3 cases ,time for more items
 				.insertAdjacentElement('afterend',s("dummy"));
+
+				/*
+					insert target (begin or after) dummy
+					and remove dummy
+
+				*/
 		}
 	}
 })
