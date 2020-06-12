@@ -177,7 +177,9 @@ e(root,"mousemove",function(){
 	for(let item of s("wrapper").children){
 		if(typeof _.cursor.target == "object"&&
 			_.cursor.target.offsetTop==item.offsetTop){
+			item.insertAdjacentElement('afterEnd',o({class:"dummy"}));
 			_.cursor.pos=i;
+		cl(i)
 		}
 		i++;
 	}
@@ -187,7 +189,11 @@ e(document.documentElement,"mouseup",function(){
 	cl("mouseup")
 	_.cursor.dragging==false;
 	if(typeof _.cursor.target=="object"){
-		s("wrapper").insertBefore(_.cursor.target,s("wrapper").children[2])//here
+		s("wrapper")
+			.insertBefore(_
+				.cursor
+				.target,s("wrapper")
+					.children[_.cursor.pos])//here
 		_.cursor.target.style.position="relative";
 		_.cursor.target.style.left="auto";
 		_.cursor.target.style.top="auto";
