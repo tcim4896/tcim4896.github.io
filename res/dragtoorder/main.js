@@ -183,21 +183,9 @@ e(root,"mousemove",function(){
 
 			cl("in-range",i,s("wrapper").children.length)
 			_.cursor.pos=i;
-			if(i==0){
-				cl("first")
-			}
-			if(i+1==s("wrapper").children.length-1){ //+dummy
-				cl("last")
-			}
-			s("wrapper").children[i] // depends om target index beforebegin if 0
-			// 3 cases ,time for more items
-				.insertAdjacentElement('afterend',s("dummy"));
 
-				/*
-					insert target (begin or after) dummy
-					and remove dummy
-
-				*/
+			s("wrapper").children[i]
+			.insertAdjacentElement('afterEnd',_.cursor.target);
 		}
 	}
 })
