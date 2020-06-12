@@ -160,7 +160,7 @@ function dropdown(props){
 	return dropdown;
 }
 
-items=["item1","item2","item3"];
+items=["item1","item2","item3","item4"];
 
 console.log("Welcome!")
 e(root,"mousemove",function(){
@@ -181,9 +181,16 @@ e(root,"mousemove",function(){
 				s("wrapper").children[i].offsetTop+
 				s("wrapper").children[i].style.height)){
 
-			cl("in-range",i)
+			cl("in-range",i,s("wrapper").children.length)
 			_.cursor.pos=i;
+			if(i==0){
+				cl("first")
+			}
+			if(i+1==s("wrapper").children.length-1){ //+dummy
+				cl("last")
+			}
 			s("wrapper").children[i] // depends om target index beforebegin if 0
+			// 3 cases ,time for more items
 				.insertAdjacentElement('afterend',s("dummy"));
 		}
 	}
