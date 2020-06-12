@@ -5,6 +5,7 @@ mState = {
 		order:[],
 		cursor:{
 			dragging: false,
+			pos:0,
 		},
 		x:0,
 		y:0,
@@ -176,7 +177,7 @@ e(root,"mousemove",function(){
 	for(let item of s("wrapper").children){
 		if(typeof _.cursor.target == "object"&&
 			_.cursor.target.offsetTop==item.offsetTop){
-			cl(i)
+			_.cursor.pos=i;
 		}
 		i++;
 	}
@@ -186,6 +187,7 @@ e(document.documentElement,"mouseup",function(){
 	cl("mouseup")
 	_.cursor.dragging==false;
 	if(typeof _.cursor.target=="object"){
+		s("wrapper").insertBefore(_.cursor.target,s("wrapper").children[2])//here
 		_.cursor.target.style.position="relative";
 		_.cursor.target.style.left="auto";
 		_.cursor.target.style.top="auto";
@@ -211,9 +213,9 @@ for(let item of items){
 				y:this.layerY,
 				x:this.layerX,
 			};
-			s("wrapper")
-				.children[0] // dummy item position
-				.insertAdjacentElement("afterEnd", o({class:"dummy"}));
+			// s("wrapper")
+			// 	.children[0] // dummy item position
+			// 	.insertAdjacentElement("afterEnd", o({class:"dummy"}));
 		})
 	)
 	i++;
