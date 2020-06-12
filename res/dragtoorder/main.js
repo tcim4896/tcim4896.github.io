@@ -176,10 +176,13 @@ e(root,"mousemove",function(){
 
 	for(let i=0;i<s("wrapper").children.length;i++){
 		if(typeof _.cursor.target == "object"&&
-			_.cursor.target.offsetTop==s("wrapper").children[i].offsetTop){
+			(_.cursor.target.offsetTop> // layer pos
+				s("wrapper").children[i].offsetTop+
+				s("wrapper").children[i].style.height)){
+			cl("in-range")
 			_.cursor.pos=i;
 			s("wrapper").children[i]
-				.insertAdjacentElement('beforeBegin',s("dummy"));
+				.insertAdjacentElement('afterend',s("dummy"));
 		}
 	}
 })
