@@ -183,9 +183,21 @@ e(root,"mousemove",function(){
 
 			cl("in-range",i,s("wrapper").children.length)
 			_.cursor.pos=i;
+			if(i==0){
+				cl("first")
+			}else if(i+1==s("wrapper").children.length-1){
+				cl("last")
+			}else{
 
+			}
 			s("wrapper").children[i]
-			.insertAdjacentElement('afterEnd',_.cursor.target);
+				.insertAdjacentElement('afterEnd',s("dummy"));
+
+				/*
+					insert target (begin or after) dummy
+					and remove dummy
+
+				*/
 		}
 	}
 })
@@ -221,6 +233,8 @@ for(let item of items){
 				y:this.layerY,
 				x:this.layerX,
 			};
+			_.cursor.target.style.left=_.x-_.cursor.x+"px";
+			_.cursor.target.style.top=_.y-_.cursor.y+"px";
 			_.cursor.target
 				.insertAdjacentElement('beforeBegin',o({
 					id:"dummy",

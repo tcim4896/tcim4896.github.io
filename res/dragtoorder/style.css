@@ -39,7 +39,7 @@ div[root]{
 .wrapper .dummy {
   width:200px;
   height:30px;
-  background:transparent;
+  background:#ededed;
   margin-bottom:5px;
   border:1px solid transparent;
 }
