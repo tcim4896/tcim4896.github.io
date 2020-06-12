@@ -74,3 +74,9 @@ function insert(item,arr=[0,1,2,3],idx){
   cl(r)
   return r;
 }
+
+    s("wrapper")
+      .insertBefore(_
+        .cursor
+        .target,s("wrapper")
+          .children[_.cursor.pos])//here

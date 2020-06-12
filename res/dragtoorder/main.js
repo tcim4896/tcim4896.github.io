@@ -173,14 +173,14 @@ e(root,"mousemove",function(){
 		_.cursor.target.style.left=_.x-_.cursor.x+"px";
 		_.cursor.target.style.top=_.y-_.cursor.y+"px";
 	}
-	let i=0;
-	for(let item of s("wrapper").children){
+
+	for(let i=0;i<s("wrapper").children.length;i++){
 		if(typeof _.cursor.target == "object"&&
-			_.cursor.target.offsetTop==item.offsetTop){
+			_.cursor.target.offsetTop==s("wrapper").children[i].offsetTop){
 			_.cursor.pos=i;
-		cl(i)
+			s("wrapper").children[i]
+				.insertAdjacentElement('beforeBegin',s("dummy"));
 		}
-		i++;
 	}
 })
 
@@ -188,11 +188,6 @@ e(document.documentElement,"mouseup",function(){
 	cl("mouseup")
 	_.cursor.dragging==false;
 	if(typeof _.cursor.target=="object"){
-		s("wrapper")
-			.insertBefore(_
-				.cursor
-				.target,s("wrapper")
-					.children[_.cursor.pos])//here
 		_.cursor.target.style.position="relative";
 		_.cursor.target.style.left="auto";
 		_.cursor.target.style.top="auto";
@@ -218,7 +213,11 @@ for(let item of items){
 				y:this.layerY,
 				x:this.layerX,
 			};
-			_.cursor.target.insertAdjacentElement('beforeBegin',o({class:"dummy"}));
+			_.cursor.target
+				.insertAdjacentElement('beforeBegin',o({
+					id:"dummy",
+					class:"dummy"
+				}));
 		})
 	)
 	i++;
