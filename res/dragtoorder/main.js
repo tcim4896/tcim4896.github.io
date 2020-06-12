@@ -183,7 +183,7 @@ e(root,"mousemove",function(){
 
 			cl("in-range",i)
 			_.cursor.pos=i;
-			s("wrapper").children[i] // depends om target index
+			s("wrapper").children[i] // depends om target index beforebegin if 0
 				.insertAdjacentElement('afterend',s("dummy"));
 		}
 	}
