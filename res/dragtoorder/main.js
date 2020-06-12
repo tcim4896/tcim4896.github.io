@@ -172,6 +172,14 @@ e(root,"mousemove",function(){
 		_.cursor.target.style.left=_.x-_.cursor.x+"px";
 		_.cursor.target.style.top=_.y-_.cursor.y+"px";
 	}
+	let i=0;
+	for(let item of s("wrapper").children){
+		if(typeof _.cursor.target == "object"&&
+			_.cursor.target.offsetTop==item.offsetTop){
+			cl(i)
+		}
+		i++;
+	}
 })
 
 e(document.documentElement,"mouseup",function(){
