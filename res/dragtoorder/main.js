@@ -174,14 +174,16 @@ e(root,"mousemove",function(){
 		_.cursor.target.style.top=_.y-_.cursor.y+"px";
 	}
 
-	for(let i=0;i<s("wrapper").children.length;i++){
-		if(typeof _.cursor.target == "object"&&
+	for(let i=0;i<s("wrapper").children.length-1;i++){
+		if(typeof _.cursor.target=="object"&&
+			// some calculation left..
 			(_.cursor.target.offsetTop+_.cursor.y> // layer pos
 				s("wrapper").children[i].offsetTop+
 				s("wrapper").children[i].style.height)){
-			cl("in-range")
+
+			cl("in-range",i)
 			_.cursor.pos=i;
-			s("wrapper").children[i]
+			s("wrapper").children[i] // depends om target index
 				.insertAdjacentElement('afterend',s("dummy"));
 		}
 	}
