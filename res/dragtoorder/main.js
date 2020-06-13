@@ -174,13 +174,11 @@ e(root,"mousemove",function(){
 		_.cursor.target.style.top=_.y-_.cursor.y+"px";
 	}
 
-	for(let i=0;i<s("wrapper").children.length;i++){
-		if(typeof _.cursor.target=="object"&&
-			// some calculation left..
+	for(let i=0;i<s("wrapper").children.length-1;i++){
+		cl(0,i,s("wrapper").children.length)
 
-			(_.y>=
-				s("wrapper").children[i].offsetTop+
-				s("wrapper").children[i].style.height)){
+		if(typeof _.cursor.target=="object"&&
+			(_.y>s("wrapper").children[i].offsetTop)){
 
 			cl("in-range",s("wrapper").children[i].textContent)
 
@@ -203,10 +201,15 @@ e(document.documentElement,"mouseup",function(){
 	_.cursor.dragging==false;
 	if(typeof _.cursor.target=="object"){
 		// replace dummy with cursor target
-		s("dummy").remove();
+		
 		_.cursor.target.style.position="relative";
 		_.cursor.target.style.left="auto";
 		_.cursor.target.style.top="auto";
+		cl(_.cursor.target)
+		s("dummy")
+			.insertAdjacentElement('afterEnd',_.cursor.target);
+			
+		s("dummy").remove();
 		_.cursor.target=undefined;
 	}
 })
