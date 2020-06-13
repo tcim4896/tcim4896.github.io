@@ -363,6 +363,10 @@ function dropdown(props){
 	return dropdown;
 }
 
+e(document.documentElement,"mousemove",function(){
+	_.x=this.clientX;
+	_.y=this.clientY;
+})
 // body
 o({id:"tools",class:"tools"})
 o({id:"applied",class:"applied"})
@@ -845,10 +849,11 @@ registerService({
 		}
 		e(document.body,"mousedown",function(){
 
-			// clientY < menuHeight + getLevelHeight
-			// condition 
-			menuAction({event:{type:"close"}});
-
+			if(_.y < 
+				s("menu").offsetHeight+
+				s("level0").offsetHeight){
+					menuAction({event:{type:"close"}});
+			}
 		})
 	},
 	registerRoute: function registerRoute(id,component){
