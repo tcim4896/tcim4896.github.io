@@ -333,6 +333,7 @@ function text(text){
 }
 
 function dropdown(props){
+	/* at cursor fixed position */
 	let dropdown=document.createElement("div");
 	dropdown.open=false;
   	dropdown.textContent=props.text;
@@ -355,7 +356,8 @@ function dropdown(props){
 		opt.setAttribute("class","option")
 		opt.textContent=option.text;
 		opt.addEventListener("click",function(e){
-			s(props.id).value=option.value;
+			cl(option.value)
+			_.encrypt.type=option.value;
 		})
     	dropdown.appendChild(opt);
 	}
@@ -561,7 +563,7 @@ o({id:"encrypt",class:"method",siblings:[
 		_.applied.push({
 			id:_.applied.length,
 			event:"encrypt",
-			type:s("encryptionType").value,
+			type:_.encrypt.type,
 		})
 		stateChange()
 	})
