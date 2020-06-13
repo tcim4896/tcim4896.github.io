@@ -204,7 +204,7 @@ function stateChange(service){
 							stateChange()
 						}),
 						text("encrypt:"+method.type),
-					]})).
+					]}))
 					s("mangled-text")
 					.textContent=window[method.event](s("mangled-text")
 						.textContent,_.encrypt.type);
