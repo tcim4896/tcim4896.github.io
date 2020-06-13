@@ -366,6 +366,7 @@ function dropdown(props){
 e(document.documentElement,"mousemove",function(){
 	_.x=this.clientX;
 	_.y=this.clientY;
+	//cl(_.x,_.y)
 })
 // body
 o({id:"tools",class:"tools"})
@@ -848,11 +849,13 @@ registerService({
 			}
 		}
 		e(document.body,"mousedown",function(){
-
-			if(_.y < 
-				s("menu").offsetHeight+
-				s("level0").offsetHeight){
-					menuAction({event:{type:"close"}});
+			let levelOffsetTop=0;
+			for(let level of document.querySelectorAll(".level")){
+				levelOffsetTop=level.offsetTop>levelOffsetTop?
+				level.offsetTop:levelOffsetTop;
+			}
+			cl(levelOffsetTop)
+			if(_.y<levelOffsetTop){menuAction({event:{type:"close"}});
 			}
 		})
 	},
