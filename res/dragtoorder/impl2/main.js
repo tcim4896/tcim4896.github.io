@@ -163,85 +163,11 @@ function dropdown(props){
 items=["item1","item2","item3","item4","item5"];
 
 console.log("Welcome!")
-e(root,"mousemove",function(){
-	_.x=this.clientX;
-	_.y=this.clientY;
-	//cl(_.x,_.y)
-
-	if(_.cursor.dragging==true&&
-		typeof _.cursor.target == "object"){
-		_.cursor.target.style.left=_.x-_.cursor.x+"px";
-		_.cursor.target.style.top=_.y-_.cursor.y+"px";
-	}
-	/*
-		if item 2 and y pos is item 1 then
-
-
-	*/
-	for(let i=0;i<s("wrapper").children.length;i++){
-		if(typeof _.cursor.target=="object"&&
-			(_.y>s("wrapper").children[i].offsetTop+
-				s("wrapper").children[i].style.height)){
-
-			cl("in-range",s("wrapper").children[i].textContent)
-			s("wrapper").children[i]
-				.insertAdjacentElement('afterEnd',s("dummy"));
-
-				/*
-					insert target (begin or after) dummy
-					and remove dummy
-
-				*/
-		}
-	}
-})
-
-e(document.documentElement,"mouseup",function(){
-	cl("mouseup")
-	_.cursor.dragging==false;
-	if(typeof _.cursor.target=="object"){
-		// replace dummy with cursor target
-		
-		_.cursor.target.style.position="relative";
-		_.cursor.target.style.left="auto";
-		_.cursor.target.style.top="auto";
-		cl(_.cursor.target)
-		s("dummy")
-			.insertAdjacentElement('afterEnd',_.cursor.target);
-
-		s("dummy").remove();
-		_.cursor.target=undefined;
-	}
-})
-
 b(root,o({id:"wrapper",class:"wrapper"}))
-let i=0;
-for(let item of items){
-	b(s("wrapper"),
-		e(o({
-			id:i,
-			text:item,
-			class:"item"
-		}),"mousedown",function(){
-			cl("mousedown")
-			 this.target.style.position="fixed";
-			 this.target.style.width="200px";
-			_.cursor={
-				target:this.target,
-				dragging:true,
-				y:this.layerY,
-				x:this.layerX,
-			};
-			_.cursor.target.style.left=_.x-_.cursor.x+"px";
-			_.cursor.target.style.top=_.y-_.cursor.y+"px";
-			_.cursor.target
-				.insertAdjacentElement('beforeBegin',o({
-					id:"dummy",
-					class:"dummy"
-				}));
-		})
-	)
-	i++;
+
+for(let i=0; i< items.length-1;i++){
+	let item=o({class:"item",text:items[i]});
+	s("wrapper").appendChild(item)
 }
 
 stateChange() //init
