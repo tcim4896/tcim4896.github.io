@@ -95,11 +95,6 @@ menuStructure = [
 		    },
 	    ]
 	},
-	{
-	    text: "Music",
-	    event: {type:"ref",path:"https://www.youtube.com/watch?v=W-KpT2o1xXY"},
-	    list:[],
-  	},
 ];
 
 // Propchaining
