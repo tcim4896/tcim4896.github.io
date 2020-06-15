@@ -169,6 +169,9 @@ function img(uri){
 	return elm;
 }
 
+function store(obj){
+	localStorage.setItem(obj.key,obj.value)
+}
 /*
 ~
 paste image url onto input field one
@@ -186,6 +189,13 @@ b(root,e(btn("add image"),"click",function(){
 }))
 
 b(root,inp());
+
+b(root,e(btn("save page"),"click",function(){
+	store({
+		key:localStorage.length,
+		value:s("wrapper").innerHTML,
+	})
+}))
 
 b(root,o({
 	id:"wrapper",
