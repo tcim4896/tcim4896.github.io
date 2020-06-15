@@ -811,6 +811,7 @@ registerService({
 				break;
 				case "route":
 					_.router.init(menuItem.event.path);
+					_.menu.open.open=false;
 					toggle();
 				break;
 				case "ref":
