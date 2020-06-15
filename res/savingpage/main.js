@@ -82,8 +82,15 @@ function s(id) {
   return mState[id];
 }
 
-function b(elm, sibling) {
+function b(elm,sibling) {
   elm.appendChild(sibling);
+}
+
+function st(elm,styles){
+	for(let prop in styles){
+		elm[prop]=styles[prop];
+	}
+	return elm;
 }
 
 e(document.body,"mousedown",function(e){
