@@ -627,7 +627,7 @@ o({id:"encode",class:"method",siblings:[
 ]});
 
 //creating rxtx db tool
-function rxtx(url){
+function r(url){
 	let r;
 	// XMLHttpRequest
 	const Http = new XMLHttpRequest();
@@ -651,7 +651,7 @@ function rxtx(url){
 	return r;
 }
 
-rxtx("http://10.0.0.127:80")
+//r("http://10.0.0.127:80")
 
 function store(obj){
 	localStorage.setItem(obj.key,obj.value)
@@ -768,6 +768,10 @@ function toggle(id){
 
 }
 
+o({id:"frontpanel",class:"frontpanel",siblings:[
+	text("Welcome!")
+]})
+
 registerService({
 	name: "router",
 	init: function Router(pageId){ // handler for request and routes
@@ -777,8 +781,8 @@ registerService({
 			dynamic switcher(in case of registerRoute)
 		*/
 		switch(pageId){
-			case "homepanel":
-				b(root,s("homepanel"))
+			case "frontpanel":
+				b(root,s("frontpanel"))
 			break;
 			case "langcheckup":
 				b(root,s("langcheckup"))
@@ -796,7 +800,7 @@ registerService({
 				b(root,s("mangler"))
 			break;
 			default:
-				b(root,s("mangler"))
+				b(root,s("frontpanel"))
 			break;
 		}
 		// Dynamic menu
