@@ -851,14 +851,12 @@ registerService({
 			}
 		}
 		e(document.body,"mousedown",function(){
-			let levelOffsetTop=0;
-			for(let level of document.querySelectorAll(".level")){
-				levelOffsetTop=level.offsetTop>levelOffsetTop?
-				level.offsetTop:levelOffsetTop;
+			if(_.menu.open.open==true){
+				if(_.y<s("level"+_.menu.open.id).offsetTop){
+					menuAction({event:{type:"close"}})
+				}
 			}
-			cl(levelOffsetTop)
-			if(_.y<levelOffsetTop){menuAction({event:{type:"close"}});
-			}
+
 		})
 	},
 	registerRoute: function registerRoute(id,component){
