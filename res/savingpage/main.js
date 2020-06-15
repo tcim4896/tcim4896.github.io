@@ -192,9 +192,12 @@ b(root,inp());
 
 b(root,e(btn("save page"),"click",function(){
 	store({
-		key:localStorage.length,
+		key:"page",
 		value:s("wrapper").innerHTML,
 	})
+}))
+b(root,e(btn("load page"),"click",function(){
+	s("wrapper").innerHTML=localStorage.getItem("page")
 }))
 
 b(root,o({
