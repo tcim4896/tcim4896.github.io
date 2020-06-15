@@ -2,10 +2,9 @@ cl=console.log;
 root=document.querySelector("[root]");
 mState = {
 	services:{
-		order:[],
-		cursor:{
-			dragging: false,
-			pos:0,
+		editor:{
+			url:'',
+
 		},
 		x:0,
 		y:0,
@@ -156,8 +155,17 @@ function dropdown(props){
 	return dropdown;
 }
 
-b(root,input())
-b(root,btn("add image"))
+
+b(root,e(e(input(),"keydown",function(){
+
+}),"paste",function(){
+	cl(this.clipboardData.getData('Text'))
+}))
+
+b(root,e(btn("add image"),"click",function(){
+
+}))
+
 b(root,o({id:"wrapper",class:"wrapper",editable:true}))
 
 stateChange() //init
