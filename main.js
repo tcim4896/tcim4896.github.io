@@ -178,6 +178,20 @@ function stateChange(service){
 					.textContent=window[method.event](
 						s("mangled-text").textContent); //
 				break;
+				case "toUpperCase":
+					b(s("applied"),o({id:method.id,class:"method",siblings:[
+						e(btn("x"),"click",e=>{
+							_.applied=_.applied.filter(function(m){
+								return method.id !== m.id;
+							})
+							stateChange()
+						}),
+						text("uppercase")
+					]}))
+					s("mangled-text")
+					.textContent=window[method.event](
+						s("mangled-text").textContent); //
+				break;
 				case "extra":
 					b(s("applied"),o({id:method.id,class:"method",siblings:[
 						e(btn("x"),"click",e=>{
@@ -488,7 +502,7 @@ function toLowerCase(str){
     }
     return r;
 }
-// tool
+
 o({id:"lowercase",class:"method",siblings:[
 	e(btn("lowercase"),"click",function(){
 		_.applied.push({
@@ -498,20 +512,20 @@ o({id:"lowercase",class:"method",siblings:[
 		stateChange()
 	})
 ]})
-
-function toLowerCase(str){
+// creating toUpperCase tool
+function toUpperCase(str){
 	let r="",len=string=>string.length;
     for(let i=0;i<len(str);i++){
-    	r+=str[i].toLowerCase();
+    	r+=str[i].toUpperCase();
     }
     return r;
 }
 
-o({id:"lowercase",class:"method",siblings:[
-	e(btn("lowercase"),"click",function(){
+o({id:"uppercase",class:"method",siblings:[
+	e(btn("uppercase"),"click",function(){
 		_.applied.push({
 			id:_.applied.length,
-			event:"toLowerCase"
+			event:"toUpperCase"
 		})
 		stateChange()
 	})
@@ -673,6 +687,7 @@ b(s("tools"),s("replace"))
 b(s("tools"),s("exclude"))
 b(s("tools"),s("extra"))
 b(s("tools"),s("lowercase"))
+b(s("tools"),s("uppercase"))
 b(s("tools"),s("encrypt"))
 b(s("tools"),s("encode"))
 
@@ -728,25 +743,6 @@ o({id:"dictionary", class:"dictionary",siblings:[
 o({id:"leke/downloads", class:"dictionary",siblings:[
 	text("Leke.js Framework"),
 	text("Mangler"),
-	// text("Window System"),
-	// text("Nucleus"),
-	// text("Matrix operators"),
-	// text("Health Daemon"),
-	// text("Pattern Generator"),
-	// text("Export script"),
-	// text("Upload script"),
-	// text("Cross Origin Bypass"),
-	// text("Dynamic Form"),
-	// text("Multiple Finds"),
-	// text("huh? Synthesizer"),
-	// text("Drum sampler"),
-	// text("Arrow game"),
-	// text("Darts Trainer"),
-	// text("Poule Generator"),
-	// text("Push Menu"),
-	// text("HTML5 Snippet"),
-	// text("Default Node Server"),
-	// text("Firefox Bookmarks to Playlist"),
 ]})
 // register service
 function registerService(service){
@@ -772,12 +768,18 @@ function toggle(id){
 
 }
 
-// registering Router service
 registerService({
 	name: "router",
 	init: function Router(pageId){ // handler for request and routes
 		root.innerHTML='';
+
+		/*
+			dynamic switcher(in case of registerRoute)
+		*/
 		switch(pageId){
+			case "homepanel":
+				b(root,s("homepanel"))
+			break;
 			case "langcheckup":
 				b(root,s("langcheckup"))
 			break;
@@ -867,3 +869,5 @@ registerService({
 
 _.router.init()
 stateChange() //init
+
+cl(_)
