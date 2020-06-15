@@ -6,6 +6,7 @@ mState = {
 			url:'',
 
 		},
+		clip:"",
 		x:0,
 		y:0,
 	}
@@ -100,6 +101,13 @@ e(document.body,"mouseup",function(e){
 	mState['mousedown']=false
 })
 
+function inp(){
+	// use this in future
+	const inp=document.createElement("input");
+	inp.setAttribute("type","text");
+	inp.setAttribute("class","input");
+	return inp;
+}
 function input(placeholder){
 	let div=document.createElement("div");
 	div.input=true;
@@ -155,17 +163,34 @@ function dropdown(props){
 	return dropdown;
 }
 
+function img(uri){
+	let elm=document.createElement("img");
+	elm.src=uri;
+	return elm;
+}
 
+/*
+~
+paste image url onto input field one
+press add image button
+
+*/
 b(root,e(e(input(),"keydown",function(){
 
 }),"paste",function(){
-	cl(this.clipboardData.getData('Text'))
+	_.clip=this.clipboardData.getData('text');
 }))
 
 b(root,e(btn("add image"),"click",function(){
-
+	s("wrapper").appendChild(img(_.clip))
 }))
 
-b(root,o({id:"wrapper",class:"wrapper",editable:true}))
+b(root,inp());
+
+b(root,o({
+	id:"wrapper",
+	class:"wrapper",
+	editable:true,
+	text:"https://i.pinimg.com/originals/d8/be/28/d8be2864467f8d5009d470e8b6d34a23.jpg"}))
 
 stateChange() //init
