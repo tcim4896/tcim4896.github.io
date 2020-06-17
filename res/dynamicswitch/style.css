@@ -1,0 +1,45 @@
+html, body { 
+  width: 100%; 
+  height: 100%; 
+  margin:0; 
+  font-family: “Oxygen”, sans-serif;
+  font-size: 12px;
+  background: rgb(15,36,0);
+  background: linear-gradient(90deg, rgba(15,36,0,1) 0%, rgba(0,0,0,1) 35%, rgba(0,0,0,1) 100%);
+}
+
+body {
+  flex-direction: row;
+}
+
+div[root]{
+  width:100%;
+  height:100%;
+}
+
+.wrapper {
+  width:auto;
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding:5px;
+}
+
+.wrapper .item {
+  width:200px;
+  line-height:30px;
+  background:white;
+  margin-bottom:5px;
+  border:1px solid rgba(0,0,0,0.5);
+  user-select: none;
+}
+
+.wrapper .dummy {
+  width:200px;
+  height:30px;
+  background:#ededed;
+  margin-bottom:5px;
+  border:1px solid transparent;
+}
