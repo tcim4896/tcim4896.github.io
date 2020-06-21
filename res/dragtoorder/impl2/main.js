@@ -197,39 +197,40 @@ function stateChange(obj){
 
 b(root,o({id:"wrapper",class:"wrapper"}))
 
+function p(elm, props){
+	for(let prop in props){
+		elm.setAttrbute(prop,props[prop])
+	}
+	return elm;
+}
+
 e(document.documentElement,"mousemove",function(){
 	_.x=this.clientX;
 	_.y=this.clientY;
 	//cl("x",_.x,"y",_.y)
-	if(_.cursor.dragging==true&&
-		typeof _.cursor.target == "object"){
-		_.cursor.target.style.left=_.x-_.cursor.x+"px";
-		_.cursor.target.style.top=_.y-_.cursor.y+"px";			
+	if(_.cursor.dragging==true){
+		cl("move")
+		st(s("dummy"),{
+			left:_.x-_.cursor.x+"px",
+			top:_.y-_.cursor.y+"px",		
+		})
 	}
-	let i=0;
+
 	for(let child of s("wrapper").children){
 		// store future target position
-		if(typeof _.cursor.target!=="undefined"){
-			if(true){
-				if(_.cursor.target.offsetTop>child.offsetTop&&
-					_.cursor.target.offsetTop<child.offsetTop+
-							child.offsetHeight){
-					cl(true,child.textContent)
-					// move dummy after child node
-
-					/*
-						psuedo:
-						dummy should be place above top node 
-						dummy should be place after bottom node
-						targetOffsetTop should be between
-						childOffsetTop and ChildOffsetTop+Child.offsetHeight
-					*/
-					child.insertAdjacentElement("afterEnd",s("dummy"))
-				}
-				child.textContent
+		if(typeof s("dummy")!=="undefined"){
+			if(s("dummy").offsetTop>child.offsetTop&&
+				s("dummy").offsetTop<child.offsetTop+
+						child.offsetHeight){
+				st(child,{
+					backgroundColor:"grey"
+				})
 			}
 		}
-		i++;
+
+		/*
+			leaving child
+		*/
 	}
 })
 
@@ -241,11 +242,23 @@ e(document.documentElement,"mouseup",function(){
 		_.cursor.target.style.left="auto";
 		_.cursor.target.style.top="auto";
 	}
-	// insert 
 	s("dummy").remove()
 })
 
+function c(node,id){
+	let elm=node.cloneNode(true);
+	mState[id]=elm;
+	return elm;
+}
 
+function st(elm,styles){
+	let r=elm;
+	for(let prop in styles){
+		cl(prop)
+		r.style[prop]=styles[prop];
+	}
+	return r;
+}
 
 function registerService(serviceId,variables,handler){//name, handler.parameters handler.fn
 	_[serviceId][handler.name]={
@@ -262,21 +275,20 @@ function listItems(items){// service({prop:1,prop:2})
 		b(s("wrapper"),
 			e(o({text:items[i],class:"item"}),"mousedown",function(){
 				cl("mousedown")
-				 this.target.style.position="fixed";
-				 this.target.style.width="200px";
+
 				_.cursor={
 					target:this.target,
 					dragging:true,
 					y:this.layerY,
 					x:this.layerX,
 				};
-				_.cursor.target.style.left=_.x-_.cursor.x+"px";
-				_.cursor.target.style.top=_.y-_.cursor.y+"px";
-				_.cursor.target
-					.insertAdjacentElement('beforeBegin',o({
-						id:"dummy",
-						class:"dummy"
-					}));
+
+				b(s("wrapper"),
+					st(c(this.target,"dummy"),{
+						position:"fixed",
+						left:_.x-_.cursor.x+"px",
+						top:_.y-_.cursor.y+"px",
+				}))
 			})
 		)
 	}
