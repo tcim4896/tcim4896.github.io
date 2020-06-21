@@ -171,44 +171,49 @@ b(root,o({id:"wrapper",class:"wrapper"}))
 e(document.documentElement,"mousemove",function(){
 	_.x=this.clientX;
 	_.y=this.clientY;
-	cl("x",_.x,"y",_.y)
+	//cl("x",_.x,"y",_.y)
 	if(_.cursor.dragging==true&&
 		typeof _.cursor.target!=="undefined"){
 		cl(_.cursor.dragging)
 		_.cursor.target.style.position="fixed";
 		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
-		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
+
+		for(let i=0;i<s("wrapper").children.length;i++){
+			let item=s("wrapper").children[i];
+			if(item.offsetTop==_.y-_.cursor.layerY){
+				cl(item.innerText)
+			}
+			//exclude cursor target offsetTop
+		}
+		/*
+			loop over items
+			if offsetTop == _.y-_.cursor.layerY
+			select target insert at begin or end depending 
+			on offsetTop item at cursor position
+		*/
 	}
 })
 
 e(document.documentElement,"mouseup",function(){
 	cl("mouseup")
 	_.cursor.dragging=false;
-	_.cursor.target.style.position="relative";
-	_.cursor.target.style.left="auto";
-	_.cursor.target.style.top="auto";
-	s("dummy").remove()
+	if(typeof _.cursor.target=="object"){
+		_.cursor.target.style.position="relative";
+		_.cursor.target.style.left="auto";
+		_.cursor.target.style.top="auto";
+	}
 })
 
 for(let i=0; i< items.length-1;i++){
 	let item=e(o({class:"item",text:items[i]}),"mousedown",function(){
-		_.cursor.dragging=true;
-		_.cursor.layerX=this.layerX;
-		_.cursor.layerY=this.layerY;
-		_.cursor.target=this.target;
-		// position target at cursor
-		_.cursor.target.style.position="fixed";
-		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
-		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
-		// create dummy item (placeholder)
-		_.cursor
-			.target
-			.insertAdjacentElement('beforeBegin'
-				,o({id:"dummy",class:"dummy"}));
-		cl(_.cursor)
+		cl("mousedown")
+		_.cursor={
+			dragging:true,
+			layerX:this.layerX,
+			layerY:this.layerY,
+			target:this.target,
+		};
 	});
-
-
 	s("wrapper").appendChild(item)
 }
 
