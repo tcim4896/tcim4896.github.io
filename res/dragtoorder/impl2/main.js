@@ -4,6 +4,7 @@ mState = {
 	services:{
 		order:[],
 		cursor:{
+			target:undefined,
 			dragging: false,
 			pos:0,
 			layerX:0,
@@ -167,11 +168,30 @@ items=["item1","item2","item3","item4","item5"];
 console.log("Welcome!")
 b(root,o({id:"wrapper",class:"wrapper"}))
 
+e(document.documentElement,"mousemove",function(){
+	_.x=this.clientX;
+	_.y=this.clientY;
+	cl("x",_.x,"y",_.y)
+	if(_.cursor.dragging==true&&
+		typeof _.cursor.target!=="undefined"){
+		cl(_.cursor.dragging)
+		_.cursor.target.style.position="fixed";
+		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
+		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
+	}
+})
+
+e(document.documentElement,"mouseup",function(){
+	cl("mouseup")
+	_.cursor.dragging=false;
+})
+
 for(let i=0; i< items.length-1;i++){
 	let item=e(o({class:"item",text:items[i]}),"mousedown",function(){
 		_.cursor.dragging=true;
 		_.cursor.layerX=this.layerX;
 		_.cursor.layerY=this.layerY;
+		_.cursor.target=this.target;
 		cl(_.cursor)
 	});
 
