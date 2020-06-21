@@ -165,31 +165,6 @@ function dropdown(props){
 }
 
 console.log("Welcome!")
-b(root,o({id:"wrapper",class:"wrapper"}))
-
-e(document.documentElement,"mousemove",function(){
-	_.x=this.clientX;
-	_.y=this.clientY;
-	cl("x",_.x,"y",_.y)
-	if(_.cursor.dragging==true){
-		cl("targetMove")
-		_.cursor.target.style.position="fixed";
-		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
-		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
-	}
-
-})
-
-e(document.documentElement,"mouseup",function(){
-	cl("mouseup")
-	_.cursor.dragging=false;
-	if(typeof _.cursor.target=="object"){
-		_.cursor.target.style.position="relative";
-		_.cursor.target.style.left="auto";
-		_.cursor.target.style.top="auto";
-	}
-})
-
 function stateChange(obj){
 	function init(){
 		for(let services in _){
@@ -220,6 +195,35 @@ function stateChange(obj){
 
 }
 
+b(root,o({id:"wrapper",class:"wrapper"}))
+
+e(document.documentElement,"mousemove",function(){
+	_.x=this.clientX;
+	_.y=this.clientY;
+	//cl("x",_.x,"y",_.y)
+	if(_.cursor.dragging==true&&
+		typeof _.cursor.target == "object"){
+		_.cursor.target.style.left=_.x-_.cursor.x+"px";
+		_.cursor.target.style.top=_.y-_.cursor.y+"px";
+	}
+
+	for(let child of s("wrapper").children){
+		cl(_.y,child.offsetTop)
+	}
+})
+
+e(document.documentElement,"mouseup",function(){
+	cl("mouseup")
+	_.cursor.dragging=false;
+	if(typeof _.cursor.target=="object"){
+		_.cursor.target.style.position="relative";
+		_.cursor.target.style.left="auto";
+		_.cursor.target.style.top="auto";
+	}
+})
+
+
+
 function registerService(serviceId,variables,handler){//name, handler.parameters handler.fn
 	_[serviceId][handler.name]={
 		variables,
@@ -232,17 +236,26 @@ registerService("items",["list"],listItems)
 function listItems(items){// service({prop:1,prop:2})
 	s("wrapper").innerHTML="";
 	for(let i=0; i<items.length;i++){
-		let item=e(o({class:"item",text:items[i]}),"mousedown",function(){
-			_.cursor={
-				dragging:true,
-				layerX:this.layerX,
-				layerY:this.layerY,
-				target:this.target, //wth
-			};
-			cl("mousedown",_.cursor)
-
-		});
-		s("wrapper").appendChild(item)// call out of scope
+		b(s("wrapper"),
+			e(o({text:items[i],class:"item"}),"mousedown",function(){
+				cl("mousedown")
+				 this.target.style.position="fixed";
+				 this.target.style.width="200px";
+				_.cursor={
+					target:this.target,
+					dragging:true,
+					y:this.layerY,
+					x:this.layerX,
+				};
+				_.cursor.target.style.left=_.x-_.cursor.x+"px";
+				_.cursor.target.style.top=_.y-_.cursor.y+"px";
+				_.cursor.target
+					.insertAdjacentElement('beforeBegin',o({
+						id:"dummy",
+						class:"dummy"
+					}));
+			})
+		)
 	}
 }
 
