@@ -3,6 +3,7 @@ root=document.querySelector("[root]");
 mState = {
 	services:{
 		order:[],
+		items:["item1","item2","item3","item4","item5"],
 		cursor:{
 			target:undefined,
 			dragging: false,
@@ -163,7 +164,22 @@ function dropdown(props){
 	return dropdown;
 }
 
-items=["item1","item2","item3","item4","item5"];
+function stateChange(obj){
+	// implement service switch 
+	// (service.var,service.fn)
+
+	mem={};
+	function dS(type){
+	  mem[type]();
+	}
+	function aS(type,fn){
+	  mem[type]=fn;
+	}
+
+	aS("encode",function(){
+	  console.log("encode");
+	})	
+}
 
 console.log("Welcome!")
 b(root,o({id:"wrapper",class:"wrapper"}))
@@ -185,7 +201,7 @@ e(document.documentElement,"mousemove",function(){
 				let a=item.innerText;
 				let b=_.cursor.target.innerText;
 				cl("replace",a,b)
-				items=replace(items,a,b)
+				_.items=replace(_.items,a,b)
 
 				function replace(arr,a,b){
 				  let r=[];
@@ -205,7 +221,7 @@ e(document.documentElement,"mousemove",function(){
 				  }
 				  return r;
 				}
-				cl(items)
+				cl(_.items)
 
 				//stateChange call
 			}
@@ -230,8 +246,8 @@ e(document.documentElement,"mouseup",function(){
 	}
 })
 
-for(let i=0; i<items.length;i++){
-	let item=e(o({class:"item",text:items[i]}),"mousedown",function(){
+for(let i=0; i<_.items.length;i++){
+	let item=e(o({class:"item",text:_.items[i]}),"mousedown",function(){
 		cl("mousedown")
 		_.cursor={
 			dragging:true,
