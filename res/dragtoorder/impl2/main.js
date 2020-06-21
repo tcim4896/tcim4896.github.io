@@ -178,13 +178,6 @@ e(document.documentElement,"mousemove",function(){
 		_.cursor.target.style.position="fixed";
 		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
 		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
-
-		/*
-			positioning dummy
-
-
-
-		*/
 	}
 })
 
@@ -194,6 +187,7 @@ e(document.documentElement,"mouseup",function(){
 	_.cursor.target.style.position="relative";
 	_.cursor.target.style.left="auto";
 	_.cursor.target.style.top="auto";
+	s("dummy").remove()
 })
 
 for(let i=0; i< items.length-1;i++){
@@ -202,6 +196,15 @@ for(let i=0; i< items.length-1;i++){
 		_.cursor.layerX=this.layerX;
 		_.cursor.layerY=this.layerY;
 		_.cursor.target=this.target;
+		// position target at cursor
+		_.cursor.target.style.position="fixed";
+		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
+		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
+		// create dummy item (placeholder)
+		_.cursor
+			.target
+			.insertAdjacentElement('beforeBegin'
+				,o({id:"dummy",class:"dummy"}));
 		cl(_.cursor)
 	});
 
