@@ -6,6 +6,8 @@ mState = {
 		cursor:{
 			dragging: false,
 			pos:0,
+			layerX:0,
+			layerY:0,
 		},
 		x:0,
 		y:0,
@@ -166,7 +168,14 @@ console.log("Welcome!")
 b(root,o({id:"wrapper",class:"wrapper"}))
 
 for(let i=0; i< items.length-1;i++){
-	let item=o({class:"item",text:items[i]});
+	let item=e(o({class:"item",text:items[i]}),"mousedown",function(){
+		_.cursor.dragging=true;
+		_.cursor.layerX=this.layerX;
+		_.cursor.layerY=this.layerY;
+		cl(_.cursor)
+	});
+
+
 	s("wrapper").appendChild(item)
 }
 
