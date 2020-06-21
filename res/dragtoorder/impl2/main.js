@@ -176,6 +176,7 @@ e(document.documentElement,"mousemove",function(){
 		cl(_.cursor.dragging)
 		_.cursor.target.style.position="fixed";
 		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
+		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
 
 		for(let i=0;i<s("wrapper").children.length;i++){
 			let item=s("wrapper").children[i];
@@ -184,7 +185,7 @@ e(document.documentElement,"mousemove",function(){
 				let a=item.innerText;
 				let b=_.cursor.target.innerText;
 				cl("replace",a,b)
-				_.items=replace(_.items,a,b)
+				_.items.list=replace(_.items.list,a,b)// uh
 
 				function replace(arr,a,b){
 				  let r=[];
@@ -200,9 +201,10 @@ e(document.documentElement,"mousemove",function(){
 				  }
 				  return r;
 				}
-				cl(_.items)
+
 				stateChange({
 					service:"items",
+					var:"list",
 					fnCall:"listItems"
 				})
 			}
@@ -229,30 +231,46 @@ e(document.documentElement,"mouseup",function(){
 
 function stateChange(obj){
 	cl(mState)
-	for(let services in _){
-		for(let service in _[services]){
-			if(typeof _[services][service]!=="undefined"&&
-				typeof _[services][service].handler=="function"){
-				let vars=_[services][service].variables;
-				// service({prop:1,prop:2})
-				cl(vars);
-				cl(_[services][vars])
-				cl(_[services][service].handler(_[services][vars]))
+	function init(){
+		for(let services in _){
+			for(let service in _[services]){
+				if(typeof _[services][service]!=="undefined"&&
+					typeof _[services][service].handler=="function"){
+					let vars=_[services][service].variables;
+					// service({prop:1,prop:2})
+					cl(vars);
+					cl(_[services][vars])
+					cl(_[services][service].handler(_[services][vars]))
+				}
 			}
 		}
 	}
+	function update(obj){
+		cl("update",obj)
+		cl(_[obj.service])
+		cl(_[obj.service][obj.fnCall])
+		cl(_[obj.service][obj.fnCall].handler(_[obj.service][obj.var]))
+	}
+
+	if(obj=="init"){
+		init();
+	}else{
+		update(obj)
+	}
+
 }
 
-function registerService(name,variables,handler){//name, handler.parameters handler.fn
-	_[name][handler.name]={
+function registerService(serviceId,variables,handler){//name, handler.parameters handler.fn
+	_[serviceId][handler.name]={
 		variables,
 		handler,
 	};
 }
 
-registerService("items","list",listItems)
+registerService("items",["list"],listItems)
 
 function listItems(items){// service({prop:1,prop:2})
+	s("wrapper").innerHTML="";
 	for(let i=0; i<items.length;i++){
 		let item=e(o({class:"item",text:items[i]}),"mousedown",function(){
 			cl("mousedown")
@@ -268,4 +286,4 @@ function listItems(items){// service({prop:1,prop:2})
 }
 
 
-stateChange() //init
+stateChange("init") //init
