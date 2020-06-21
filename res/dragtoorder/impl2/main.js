@@ -170,53 +170,14 @@ b(root,o({id:"wrapper",class:"wrapper"}))
 e(document.documentElement,"mousemove",function(){
 	_.x=this.clientX;
 	_.y=this.clientY;
-	//cl("x",_.x,"y",_.y)
-	if(_.cursor.dragging==true&&
-		typeof _.cursor.target!=="undefined"){
-		cl(_.cursor.dragging)
+	cl("x",_.x,"y",_.y)
+	if(_.cursor.dragging==true){
+		cl("targetMove")
 		_.cursor.target.style.position="fixed";
 		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
 		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
-
-		for(let i=0;i<s("wrapper").children.length;i++){
-			let item=s("wrapper").children[i];
-			if(item.offsetTop==_.y-_.cursor.layerY&&
-				item!==_.cursor.target){
-				let a=item.innerText;
-				let b=_.cursor.target.innerText;
-				cl("replace",a,b)
-				_.items.list=replace(_.items.list,a,b)// uh
-
-				function replace(arr,a,b){
-				  let r=[];
-				  for(let i=0;i<arr.length;i++){
-				  		if(arr[i]==a){
-				  			r.push(b);
-				  		}else if(arr[i]==b){
-				  			r.push(a)
-				  		}else{
-				  			r.push(arr[i])
-				  		}
-				  		
-				  }
-				  return r;
-				}
-
-				stateChange({
-					service:"items",
-					var:"list",
-					fnCall:"listItems"
-				})
-			}
-			//exclude cursor target offsetTop
-		}
-		/*
-			loop over items
-			if offsetTop == _.y-_.cursor.layerY
-			select target insert at begin or end depending 
-			on offsetTop item at cursor position
-		*/
 	}
+
 })
 
 e(document.documentElement,"mouseup",function(){
@@ -230,7 +191,6 @@ e(document.documentElement,"mouseup",function(){
 })
 
 function stateChange(obj){
-	cl(mState)
 	function init(){
 		for(let services in _){
 			for(let service in _[services]){
@@ -238,17 +198,17 @@ function stateChange(obj){
 					typeof _[services][service].handler=="function"){
 					let vars=_[services][service].variables;
 					// service({prop:1,prop:2})
-					cl(vars);
-					cl(_[services][vars])
-					cl(_[services][service].handler(_[services][vars]))
+					// cl(vars);
+					// cl(_[services][vars])
+					_[services][service].handler(_[services][vars])
 				}
 			}
 		}
 	}
 	function update(obj){
-		cl("update",obj)
-		cl(_[obj.service])
-		cl(_[obj.service][obj.fnCall])
+		// cl("update",obj)
+		// cl(_[obj.service])
+		// cl(_[obj.service][obj.fnCall])
 		cl(_[obj.service][obj.fnCall].handler(_[obj.service][obj.var]))
 	}
 
@@ -273,13 +233,14 @@ function listItems(items){// service({prop:1,prop:2})
 	s("wrapper").innerHTML="";
 	for(let i=0; i<items.length;i++){
 		let item=e(o({class:"item",text:items[i]}),"mousedown",function(){
-			cl("mousedown")
 			_.cursor={
 				dragging:true,
 				layerX:this.layerX,
 				layerY:this.layerY,
-				target:this.target,
+				target:this.target, //wth
 			};
+			cl("mousedown",_.cursor)
+
 		});
 		s("wrapper").appendChild(item)// call out of scope
 	}
