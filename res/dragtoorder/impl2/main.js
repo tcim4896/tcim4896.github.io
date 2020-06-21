@@ -178,12 +178,22 @@ e(document.documentElement,"mousemove",function(){
 		_.cursor.target.style.position="fixed";
 		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
 		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
+
+		/*
+			positioning dummy
+
+
+
+		*/
 	}
 })
 
 e(document.documentElement,"mouseup",function(){
 	cl("mouseup")
 	_.cursor.dragging=false;
+	_.cursor.target.style.position="relative";
+	_.cursor.target.style.left="auto";
+	_.cursor.target.style.top="auto";
 })
 
 for(let i=0; i< items.length-1;i++){
