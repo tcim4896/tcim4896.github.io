@@ -182,24 +182,24 @@ e(document.documentElement,"mousemove",function(){
 			let item=s("wrapper").children[i];
 			if(item.offsetTop==_.y-_.cursor.layerY&&
 				item!==_.cursor.target){
-				cl(item.innerText,_.cursor.target.innerText)
-
-				function insert(item,arr,idx){
+				let a=item.innerText;
+				let b=_.cursor.target.innerText;
+				cl("replace",a,b)
+				items=replace(items,a,b)
+				function replace(arr,a,b){
 				  let r=[];
-				  for(let i=0;i<arr.length;i++){
-				    if(i==idx){
-				      r.push(item)
-				      r.push(arr[i])
-				    }else{
-				      r.push(arr[i])
-				    }
+
+				  /*
+					
+				  */
+				  for(let i=0;i<arr.length-1;i++){
+				  		r.push(arr[i])
 				  }
-				  if(idx==arr.length){
-				    r.push(item)
-				  }
-				  cl(r)
 				  return r;
 				}
+				cl(items)
+
+				//stateChange call
 			}
 			//exclude cursor target offsetTop
 		}
