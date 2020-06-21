@@ -186,14 +186,22 @@ e(document.documentElement,"mousemove",function(){
 				let b=_.cursor.target.innerText;
 				cl("replace",a,b)
 				items=replace(items,a,b)
+
 				function replace(arr,a,b){
 				  let r=[];
 
 				  /*
 					
 				  */
-				  for(let i=0;i<arr.length-1;i++){
-				  		r.push(arr[i])
+				  for(let i=0;i<arr.length;i++){
+				  		if(arr[i]==a){
+				  			r.push(b);
+				  		}else if(arr[i]==b){
+				  			r.push(a)
+				  		}else{
+				  			r.push(arr[i])
+				  		}
+				  		
 				  }
 				  return r;
 				}
@@ -222,7 +230,7 @@ e(document.documentElement,"mouseup",function(){
 	}
 })
 
-for(let i=0; i< items.length-1;i++){
+for(let i=0; i<items.length;i++){
 	let item=e(o({class:"item",text:items[i]}),"mousedown",function(){
 		cl("mousedown")
 		_.cursor={
