@@ -206,15 +206,15 @@ e(document.documentElement,"mousemove",function(){
 		_.cursor.target.style.left=_.x-_.cursor.x+"px";
 		_.cursor.target.style.top=_.y-_.cursor.y+"px";			
 	}
-
+	let i=0;
 	for(let child of s("wrapper").children){
 		// store future target position
 		if(typeof _.cursor.target!=="undefined"){
-			if(_.cursor.target!==child){
+			if(true){
 				if(_.cursor.target.offsetTop>child.offsetTop&&
 					_.cursor.target.offsetTop<child.offsetTop+
 							child.offsetHeight){
-					cl(true)
+					cl(true,child.textContent)
 					// move dummy after child node
 
 					/*
@@ -226,8 +226,10 @@ e(document.documentElement,"mousemove",function(){
 					*/
 					child.insertAdjacentElement("afterEnd",s("dummy"))
 				}
+				child.textContent
 			}
 		}
+		i++;
 	}
 })
 
