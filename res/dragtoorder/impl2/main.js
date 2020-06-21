@@ -208,7 +208,11 @@ e(document.documentElement,"mousemove",function(){
 	}
 
 	for(let child of s("wrapper").children){
-		cl(_.y,child.offsetTop)
+		if(typeof _.cursor.target!=="undefined"){
+			if(_.cursor.target!==child){
+				cl(_.cursor.target.offsetTop==child.offsetTop) // here
+			}
+		}
 	}
 })
 
