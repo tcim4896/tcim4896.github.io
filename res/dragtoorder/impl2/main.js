@@ -2,8 +2,9 @@ cl=console.log;
 root=document.querySelector("[root]");
 mState = {
 	services:{
-		order:[],
-		items:["item1","item2","item3","item4","item5"],
+		items:{
+			list:["item1","item2","item3","item4","item5"],
+		},
 		cursor:{
 			target:undefined,
 			dragging: false,
@@ -28,7 +29,6 @@ d={
 
 d.fn(0).fn(1)
 
-function stateChange(){}
 
 function o(args) {
 	let r = document.createElement("div");
@@ -164,23 +164,6 @@ function dropdown(props){
 	return dropdown;
 }
 
-function stateChange(obj){
-	// implement service switch 
-	// (service.var,service.fn)
-
-	mem={};
-	function dS(type){
-	  mem[type]();
-	}
-	function aS(type,fn){
-	  mem[type]=fn;
-	}
-
-	aS("encode",function(){
-	  console.log("encode");
-	})	
-}
-
 console.log("Welcome!")
 b(root,o({id:"wrapper",class:"wrapper"}))
 
@@ -205,10 +188,6 @@ e(document.documentElement,"mousemove",function(){
 
 				function replace(arr,a,b){
 				  let r=[];
-
-				  /*
-					
-				  */
 				  for(let i=0;i<arr.length;i++){
 				  		if(arr[i]==a){
 				  			r.push(b);
@@ -222,8 +201,10 @@ e(document.documentElement,"mousemove",function(){
 				  return r;
 				}
 				cl(_.items)
-
-				//stateChange call
+				stateChange({
+					service:"items",
+					fnCall:"listItems"
+				})
 			}
 			//exclude cursor target offsetTop
 		}
@@ -246,17 +227,45 @@ e(document.documentElement,"mouseup",function(){
 	}
 })
 
-for(let i=0; i<_.items.length;i++){
-	let item=e(o({class:"item",text:_.items[i]}),"mousedown",function(){
-		cl("mousedown")
-		_.cursor={
-			dragging:true,
-			layerX:this.layerX,
-			layerY:this.layerY,
-			target:this.target,
-		};
-	});
-	s("wrapper").appendChild(item)
+function stateChange(obj){
+	cl(mState)
+	for(let services in _){
+		for(let service in _[services]){
+			if(typeof _[services][service]!=="undefined"&&
+				typeof _[services][service].handler=="function"){
+				let vars=_[services][service].variables;
+				// service({prop:1,prop:2})
+				cl(vars);
+				cl(_[services][vars])
+				cl(_[services][service].handler(_[services][vars]))
+			}
+		}
+	}
 }
+
+function registerService(name,variables,handler){//name, handler.parameters handler.fn
+	_[name][handler.name]={
+		variables,
+		handler,
+	};
+}
+
+registerService("items","list",listItems)
+
+function listItems(items){// service({prop:1,prop:2})
+	for(let i=0; i<items.length;i++){
+		let item=e(o({class:"item",text:items[i]}),"mousedown",function(){
+			cl("mousedown")
+			_.cursor={
+				dragging:true,
+				layerX:this.layerX,
+				layerY:this.layerY,
+				target:this.target,
+			};
+		});
+		s("wrapper").appendChild(item)// call out of scope
+	}
+}
+
 
 stateChange() //init
