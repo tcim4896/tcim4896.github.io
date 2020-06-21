@@ -204,13 +204,28 @@ e(document.documentElement,"mousemove",function(){
 	if(_.cursor.dragging==true&&
 		typeof _.cursor.target == "object"){
 		_.cursor.target.style.left=_.x-_.cursor.x+"px";
-		_.cursor.target.style.top=_.y-_.cursor.y+"px";
+		_.cursor.target.style.top=_.y-_.cursor.y+"px";			
 	}
 
 	for(let child of s("wrapper").children){
+		// store future target position
 		if(typeof _.cursor.target!=="undefined"){
 			if(_.cursor.target!==child){
-				cl(_.cursor.target.offsetTop==child.offsetTop) // here
+				if(_.cursor.target.offsetTop>child.offsetTop&&
+					_.cursor.target.offsetTop<child.offsetTop+
+							child.offsetHeight){
+					cl(true)
+					// move dummy after child node
+
+					/*
+						psuedo:
+						dummy should be place above top node 
+						dummy should be place after bottom node
+						targetOffsetTop should be between
+						childOffsetTop and ChildOffsetTop+Child.offsetHeight
+					*/
+					child.insertAdjacentElement("afterEnd",s("dummy"))
+				}
 			}
 		}
 	}
@@ -224,6 +239,8 @@ e(document.documentElement,"mouseup",function(){
 		_.cursor.target.style.left="auto";
 		_.cursor.target.style.top="auto";
 	}
+	// insert 
+	s("dummy").remove()
 })
 
 
