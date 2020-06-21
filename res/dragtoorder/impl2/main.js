@@ -197,9 +197,9 @@ function stateChange(obj){
 
 b(root,o({id:"wrapper",class:"wrapper"}))
 
-function p(elm, props){
+function p(elm,props){
 	for(let prop in props){
-		elm.setAttrbute(prop,props[prop])
+		elm.setAttribute(prop,props[prop])
 	}
 	return elm;
 }
@@ -223,8 +223,9 @@ e(document.documentElement,"mousemove",function(){
 				s("dummy").offsetTop<child.offsetTop+
 						child.offsetHeight){
 				st(child,{
-					backgroundColor:"grey"
+					backgroundColor:"#efefef",
 				})
+				child.innerHTML="Place here.."
 			}
 		}
 
@@ -237,11 +238,19 @@ e(document.documentElement,"mousemove",function(){
 e(document.documentElement,"mouseup",function(){
 	cl("mouseup")
 	_.cursor.dragging=false;
+
 	if(typeof _.cursor.target=="object"){
 		_.cursor.target.style.position="relative";
 		_.cursor.target.style.left="auto";
 		_.cursor.target.style.top="auto";
 	}
+
+	stateChange({
+		service:"items",
+		var:["list"],
+		fnCall:"listItems",
+	})
+
 	s("dummy").remove()
 })
 
@@ -252,12 +261,10 @@ function c(node,id){
 }
 
 function st(elm,styles){
-	let r=elm;
 	for(let prop in styles){
-		cl(prop)
-		r.style[prop]=styles[prop];
+		elm.style[prop]=styles[prop];
 	}
-	return r;
+	return elm;
 }
 
 function registerService(serviceId,variables,handler){//name, handler.parameters handler.fn
@@ -267,7 +274,7 @@ function registerService(serviceId,variables,handler){//name, handler.parameters
 	};
 }
 
-registerService("items",["list"],listItems)
+registerService("items","list",listItems)
 
 function listItems(items){// service({prop:1,prop:2})
 	s("wrapper").innerHTML="";
@@ -282,13 +289,27 @@ function listItems(items){// service({prop:1,prop:2})
 					y:this.layerY,
 					x:this.layerX,
 				};
-
+				cl(_.cursor)
+				cl({
+						position:"fixed",
+						left:_.x-_.cursor.x+"px",
+						top:_.y-_.cursor.y+"px",
+				})
 				b(s("wrapper"),
 					st(c(this.target,"dummy"),{
 						position:"fixed",
 						left:_.x-_.cursor.x+"px",
 						top:_.y-_.cursor.y+"px",
 				}))
+
+				this.target.innerHTML="Place here..";
+
+				st(this.target,{
+					backgroundColor:"#efefef",
+					border: "1px dotted black",
+				})
+
+
 			})
 		)
 	}
