@@ -182,9 +182,9 @@ e(document.documentElement,"mousemove",function(){
 			let item=s("wrapper").children[i];
 			if(item.offsetTop==_.y-_.cursor.layerY&&
 				item!==_.cursor.target){
-				cl(item.innerText)
+				cl(item.innerText,_.cursor.target.innerText)
 
-				function insert(item,arr=[0,1,2,3],idx){
+				function insert(item,arr,idx){
 				  let r=[];
 				  for(let i=0;i<arr.length;i++){
 				    if(i==idx){
