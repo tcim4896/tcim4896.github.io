@@ -180,8 +180,26 @@ e(document.documentElement,"mousemove",function(){
 
 		for(let i=0;i<s("wrapper").children.length;i++){
 			let item=s("wrapper").children[i];
-			if(item.offsetTop==_.y-_.cursor.layerY){
+			if(item.offsetTop==_.y-_.cursor.layerY&&
+				item!==_.cursor.target){
 				cl(item.innerText)
+
+				function insert(item,arr=[0,1,2,3],idx){
+				  let r=[];
+				  for(let i=0;i<arr.length;i++){
+				    if(i==idx){
+				      r.push(item)
+				      r.push(arr[i])
+				    }else{
+				      r.push(arr[i])
+				    }
+				  }
+				  if(idx==arr.length){
+				    r.push(item)
+				  }
+				  cl(r)
+				  return r;
+				}
 			}
 			//exclude cursor target offsetTop
 		}
