@@ -207,7 +207,7 @@ function p(elm,props){
 e(document.documentElement,"mousemove",function(){
 	_.x=this.clientX;
 	_.y=this.clientY;
-	cl("x",_.x,"y",_.y)
+	//cl("x",_.x,"y",_.y)
 	if(_.cursor.dragging==true){
 		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
 		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
@@ -215,10 +215,12 @@ e(document.documentElement,"mousemove",function(){
 
 	for(let child of s("wrapper").children){
 		// store future target position
-		if(typeof s("dummy")!=="undefined"){
-			if(s("dummy").offsetTop>child.offsetTop&&
-				s("dummy").offsetTop<child.offsetTop+
+		let item=_.cursor.target;
+		if(typeof item!=="undefined"){
+			if(item.offsetTop>child.offsetTop&&
+				item.offsetTop<child.offsetTop+
 						child.offsetHeight){
+				cl(_.cursor.target.textContent,child.textContent)
 				st(child,{
 					backgroundColor:"#efefef",
 				})
@@ -278,9 +280,12 @@ function listItems(items){// service({prop:1,prop:2})
 	for(let i=0; i<items.length;i++){
 		b(s("wrapper"),
 			e(o({text:items[i],class:"item"}),"mousedown",function(){
+				this.target
+					.insertAdjacentElement('beforeBegin',c(this.target,"dummy"));
+
 				cl("mousedown")
 				this.target.style.position="fixed";
-			 	this.target.style.width="200px";
+			 	//this.target.style.width="200px";
 
 				_.cursor={
 					target:this.target,
@@ -289,14 +294,10 @@ function listItems(items){// service({prop:1,prop:2})
 					layerX:this.layerX,
 				};
 
-				_.cursor.target.style.left=_.x-this.layerX+"px";
-				_.cursor.target.style.top=_.y-this.layerY+"px";
-				_.cursor.target
-					.insertAdjacentElement('beforeBegin',o({
-						id:"dummy",
-						class:"dummy"
-					}));
-				})
+				this.target.style.left=_.x-this.layerX+"px";
+				this.target.style.top=_.y-this.layerY+"px";
+			})
+
 		)
 	}
 }
