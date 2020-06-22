@@ -184,7 +184,7 @@ function stateChange(obj){
 		// cl("update",obj)
 		// cl(_[obj.service])
 		// cl(_[obj.service][obj.fnCall])
-		cl(_[obj.service][obj.fnCall].handler(_[obj.service][obj.var]))
+		//cl(_[obj.service][obj.fnCall].handler(_[obj.service][obj.var]))
 	}
 
 	if(obj=="init"){
@@ -207,13 +207,10 @@ function p(elm,props){
 e(document.documentElement,"mousemove",function(){
 	_.x=this.clientX;
 	_.y=this.clientY;
-	//cl("x",_.x,"y",_.y)
+	cl("x",_.x,"y",_.y)
 	if(_.cursor.dragging==true){
-		cl("move")
-		st(s("dummy"),{
-			left:_.x-_.cursor.x+"px",
-			top:_.y-_.cursor.y+"px",		
-		})
+		_.cursor.target.style.left=_.x-_.cursor.layerX+"px";
+		_.cursor.target.style.top=_.y-_.cursor.layerY+"px";
 	}
 
 	for(let child of s("wrapper").children){
@@ -282,35 +279,24 @@ function listItems(items){// service({prop:1,prop:2})
 		b(s("wrapper"),
 			e(o({text:items[i],class:"item"}),"mousedown",function(){
 				cl("mousedown")
+				this.target.style.position="fixed";
+			 	this.target.style.width="200px";
 
 				_.cursor={
 					target:this.target,
 					dragging:true,
-					y:this.layerY,
-					x:this.layerX,
+					layerY:this.layerY,
+					layerX:this.layerX,
 				};
-				cl(_.cursor)
-				cl({
-						position:"fixed",
-						left:_.x-_.cursor.x+"px",
-						top:_.y-_.cursor.y+"px",
+
+				_.cursor.target.style.left=_.x-this.layerX+"px";
+				_.cursor.target.style.top=_.y-this.layerY+"px";
+				_.cursor.target
+					.insertAdjacentElement('beforeBegin',o({
+						id:"dummy",
+						class:"dummy"
+					}));
 				})
-				b(s("wrapper"),
-					st(c(this.target,"dummy"),{
-						position:"fixed",
-						left:_.x-_.cursor.x+"px",
-						top:_.y-_.cursor.y+"px",
-				}))
-
-				this.target.innerHTML="Place here..";
-
-				st(this.target,{
-					backgroundColor:"#efefef",
-					border: "1px dotted black",
-				})
-
-
-			})
 		)
 	}
 }
