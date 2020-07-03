@@ -256,7 +256,7 @@ b(root,o({ // could add call to service fn:
 		width:px(100),
 		height:px(100),
 	},
-	fn:function(){
+	fn:function fn(){
 		let cell=s(this.id);
 		_.grid.cells[this.id]={
 			element:cell,
@@ -273,7 +273,6 @@ b(root,o({ // could add call to service fn:
 		};
 	}
 }))
-
 
 /*
 	define border detector:
