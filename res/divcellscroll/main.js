@@ -320,8 +320,18 @@ e(document.documentElement,"mousemove",function(){
 	_.x=this.clientX;
 	//---------------
 	let borders = _.grid.cells["c1"].borders;
-	if(borders.bottom==_.y){
-		cl(0)
+	cl(_.y<borders.bottom+20)
+	cl(_.y>borders.bottom-20)
+
+	if(_.y<borders.bottom+20&&
+		_.y>borders.bottom-20){
+		st(document.documentElement,{
+			cursor:"col-resize"
+		})
+	}else{
+		st(document.documentElement,{
+			cursor:""
+		})
 	}
 })
 
