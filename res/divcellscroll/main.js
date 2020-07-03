@@ -252,6 +252,10 @@ for(let item of _.items.list){
 b(root,o({ // could add call to service fn:
 	id:"c1",
 	class:"cell",
+	styles:{
+		width:px(100),
+		height:px(100),
+	},
 	fn:function(){
 		let cell=s(this.id);
 		_.grid.cells[this.id]={
@@ -270,12 +274,6 @@ b(root,o({ // could add call to service fn:
 	}
 }))
 
-
-// set width and height of cell
-st(s("c1"),{
-	width:px(100),
-	height:px(100),
-})
 
 /*
 	define border detector:
