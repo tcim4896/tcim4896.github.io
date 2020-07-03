@@ -309,6 +309,10 @@ e(document.documentElement,"mousemove",function(){
 		st(s("c1"),{
 			cursor:"ne-resize"
 		})
+	}else{
+		st(s("c1"),{
+			cursor:""
+		})
 	}
 	cl(cellProps)
 })
