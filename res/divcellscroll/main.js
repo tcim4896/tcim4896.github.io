@@ -288,7 +288,7 @@ e(document.documentElement,"mousedown",function(){
 	_.cursor.mousedown=true;
 })
 
-e(document.documentElement,"mousedown",function(){
+e(document.documentElement,"mouseup",function(){
 	_.cursor.mousedown=false;
 })
 
@@ -300,17 +300,39 @@ e(document.documentElement,"mousemove",function(){
 
 	let bottom=cell.clientTop+cell.clientHeight;
 
-	cl(_.y,bottom)
+	//cl(_.y,bottom)
 
 	if(_.y>bottom-10){  //ranging (service)
 		st(s("c1"),{
 			cursor:"ne-resize"
 		})
+
+		if(_.cursor.mousedown==true){
+			cl(px(_.y))
+			st(cell,{
+				height:px(_.y),
+			})
+		}
 	}else{
 		st(s("c1"),{
 			cursor:""
 		})
 	}
-	cl(cellProps)
+
+	// dynamic switcher
+
+	mem={};
+	function ds(type){
+	mem[type]();
+	}
+	function as(type,fn){
+	mem[type]=fn;
+	}
+
+	as("encode",function(){
+	console.log("encode");
+	})
+
+	// end ds
 })
 
