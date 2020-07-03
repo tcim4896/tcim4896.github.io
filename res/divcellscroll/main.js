@@ -348,6 +348,7 @@ e(document.documentElement,"mousemove",function(){
 		st(s("c1"),{
 			height:px(_.y)
 		})
+		getBorders(_.grid.cells["c1"])
 			// update borders
 	}
 })
