@@ -326,11 +326,26 @@ e(document.documentElement,"mousemove",function(){
 	if(_.y<borders.bottom+20&&
 		_.y>borders.bottom-20){
 		st(document.documentElement,{
-			cursor:"col-resize"
+			cursor:"row-resize"
 		})
+
+	/*
+
+		here we fire a dragging event
+		so height of element will folllow y
+	*/
+		if(_.cursor.mousedown==true){
+			_.cursor.dragging=true;
+		}
 	}else{
 		st(document.documentElement,{
 			cursor:""
+		})
+	}
+
+	if(_.cursor.dragging==true){
+		st(s("c1"),{
+			height:px(_.y)
 		})
 	}
 })
