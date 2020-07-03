@@ -33,6 +33,13 @@ d={
 
 d.fn(0).fn(1)
 
+function st(elm,styles){
+	for(let prop in styles){
+		elm.style[prop]=styles[prop];
+	}
+	return elm;
+}
+
 
 function o(args) {
 	let r = document.createElement("div");
@@ -58,6 +65,9 @@ function o(args) {
   			default:
   				r.setAttribute("class", "input")
   			break;
+  			case "styles":
+  				st(r,args[prop]);
+  			break; 	
    			case "fn":
   				args[prop]();
   			break; 			
@@ -175,12 +185,6 @@ function c(node,id){
 	return elm;
 }
 
-function st(elm,styles){
-	for(let prop in styles){
-		elm.style[prop]=styles[prop];
-	}
-	return elm;
-}
 
 function px(value){
 	let int=parseInt;
