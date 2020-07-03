@@ -25,3 +25,8 @@ html, body {
   line-height: 20px;
   display:inline-block;
 }
+
+.cell {
+  background:white;
+  border:1px solid rgba(0,0,0,0.5);
+}

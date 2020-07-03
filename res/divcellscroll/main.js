@@ -200,7 +200,8 @@ function px(value){
 console.log("Welcome!")
 function stateChange(updateObj){}
 
-b(root,o({id:"wrapper",class:"wrapper"}))
+//b(root,o({id:"wrapper",class:"wrapper"}))
+o({id:"wrapper",class:"wrapper"})
 /*
 	to begin with
 	3 row layout
@@ -223,8 +224,25 @@ _.items.list=[
 	width: px(200)
 }]
 
+let clientWidth=s("wrapper").clientWidth;
+let itemsTotalWidth=0;
+
 for(let item of _.items.list){
+	itemsTotalWidth+=px(item.width)
+}
+
+cl(clientWidth,itemsTotalWidth)
+
+/*
 	
+	get max width of all items devided by 3
+	set row to max width
+	begin new row if max width excedes
+*/
+
+
+for(let item of _.items.list){
+
   b(s("wrapper"),o({
   	id:item.text,
   	class:"item",
@@ -235,3 +253,43 @@ for(let item of _.items.list){
   	width:item.width,
   })
 }
+
+// single cell resize
+b(root,o({
+	id:"c1",
+	class:"cell"
+}))
+// set width and height of cell
+st(s("c1"),{
+	width:px(100),
+	height:px(100),
+})
+
+/*
+	define border detector:
+	> clientTop
+	> clientLeft
+	> clientWidth
+	> clientHeight
+	>?border
+
+
+*/
+
+let cellProps={};
+
+e(document.documentElement,"mousemove",function(){
+	_.y=this.clientY;
+	_.x=this.clientX;
+	//---------------
+	let cell=s("c1");
+
+	cellProps={
+		clientTop:cell.clientTop,
+		clientLeft:cell.clientLeft,
+		clientWidth:cell.clientWidth,
+		clientHeight:cell.clientHeight
+	};
+	cl(cellProps)
+})
+
