@@ -306,6 +306,7 @@ e(document.documentElement,"mousedown",function(){
 
 e(document.documentElement,"mouseup",function(){
 	_.cursor.mousedown=false;
+	_.cursor.dragging=false;
 })
 
 /*
@@ -347,6 +348,7 @@ e(document.documentElement,"mousemove",function(){
 		st(s("c1"),{
 			height:px(_.y)
 		})
+			// update borders
 	}
 })
 
