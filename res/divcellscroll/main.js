@@ -249,7 +249,20 @@ b(root,o({ // could add call to service fn:
 	id:"c1",
 	class:"cell",
 	fn:function(){
-		_.grid.cells[this.id]=s(this.id)
+		let cell=s(this.id);
+		_.grid.cells[this.id]={
+			element:cell,
+			getBorder:function getBorder(side){
+				let border={
+					bottom:cell.clientTop+cell.clientHeight,
+					top:cell.clientTop,
+					left:cell.clientLeft,
+					right:cell.clientLeft+cell.clientWidth,	
+				}
+				return border[side];			
+			}
+
+		};
 	}
 }))
 
@@ -292,47 +305,21 @@ e(document.documentElement,"mouseup",function(){
 	_.cursor.mousedown=false;
 })
 
+/*
+	grid cells cell
+		>borders
+		>element
+
+
+*/
 e(document.documentElement,"mousemove",function(){
 	_.y=this.clientY;
 	_.x=this.clientX;
 	//---------------
-	let cell=s("c1");
 
-	let bottom=cell.clientTop+cell.clientHeight;
+	let getBorder = _.grid.cells["c1"].getBorder;
+	let elm = _.grid.cells["c1"].element;
 
-	//cl(_.y,bottom)
-
-	if(_.y>bottom-10){  //ranging (service)
-		st(s("c1"),{
-			cursor:"ne-resize"
-		})
-
-		if(_.cursor.mousedown==true){
-			cl(px(_.y))
-			st(cell,{
-				height:px(_.y),
-			})
-		}
-	}else{
-		st(s("c1"),{
-			cursor:""
-		})
-	}
-
-	// dynamic switcher
-
-	mem={};
-	function ds(type){
-	mem[type]();
-	}
-	function as(type,fn){
-	mem[type]=fn;
-	}
-
-	as("encode",function(){
-	console.log("encode");
-	})
-
-	// end ds
+	cl(getBorder("bottom"));
 })
 
