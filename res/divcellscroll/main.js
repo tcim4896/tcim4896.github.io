@@ -5,12 +5,16 @@ mState = {
 		items:{
 			list:["item1","item2","item3","item4","item5"],
 		},
+		grid:{
+			cells:{},
+		},
 		cursor:{
 			target:undefined,
 			dragging:false,
 			pos:0,
 			layerX:0,
 			layerY:0,
+			mousedown:undefined,
 		},
 		x:0,
 		y:0,
@@ -54,6 +58,9 @@ function o(args) {
   			default:
   				r.setAttribute("class", "input")
   			break;
+   			case "fn":
+  				args[prop]();
+  			break; 			
 		}
 	}
   return r;
@@ -99,14 +106,6 @@ function b(elm, sibling) {
   elm.appendChild(sibling);
 }
 
-e(document.documentElement,"mousedown",function(e){
-	mState['mousedown']=true
-})
-
-e(document.documentElement,"mouseup",function(e){
-	mState['mousedown']=false
-})
-
 function input(placeholder){
 	let div=document.createElement("div");
 	div.input=true;
@@ -131,7 +130,6 @@ function text(text){
 	return div;
 }
 
-cl=console.log;
 // dropdown w.i.p ..
 function dropdown(props){
 	let dropdown=document.createElement("div");
@@ -171,15 +169,6 @@ function p(elm,props){
 	return elm;
 }
 
-e(document.documentElement,"mousemove",function(){
-	_.x=this.clientX;
-	_.y=this.clientY;
-})
-
-e(document.documentElement,"mouseup",function(){
-	cl("mouseup")
-})
-
 function c(node,id){
 	let elm=node.cloneNode(true);
 	mState[id]=elm;
@@ -197,8 +186,10 @@ function px(value){
 	let int=parseInt;
 	return typeof value=="string"?int(value):value+="px";
 }
+
 console.log("Welcome!")
-function stateChange(updateObj){}
+
+function stateChange(state){}
 
 //b(root,o({id:"wrapper",class:"wrapper"}))
 o({id:"wrapper",class:"wrapper"})
@@ -240,7 +231,6 @@ cl(clientWidth,itemsTotalWidth)
 	begin new row if max width excedes
 */
 
-
 for(let item of _.items.list){
 
   b(s("wrapper"),o({
@@ -255,10 +245,15 @@ for(let item of _.items.list){
 }
 
 // single cell resize
-b(root,o({
+b(root,o({ // could add call to service fn:
 	id:"c1",
-	class:"cell"
+	class:"cell",
+	fn:function(){
+		_.grid.cells[this.id]=s(this.id)
+	}
 }))
+
+
 // set width and height of cell
 st(s("c1"),{
 	width:px(100),
@@ -288,7 +283,14 @@ st(s("c1"),{
 
 */
 
-let cellProps={};
+
+e(document.documentElement,"mousedown",function(){
+	_.cursor.mousedown=true;
+})
+
+e(document.documentElement,"mousedown",function(){
+	_.cursor.mousedown=false;
+})
 
 e(document.documentElement,"mousemove",function(){
 	_.y=this.clientY;
@@ -304,8 +306,10 @@ e(document.documentElement,"mousemove",function(){
 	};
 
 	let bottom=cellProps.clientTop+cellProps.clientHeight;
+
 	cl(_.y,bottom)
-	if(_.y==bottom){
+
+	if(_.y>bottom-10){  //ranging (service)
 		st(s("c1"),{
 			cursor:"ne-resize"
 		})
