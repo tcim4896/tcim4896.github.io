@@ -260,20 +260,22 @@ b(root,o({ // could add call to service fn:
 		let cell=s(this.id);
 		_.grid.cells[this.id]={
 			element:cell,
-			getBorder:function getBorder(side){
-				let border={
-					bottom:cell.clientTop+cell.clientHeight,
-					top:cell.clientTop,
-					left:cell.clientLeft,
-					right:cell.clientLeft+cell.clientWidth,	
-				}
-				return border[side];			
-			}
-
+			borders:{},
 		};
 	}
 }))
+function getBorders(cell){
+	let elm = cell.element;
+	cell.borders={
+		bottom:elm.clientTop+elm.clientHeight,
+		top:elm.clientTop,
+		left:elm.clientLeft,
+		right:elm.clientLeft+elm.clientWidth,	
+	};
+	return cell;
+}
 
+getBorders(_.grid.cells["c1"]);
 /*
 	define border detector:
 	> clientTop
@@ -317,10 +319,9 @@ e(document.documentElement,"mousemove",function(){
 	_.y=this.clientY;
 	_.x=this.clientX;
 	//---------------
-
-	let getBorder = _.grid.cells["c1"].getBorder;
-	let elm = _.grid.cells["c1"].element;
-
-	cl(getBorder("bottom"));
+	let borders = _.grid.cells["c1"].borders;
+	if(borders.bottom==_.y){
+		cl(0)
+	}
 })
 
