@@ -271,8 +271,15 @@ st(s("c1"),{
 	> clientLeft
 	> clientWidth
 	> clientHeight
-	>?border
+	> ?border
 	
+	> bottom clientTop+clientHeight
+	> top clientTop
+	> left clientLeft
+	> right clientLeft+clientWidth
+
+	> corner(x==top&&y==left)
+
 	change cursor at border range
 	> col-resize
 	> row-resize
