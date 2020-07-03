@@ -193,11 +193,45 @@ function st(elm,styles){
 	return elm;
 }
 
+function px(value){
+	let int=parseInt;
+	return typeof value=="string"?int(value):value+="px";
+}
 console.log("Welcome!")
 function stateChange(updateObj){}
 
 b(root,o({id:"wrapper",class:"wrapper"}))
+/*
+	to begin with
+	3 row layout
+	get width of all together
+	and determine where to start new row
+	left space allowed
+
+*/
+_.items.list=[
+{
+	text:"Bazooka",
+	width: px(100)
+},
+{
+	text:"Oblivion",
+	width: px(200)
+},
+{	
+	text:"Charlie",
+	width: px(200)
+}]
 
 for(let item of _.items.list){
-  b(s("wrapper"),o({id:item,class:"item",text:item}))
+	
+  b(s("wrapper"),o({
+  	id:item.text,
+  	class:"item",
+  	text:item.text
+  }))
+
+  st(s(item.text),{
+  	width:item.width,
+  })
 }

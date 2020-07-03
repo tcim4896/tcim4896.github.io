@@ -4,8 +4,8 @@ html, body {
   margin:0; 
   font-family: “Oxygen”, sans-serif;
   font-size: 12px;
-background: rgb(15,36,0);
-background: linear-gradient(90deg, rgba(15,36,0,1) 0%, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);
+  background: rgb(15,36,0);
+  background: linear-gradient(90deg, rgba(15,36,0,1) 0%, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);
 }
 
 .wrapper {
@@ -16,10 +16,12 @@ background: linear-gradient(90deg, rgba(15,36,0,1) 0%, rgba(0,0,0,1) 0%, rgba(25
   height:60px;
   background-color:rgba(0,0,0,0.2);
   border:1px solid rgba(0,0,0,0.5);
+  overflow-x:scroll;
+  white-space: nowrap;
 }
 
 .wrapper .item {
   position:relative;
   line-height: 20px;
-  display:block;
+  display:inline-block;
 }
