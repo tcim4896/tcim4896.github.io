@@ -298,14 +298,7 @@ e(document.documentElement,"mousemove",function(){
 	//---------------
 	let cell=s("c1");
 
-	cellProps={
-		clientTop:cell.clientTop,
-		clientLeft:cell.clientLeft,
-		clientWidth:cell.clientWidth,
-		clientHeight:cell.clientHeight
-	};
-
-	let bottom=cellProps.clientTop+cellProps.clientHeight;
+	let bottom=cell.clientTop+cell.clientHeight;
 
 	cl(_.y,bottom)
 
