@@ -272,7 +272,12 @@ st(s("c1"),{
 	> clientWidth
 	> clientHeight
 	>?border
-
+	
+	change cursor at border range
+	> col-resize
+	> row-resize
+	> se-resize
+	> ne-resize
 
 */
 
@@ -295,7 +300,7 @@ e(document.documentElement,"mousemove",function(){
 	cl(_.y,bottom)
 	if(_.y==bottom){
 		st(s("c1"),{
-			cursor:"s-resize"
+			cursor:"ne-resize"
 		})
 	}
 	cl(cellProps)
