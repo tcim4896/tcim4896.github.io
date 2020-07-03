@@ -290,6 +290,14 @@ e(document.documentElement,"mousemove",function(){
 		clientWidth:cell.clientWidth,
 		clientHeight:cell.clientHeight
 	};
+
+	let bottom=cellProps.clientTop+cellProps.clientHeight;
+	cl(_.y,bottom)
+	if(_.y==bottom){
+		st(s("c1"),{
+			cursor:"s-resize"
+		})
+	}
 	cl(cellProps)
 })
 
