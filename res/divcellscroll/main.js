@@ -264,6 +264,22 @@ b(root,o({ // could add call to service fn:
 		};
 	}
 }))
+
+b(root,o({ // could add call to service fn:
+	id:"c2",
+	class:"cell",
+	styles:{
+		width:px(100),
+		height:px(100),
+	},
+	fn:function fn(){
+		let cell=s(this.id);
+		_.grid.cells[this.id]={
+			element:cell,
+			borders:{},
+		};
+	}
+}))
 function getBorders(cell){
 	let elm = cell.element;
 	cell.borders={
@@ -323,11 +339,18 @@ e(document.documentElement,"mousemove",function(){
 	let borders = _.grid.cells["c1"].borders;
 	cl(_.y<borders.bottom+20)
 	cl(_.y>borders.bottom-20)
-
-	if(_.y<borders.bottom+20&&
-		_.y>borders.bottom-20){
+	if(_.y<borders.right+20&&
+		_.y>borders.rigth-20){
 		st(document.documentElement,{
 			cursor:"row-resize"
+		})
+}                                                    
+
+
+	if(_.x<borders.bottom+20&&
+		_.x>borders.bottom-20){
+		st(document.documentElement,{
+			cursor:"col-resize"
 		})
 
 	/*
@@ -346,7 +369,8 @@ e(document.documentElement,"mousemove",function(){
 
 	if(_.cursor.dragging==true){
 		st(s("c1"),{
-			height:px(_.y)
+			height:px(_.y),
+			width:px(_.x)
 		})
 		getBorders(_.grid.cells["c1"])
 			// update borders
