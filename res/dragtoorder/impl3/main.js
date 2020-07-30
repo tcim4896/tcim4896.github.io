@@ -91,6 +91,32 @@ function e(elm,type,fn) {
   return elm;
 }
 
+function ee(...args){
+  let elm,events;
+  for(let arg of args){
+    switch(typeof arg){
+      case "object":
+        elm=arg;
+      break;
+      case "string":
+        events=arg.split(" ");
+      break;
+      case "function":
+        cl(events)
+        for(let event of events){
+          elm.addEventListener(event,function(e){
+            arg.call(e);
+          })
+        }
+      break;
+      default:
+        console.log("Syntax error..")
+      break;
+    }
+  }
+  return elm;
+}
+
 function s(id) {
   return mState[id];
 }

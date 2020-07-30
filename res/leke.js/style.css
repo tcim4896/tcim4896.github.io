@@ -1,0 +1,207 @@
+html, body { 
+  width: 100%; 
+  height: 100%; 
+  margin:0; 
+  font-family: “Oxygen”, sans-serif;
+  font-size: 12px;
+}
+
+body {
+  flex-direction: row;
+}
+
+.menu {
+  position: fixed;
+  left:0;
+  bottom:0;
+  right:0;
+  height:60px;
+  background-color:rgba(0,0,0,0.5);
+  white-space: nowrap;
+  overflow-x:scroll;
+}
+
+.menu .item {
+  position: relative;
+  margin: 5px;
+  padding: 5px;
+  line-height: 20px;
+  float:left;
+  background-color:rgba(0,0,0,0.5);
+  color: #fff;
+  cursor: pointer;
+  user-select:none;
+}
+
+.level {
+  position:fixed;
+  height:calc(0%);
+  left:0;
+  right:0;
+  bottom:60px;
+  background-color:rgba(0,0,0,0.2);
+  overflow:hidden;
+}
+
+.level .bar {
+  position:relative;
+  line-height:20px;
+  text-align:left;
+  margin:0px auto;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.level .bar .close-btn {
+  position: absolute;
+  right:0;
+  top:0;
+  line-height: 20px;
+  padding: 0px 5px;
+  background-color: rgba(0,0,0,0.3);
+  cursor:pointer;
+}
+
+.level .div{
+
+}
+
+.level .item{
+  line-height: 18px;
+  width: 200px;
+  margin:5px;
+  text-align: center;
+  color:#ededed;
+  position:relative;
+  float:none;
+  background-color: rgba(0,0,0,0.5);
+  user-select:none;
+}
+
+.level .item:hover{
+  background-color: rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.input {
+  position:relative;
+  border:1px solid rgba(0,0,0,0.5);
+  line-height: 18px;
+  margin:5px;
+  height:auto;
+}
+
+.btn {
+  position:relative;
+  border:1px solid rgba(0,0,0,0.5);
+  line-height: 18px;
+  margin:5px;
+  height:auto;
+  text-align: center;
+  background-color:rgba(20,225,55,0.7);
+  cursor:pointer;
+  word-break: break-all;
+}
+
+.dropdown {
+  position:relative;
+  line-height: 20px;
+  height:20px;
+  border:1px solid rgba(0,0,0,0.5);
+  background-color:rgba(0,0,0,0.5);
+  margin:5px;
+  overflow:hidden;
+  cursor:pointer;
+}
+.dropdown .icon {
+  position:absolute;
+  top:0;
+  right:0;
+  cursor:pointer;
+}
+
+.dropdown .option{
+  position:relative;
+  line-height:20px;
+  cursor:pointer;
+}
+
+.dropdown .option:hover{
+  background-color: rgba(255,255,255,0.5)
+}
+
+.col-resize {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 auto;
+  overflow: hidden;
+  background: rgb(221, 221, 221) none repeat scroll 0% 0%;
+  cursor: col-resize;
+  left: calc(13.4921% + 43.2539px);
+  top: calc(0px);
+  width: calc(0% + 11px);
+  height: calc(100%);
+}
+
+.wrapper {
+  display:flex;
+  height: 100%;
+}
+
+.container {
+  position:relative;
+  border: 1px solid rgba(0,0,0,0.5);
+  margin:10px;
+  box-sizing:border-box;
+  padding:10px;
+  min-height: 200px;
+  height:250px;
+  overflow-y:scroll;
+  word-break:break-all;
+}
+
+.viewer {
+  border: 1px solid rgba(0,0,0,0.5);
+  width: 70%;
+  max-width:70%;
+  margin:10px;
+  padding:5px;
+}
+
+.toolbar {
+  position:relative;
+  border: 1px solid rgba(0,0,0,0.5);
+  max-width:30%;
+  width:30%;
+  margin:10px;
+  box-sizing:border-box;
+  padding:10px;
+}
+
+.tools {
+  position:absolute;
+  border: 1px solid rgba(0,0,0,0.5);
+  right:10px;
+  left:10px;
+  height: calc(50% - 21px);
+  overflow-y:scroll;
+}
+
+.applied {
+  position:absolute; /* relative to toolbar*/
+  border: 1px solid rgba(0,0,0,0.5);
+  right:10px;
+  left:10px;
+  height: calc(50% - 11px);
+  bottom: 10px;
+  word-break: break-all;
+  overflow-y:scroll;
+}
+
+[contentEditable=true]:empty:not(:focus):before {
+    content:attr(data-text);
+    font-style:italic;
+    padding-left: 5px;
+    color: #999;
+}

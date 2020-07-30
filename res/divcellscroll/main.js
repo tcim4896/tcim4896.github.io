@@ -264,7 +264,9 @@ b(root,o({ // could add call to service fn:
 		};
 	}
 }))
-
+/*
+DEMO
+*/ console.log("hoi");
 b(root,o({ // could add call to service fn:
 	id:"c2",
 	class:"cell",
@@ -353,11 +355,6 @@ e(document.documentElement,"mousemove",function(){
 			cursor:"col-resize"
 		})
 
-	/*
-
-		here we fire a dragging event
-		so height of element will folllow y
-	*/
 		if(_.cursor.mousedown==true){
 			_.cursor.dragging=true;
 		}
@@ -372,8 +369,7 @@ e(document.documentElement,"mousemove",function(){
 			height:px(_.y),
 			width:px(_.x)
 		})
-		getBorders(_.grid.cells["c1"])
-			// update borders
+		getBorders(_.grid.cells["c1"]) //
 	}
 })
 

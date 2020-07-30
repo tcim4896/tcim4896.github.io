@@ -1,0 +1,12 @@
+body {
+  background-color: #efefdd;
+}
+
+.card {
+  background-color: #efefef;
+  border: 1px solid grey;
+  width: 80%;
+  height: 100%;
+  padding: 10px;
+  margin: 0 auto;
+}
