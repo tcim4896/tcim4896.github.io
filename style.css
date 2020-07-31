@@ -24,14 +24,16 @@ body {
 .menu .item {
   position: relative;
   display: inline-block;
-  margin: 5px;
-  padding: 5px;
+  margin: 0px;
+  padding: 40px;
   font-size: 120px;
-  line-height: 160px;
+  line-height: 100px;
   background-color:rgba(0,0,0,0.5);
   color: #fff;
   cursor: pointer;
   user-select:none;
+  border:10px solid rgba(0,0,0,0.0);
+  box-sizing: border-box;
 }
 
 .level {
@@ -39,14 +41,15 @@ body {
   height:calc(0%);
   left:0;
   right:0;
-  bottom:60px;
+  bottom:200px;
   background-color:rgba(0,0,0,0.2);
   overflow:hidden;
 }
 
 .level .bar {
   position:relative;
-  line-height:20px;
+  font-size:80px;
+  line-height:80px;
   text-align:left;
   margin:0px auto;
   background-color: rgba(0,0,0,0.1);
@@ -56,8 +59,9 @@ body {
   position: absolute;
   right:0;
   top:0;
-  line-height: 20px;
-  padding: 0px 5px;
+  font-size:60px;
+  line-height: 80px;
+  padding: 0px 20px;
   background-color: rgba(0,0,0,0.3);
   cursor:pointer;
 }

@@ -771,10 +771,8 @@ o({id:"frontpanel",class:"frontpanel",siblings:[
 registerService({
 	name: "router",
 	init: function Router(pageId){ // handler for request and routes
-		root.innerHTML='';
-
 		/*
-			dynamic switcher(in case of registerRoute)
+			dynamic switcher(in case of registerRoute) so no switch statement!
 		*/
 		switch(pageId){
 			case "frontpanel":
@@ -834,7 +832,7 @@ function drawMenu(menuStructure){
 
 	for(let menuItem of menuStructure){
 		b(s("menu"),e(o({class:"item", text:menuItem.text}),"click",function(){		
-			menuAction(item)
+			menuAction(menuItem)
 		}))
 		function drawLevel(menuItem){
 			const len=menuItem.list.length;
