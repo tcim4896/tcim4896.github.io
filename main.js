@@ -853,8 +853,11 @@ function drawMenu(menuStructure){
 			}
 
 			for(let i=0;i<divs;i++){
+				// create div
 				for(let i=0;i<rows;i++){
 					let li=menuItem.list[itemIndex];
+
+					// append to divs
 					if(menuItem.event.type=="open"){
 						b(s("level"+menuItem.event.path),e(o({id:"level"+li.event.path,class:"item", text:li.text}),"click",function(){
 							menuAction(li)
@@ -879,7 +882,6 @@ function drawMenu(menuStructure){
 		}
 
 	})
-
 }
 
 drawMenu(menuStructure);
