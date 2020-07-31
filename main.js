@@ -368,7 +368,8 @@ function dropdown(props){
 			cl(option.value)
 			_.encrypt.type=option.value;
 		})
-    	dropdown.appendChild(opt);
+    	dropdown.
+    	appendChild(opt);
 	}
   	mState[props.id]=dropdown;
 	return dropdown;
@@ -798,75 +799,90 @@ registerService({
 				b(root,s("frontpanel"))
 			break;
 		}
-		// Dynamic menu
-		b(root,o({id:"menu",class:"menu"}))
-
-		function menuAction(menuItem){
-			switch(menuItem.event.type){
-				case "open":
-					toggle(menuItem.event.path);
-				break;
-				case "close":
-					_.menu.open.open=false;
-					toggle()
-				break;
-				case "route":
-					_.router.init(menuItem.event.path);
-					_.menu.open.open=false;
-					toggle();
-				break;
-				case "ref":
-					window.open(menuItem.event.path)
-				break;
-				default:
-					cl("No matching route..")
-				break;
-			}
-		}
-
-		for(let item of menuStructure){
-			// init all menu items false
-			b(s("menu"),e(o({class:"item", text:item.text}),"click",function(){		
-				menuAction(item)
-			}))
-
-			if(item.event.type=="open"){
-				b(root,o({id:"level"+item.event.path, class:"level", siblings:[
-					o({class:"bar", text:item.text,siblings:[
-						e(o({class:"close-btn",text:"x"}),"mousedown",()=>menuAction(item))
-						]})
-					]})
-				)
-			}
-
-			// Level list items
-			for(let li of item.list){
-				if(li.event.type=="open"){
-					b(s("level"+item.event.path),e(o({id:"level"+li.event.path,class:"item", text:li.text}),"click",function(){
-						menuAction(li)
-					}))					
-				}else{
-					b(s("level"+item.event.path),e(o({class:"item", text:li.text}),"click",function(){
-						menuAction(li)
-					}))
-				}
-			}
-		}
-		e(document.body,"mousedown",function(){
-			if(_.menu.open.open==true){
-				if(_.y<s("level"+_.menu.open.id).offsetTop){
-					menuAction({event:{type:"close"}})
-				}
-			}
-
-		})
 	},
 	registerRoute: function registerRoute(id,component){
 		_.router.routes[id]=component;
 	}
 })
 
+
+function drawMenu(menuStructure){
+	function menuAction(menuItem){
+		switch(menuItem.event.type){
+			case "open":
+				toggle(menuItem.event.path);
+			break;
+			case "close":
+				_.menu.open.open=false;
+				toggle()
+			break;
+			case "route":
+				_.router.init(menuItem.event.path);
+				_.menu.open.open=false;
+				toggle();
+			break;
+			case "ref":
+				window.open(menuItem.event.path)
+			break;
+			default:
+				cl("No matching route..")
+			break;
+		}
+	}
+
+	b(root,o({id:"menu",class:"menu"}))
+
+	for(let menuItem of menuStructure){
+		b(s("menu"),e(o({class:"item", text:menuItem.text}),"click",function(){		
+			menuAction(item)
+		}))
+		function drawLevel(menuItem){
+			const len=menuItem.list.length;
+			const rows=3;
+			const divs=Math.ceil(len/rows);
+
+			let itemIndex=0;			
+
+			if(menuItem.event.type=="open"){
+				b(root,o({id:"level"+menuItem.event.path, class:"level", siblings:[
+					o({class:"bar", text:menuItem.text,siblings:[
+						e(o({class:"close-btn",text:"x"}),"mousedown",()=>menuAction(item))
+						]})
+					]})
+				)
+			}
+
+			for(let i=0;i<divs;i++){
+				for(let i=0;i<rows;i++){
+					let li=menuItem.list[itemIndex];
+					if(menuItem.event.type=="open"){
+						b(s("level"+menuItem.event.path),e(o({id:"level"+li.event.path,class:"item", text:li.text}),"click",function(){
+							menuAction(li)
+						}))					
+					}else{
+						b(s("level"+menuItem.event.path),e(o({class:"item", text:li.text}),"click",function(){
+							menuAction(li)
+						}))
+					}	
+				}
+			}
+
+		}
+		drawLevel(menuItem);
+	}
+
+	e(document.body,"mousedown",function(){
+		if(_.menu.open.open==true){
+			if(_.y<s("level"+_.menu.open.id).offsetTop){
+				menuAction({event:{type:"close"}})
+			}
+		}
+
+	})
+
+}
+
+drawMenu(menuStructure);
+
 _.router.init()
 stateChange() //init
-
-cl(_)

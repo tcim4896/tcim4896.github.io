@@ -61,6 +61,7 @@ function differ(obj1,obj2){
 			}
 		}
 		return objSize;
+		objSize=0;
 	}
 	cl(size(obj1),size(obj2))
 }

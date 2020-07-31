@@ -399,6 +399,29 @@ function dropdown(props){
   	mState[props.id]=dropdown;
 	return dropdown;
 }
+// still to test..>>
+function mq(elm,height,width,fn){
+	let 
+	y=typeof (height=="number"),
+	x=(typeof width=="number"),
+	active=false;
+
+	if(x && y){
+		if(height<elm.clientHeight&&
+			width<elm.clientWidth){
+			active=true;
+		}
+	}else if(y){
+		if(height<elm.clientHeight){
+			active=true;
+		}
+	}else if(x){
+		if(width<elm.clientWidth){
+			active=true;
+		}		
+	}
+	return active?fn():undefined;
+}
 
 e(document.documentElement,"mousemove",function(){
 	_.x=this.clientX;
