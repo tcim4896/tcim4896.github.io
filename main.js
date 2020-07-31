@@ -890,6 +890,8 @@ function drawMenu(menuStructure){
 								menuAction(li)
 							}))
 						}						
+					}else{
+						b(s("division"+i),o({class:"empty",text:"hello"}))
 					}
 	
 				}
