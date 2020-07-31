@@ -50,7 +50,7 @@ div[root]{
   height:0px;
   left:0;
   right:0;
-  bottom:380px;
+  bottom:300px;
   background-color:rgb(125, 50, 50);
   overflow-x:scroll;
   white-space:nowrap;
@@ -61,17 +61,17 @@ div[root]{
   border: none;
   display:inline-block;
 }
-
-.level .bar {
+@media only screen and (max-width: 600px) {}
+.level .bar { /* if level height isset then display block(media query).js*/
   position:fixed;
+  top:0;
+  left:0;
+  right:0;
   font-size:80px;
   line-height:80px;
   text-align:left;
   margin:0px auto;
   background-color: rgba(0,0,0,0.1);
-  bottom:300px;
-  left:0;
-  right:0;
 }
 
 .level .bar .close-btn {
