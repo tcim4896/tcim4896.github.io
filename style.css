@@ -15,7 +15,7 @@ body {
   left:0;
   bottom:0;
   right:0;
-  height:200px;
+  height:300px;
   background-color:rgba(0,0,0,0.5);
   white-space: nowrap;
   overflow-x:scroll;
@@ -26,24 +26,33 @@ body {
   display: inline-block;
   margin: 0px;
   padding: 40px;
-  font-size: 120px;
+  font-size: 100px;
   line-height: 100px;
   background-color:rgba(0,0,0,0.5);
   color: #fff;
   cursor: pointer;
   user-select:none;
-  border:10px solid rgba(0,0,0,0.0);
+  border:10px solid rgba(0,0,0,0.5);
+  border-right:none;
   box-sizing: border-box;
 }
-
+/* last item */
+.menu .item {
+}
 .level {
   position:fixed;
-  height:calc(0%);
+  height:0px;
   left:0;
   right:0;
-  bottom:200px;
+  bottom:300px;
   background-color:rgba(0,0,0,0.2);
   overflow:hidden;
+  white-space:nowrap;
+}
+
+.level .division{
+  border: none;
+  display:inline-block;
 }
 
 .level .bar {
@@ -71,7 +80,7 @@ body {
 }
 
 .level .item{
-  line-height: 18px;
+  line-height: 100px;
   width: 200px;
   margin:5px;
   text-align: center;

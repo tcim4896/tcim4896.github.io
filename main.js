@@ -59,6 +59,11 @@ menuStructure = [
 	        event: {type:"route",path:"dictionary"
 	        }
 	      },
+	      {
+	        text: "Second",
+	        event: {type:"route",path:"dictionary"
+	        }
+	      },	      
 	    ],
 	},
 	{
@@ -755,10 +760,10 @@ function toggle(id){
 	if(typeof id!=="undefined"){
 		if(_.menu.open.id==id&&_.menu.open.open==true){
 		_.menu.open={id,open:false};
-			s("level"+id).style.height="calc(0%)";
+			s("level"+id).style.height="0px";
 		}else{
 			_.menu.open={id,open:true};
-			s("level"+id).style.height="calc(20%)";
+			s("level"+id).style.height="400px";
 		}
 	}
 
@@ -835,7 +840,8 @@ function drawMenu(menuStructure){
 			menuAction(menuItem)
 		}))
 		function drawLevel(menuItem){
-			const len=menuItem.list.length;
+			const list=menuItem.list
+			const len=list.length;
 			const rows=3;
 			const divs=Math.ceil(len/rows);
 
@@ -849,22 +855,28 @@ function drawMenu(menuStructure){
 					]})
 				)
 			}
-
+			cl(divs,len,menuItem)
 			for(let i=0;i<divs;i++){
-				// create div
-				for(let i=0;i<rows;i++){
-					let li=menuItem.list[itemIndex];
+				// create division
+				b(s("level"+menuItem.event.path),o({id:"division"+i,class:"division"}))
 
-					// append to divs
-					if(menuItem.event.type=="open"){
-						b(s("level"+menuItem.event.path),e(o({id:"level"+li.event.path,class:"item", text:li.text}),"click",function(){
-							menuAction(li)
-						}))					
-					}else{
-						b(s("level"+menuItem.event.path),e(o({class:"item", text:li.text}),"click",function(){
-							menuAction(li)
-						}))
-					}	
+				for(let x=0;x<rows;x++){
+					let li=menuItem.list[itemIndex];
+					if(typeof li=="object"){
+						if(menuItem.event.type=="open"){
+							// create level
+							itemIndex++;
+							b(s("division"+i),e(o({id:"level"+li.event.path,class:"item", text:li.text}),"click",function(){
+								menuAction(li)
+							}))					
+						}else{
+							itemIndex++;
+							b(s("division"+i),e(o({class:"item", text:li.text}),"click",function(){
+								menuAction(li)
+							}))
+						}						
+					}
+	
 				}
 			}
 
