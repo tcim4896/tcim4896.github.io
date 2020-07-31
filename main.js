@@ -854,18 +854,16 @@ function drawMenu(menuStructure){
 		b(s("menu"),e(o({class:"item", text:menuItem.text}),"click",function(){		
 			menuAction(menuItem)
 		}))
-		function drawLevel(menuItem){
+		function drawLevel(menuItem,rows=2){
 			const list=menuItem.list
 			const len=list.length;
-			const rows=3;
+		
 			const divs=Math.ceil(len/rows);
-
-			let itemIndex=0;			
-
+			let itemIndex=0;rows=2;
 			if(menuItem.event.type=="open"){
 				b(root,o({id:"level"+menuItem.event.path, class:"level", siblings:[
 					o({class:"bar", text:menuItem.text,siblings:[
-						e(o({class:"close-btn",text:"x"}),"mousedown",()=>menuAction(item))
+						e(o({class:"close-btn",text:"x"}),"mousedown",()=> menuAction(menuItem))
 						]})
 					]})
 				)

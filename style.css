@@ -10,6 +10,11 @@ body {
   flex-direction: row;
 }
 
+div[root]{
+  height:100%;
+  width:100%;
+}
+
 .menu {
   position: fixed;
   left:0;
@@ -45,9 +50,9 @@ body {
   height:0px;
   left:0;
   right:0;
-  bottom:300px;
+  bottom:380px;
   background-color:rgb(125, 50, 50);
-  overflow:hidden;
+  overflow-x:scroll;
   white-space:nowrap;
   box-shadow:inset -7px 0 50px -7px rgba(0,0,0,.5)
 }
@@ -58,12 +63,15 @@ body {
 }
 
 .level .bar {
-  position:relative;
+  position:fixed;
   font-size:80px;
   line-height:80px;
   text-align:left;
   margin:0px auto;
   background-color: rgba(0,0,0,0.1);
+  bottom:300px;
+  left:0;
+  right:0;
 }
 
 .level .bar .close-btn {
