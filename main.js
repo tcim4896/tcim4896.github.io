@@ -60,10 +60,25 @@ menuStructure = [
 	        }
 	      },
 	      {
-	        text: "Second",
+	        text: "Recognite",
 	        event: {type:"route",path:"dictionary"
 	        }
-	      },	      
+	      },
+	      {
+	        text: "Recognite",
+	        event: {type:"route",path:"dictionary"
+	        }
+	      },
+	      	      {
+	        text: "Recognite",
+	        event: {type:"route",path:"dictionary"
+	        }
+	      },
+	      	      {
+	        text: "Recognite",
+	        event: {type:"route",path:"dictionary"
+	        }
+	      },		      
 	    ],
 	},
 	{
