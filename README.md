@@ -1,4 +1,4 @@
-#Mangler# 
+#Lekejs# 
 
 *trace back design pattern
 *word/char-count
@@ -13,3 +13,4 @@
 *dictionary store/read methods
 *clear input fields b/f
 *bundle.sh
+*auth
