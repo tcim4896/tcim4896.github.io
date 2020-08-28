@@ -13,4 +13,5 @@
 *dictionary store/read methods
 *clear input fields b/f
 *bundle.sh
+*node.js server
 *auth
