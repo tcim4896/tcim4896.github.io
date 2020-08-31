@@ -44,6 +44,7 @@ menuStructure = [
  	{
 	    text: "Edje.io",
 	    event: {type:"ref",path:"https://edje.io"},
+	    list:[],
 	},
  	{
 	    text: "Dictea",
