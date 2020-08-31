@@ -778,7 +778,7 @@ function toggle(id){
 			s("level"+id).style.height="0px";
 		}else{
 			_.menu.open={id,open:true};
-			s("level"+id).style.height="400px";
+			s("level"+id).style.height="auto";
 		}
 	}
 
@@ -859,13 +859,13 @@ function drawMenu(menuStructure){
 			const len=list.length;
 		
 			const divs=Math.ceil(len/rows);
-			let itemIndex=0;rows=2;
+			let itemIndex=0;rows=3;
 			if(menuItem.event.type=="open"){
 				b(root,o({id:"level"+menuItem.event.path, class:"level", siblings:[
-					o({class:"bar", text:menuItem.text,siblings:[
-						e(o({class:"close-btn",text:"x"}),"mousedown",()=> menuAction(menuItem))
-						]})
-					]})
+					// o({class:"bar", text:menuItem.text,siblings:[
+					// 	e(o({class:"close-btn",text:"x"}),"mousedown",()=> menuAction(menuItem))
+					// 	]})
+					   ]})
 				)
 			}
 			cl(divs,len,menuItem)

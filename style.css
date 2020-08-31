@@ -20,7 +20,7 @@ div[root]{
   left:0;
   bottom:0;
   right:0;
-  height:300px;
+  height:215px;
   background-color:rgba(0,0,0,0.5);
   white-space: nowrap;
   overflow-x:scroll;
@@ -42,15 +42,13 @@ div[root]{
   border-right:none;
   box-sizing: border-box;
 }
-/* last item */
-.menu .item {
-}
+
 .level {
   position:fixed;
   height:0px;
   left:0;
   right:0;
-  bottom:300px;
+  bottom:200px;
   background-color:rgb(125, 50, 50);
   overflow-x:scroll;
   white-space:nowrap;
@@ -64,7 +62,7 @@ div[root]{
 @media only screen and (max-width: 600px) {}
 .level .bar { /* if level height isset then display block(media query).js*/
   position:fixed;
-  top:0;
+  bottom:380px;
   left:0;
   right:0;
   font-size:80px;
