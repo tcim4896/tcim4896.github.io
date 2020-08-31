@@ -42,6 +42,10 @@ mState = {
 _=mState.services;
 menuStructure = [
  	{
+	    text: "Edje.io",
+	    event: {type:"ref",path:"https://edje.io"},
+	},
+ 	{
 	    text: "Dictea",
 	    event: {type:"open",path:0},
 	    list: [
