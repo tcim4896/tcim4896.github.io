@@ -789,7 +789,7 @@ function toggle(id){
 
 }
 
-o({id:"frontpanel",class:"frontpanel",siblings:[
+o({id:"container",class:"container",siblings:[
 	text("Welcome!")
 ]})
 
@@ -801,7 +801,7 @@ registerService({
 		*/
 		switch(pageId){
 			case "frontpanel":
-				b(root,s("frontpanel"))
+				b(root,s("container"))
 			break;
 			case "langcheckup":
 				b(root,s("langcheckup"))
@@ -816,10 +816,10 @@ registerService({
 				b(root,s("leke/downloads"))
 			break;
 			case "mangler":
-				b(root,s("mangler"))
+				b(s("container"),s("mangler"))
 			break;
 			default:
-				b(root,s("frontpanel"))
+				b(root,s("container"))
 			break;
 		}
 	},
