@@ -42,43 +42,23 @@ mState = {
 _=mState.services;
 menuStructure = [
  	{
-	    text: "BIBI CARS",
+	    text: "BIBI Cars",
 	    event: {type:"open",path:0},
 	    list: [
 	      {
-	        text: "Mangler",
-	        event: {type:"route",path:"mangler"
+	        text: "Kleine beurt",
+	        event: {type:"route",path:"kleine-beurt"
 	        }
 	      },
 	      {
-	        text: "Langcheckup",
-	        event: {type:"route",path:"langcheckup"}
+	        text: "Contactgegevens",
+	        event: {type:"level",path:"contact"}
 	      },
 	      {
 	        text: "Dictionary",
 	        event: {type:"route",path:"dictionary"
 	        }
-	      },
-	      {
-	        text: "Recognite",
-	        event: {type:"route",path:"dictionary"
-	        }
-	      },
-	      {
-	        text: "Recognite",
-	        event: {type:"route",path:"dictionary"
-	        }
-	      },
-	      	      {
-	        text: "Recognite",
-	        event: {type:"route",path:"dictionary"
-	        }
-	      },
-	      	      {
-	        text: "Recognite",
-	        event: {type:"route",path:"dictionary"
-	        }
-	      },		      
+	      },	      
 	    ],
 	},
 	{
@@ -88,7 +68,7 @@ menuStructure = [
 	},
 	{
 		text: "Contactgegevens",
-		event:{},
+		event:{type:"level",path:"contact"},
 		list:[],
 	},
 ];
@@ -216,6 +196,15 @@ function btn(text){
 	div.setAttribute("class","btn")
 	return div;
 }
+// polyfill (lol)
+function draw(...args){
+// higher order function.
+	let canvas = document.createElement("canvas");
+		canvas.getContext("2d"); //do things from hereon
+		canvas.fillStyle = "green";
+		b(root,canvas)
+	return canvas;
+}
 
 function text(text){
 	let div=document.createElement("div");
@@ -299,6 +288,8 @@ function toggle(id){
 	}
 
 }
+
+// html
 o({id:"container",class:"container",siblings:[]})
 
 o({id:"home",class:"home",siblings:[
@@ -308,6 +299,10 @@ o({id:"home",class:"home",siblings:[
 e(document.body,"click",function(){
 	this.target.style.backgroundImage=`url("images/mercedesa_015.jpg"`;
 })
+
+function slideGallery(){
+	o({})// image slider
+}
 
 cl(b(s("container"),s("home")))
 
@@ -342,6 +337,9 @@ function drawMenu(menuStructure){
 				_.menu.open.open=false;
 				toggle()
 			break;
+			case "page":
+				toggle(menuItem.event.path);
+			break;
 			case "route":
 				_.router.init(menuItem.event.path);
 				_.menu.open.open=false;
@@ -350,7 +348,6 @@ function drawMenu(menuStructure){
 			case "ref":
 				window.open(menuItem.event.path)
 			break;
-			///page just info on the level..
 			default:
 				cl("No matching route..")
 			break;
@@ -370,14 +367,9 @@ function drawMenu(menuStructure){
 			const divs=Math.ceil(len/rows);
 			let itemIndex=0;rows=3;
 			if(menuItem.event.type=="open"){
-				b(root,o({id:"level"+menuItem.event.path, class:"level", siblings:[
-					// o({class:"bar", text:menuItem.text,siblings:[
-					// 	e(o({class:"close-btn",text:"x"}),"mousedown",()=> menuAction(menuItem))
-					// 	]})
-					   ]})
+				b(root,o({id:"level"+menuItem.event.path, class:"level", siblings:[]})
 				)
 			}
-			cl(divs,len,menuItem)
 			for(let i=0;i<divs;i++){
 				// create division
 				b(s("level"+menuItem.event.path),o({id:"division"+i,class:"division"}))
@@ -402,6 +394,14 @@ function drawMenu(menuStructure){
 					}
 	
 				}
+			}
+			if(menuItem.event=="level"){
+				cl(true)
+				b(root,o({id:"level"+menuItem.event.path, class:"level", siblings:[
+						text("Adres: Amsterdamseweg"),
+						text("Adres: Arnhem")
+					]})
+				)
 			}
 
 		}

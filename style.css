@@ -31,6 +31,15 @@ div[root]{
   text-align:center;
 }
 
+.container {
+  position:relative;
+  border: 1px solid rgba(0,0,0,0.5);
+  box-sizing:border-box;
+  padding-bottom:100px;
+  height:100%;
+  word-break:break-all;
+}
+
 .menu {
   position: fixed;
   left:0;
@@ -213,18 +222,6 @@ div[root]{
 .wrapper {
   display:flex;
   height: 100%;
-}
-
-.container {
-  position:relative;
-  border: 1px solid rgba(0,0,0,0.5);
-  margin:10px;
-  box-sizing:border-box;
-  padding:10px;
-  min-height: 200px;
-  height:250px;
-  overflow-y:scroll;
-  word-break:break-all;
 }
 
 .viewer {
