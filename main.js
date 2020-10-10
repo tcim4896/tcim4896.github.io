@@ -202,9 +202,7 @@ function st(elm,styles){
 	return elm;
 }
 
-
-
-function input(){
+function input(placeholder){
 	// use this in future
 	const input=document.createElement("input");
 	input.setAttribute("type","text");
@@ -224,6 +222,17 @@ function text(text){
 	div.innerText=text
 	div.setAttribute("class","btn")
 	return div;
+}
+
+function img(url){
+	//wip..
+	let img=document.createElement("img");
+		img.src=url;
+		img.style.height="100%";
+		img.style.width="auto";
+		img.style.border="1px solid #000";
+		
+	return img;
 }
 
 function dropdown(props){
@@ -265,16 +274,7 @@ e(document.documentElement,"mousemove",function(){
 	_.y=this.clientY;
 	//cl(_.x,_.y)
 })
-function img(url){
-	//wip..
-	let img=document.createElement("img");
-		img.src=url;
-		img.style.height="100%";
-		img.style.width="auto";
-		img.style.border="1px solid #000";
-		
-	return img;
-}
+
 // example page
 
 function registerService(service){
@@ -304,6 +304,10 @@ o({id:"container",class:"container",siblings:[]})
 o({id:"home",class:"home",siblings:[
 	o({id:"header",class:"header",text:"BIBI Cars"})
 ]})
+
+e(document.body,"click",function(){
+	this.target.style.backgroundImage=`url("images/mercedesa_015.jpg"`;
+})
 
 cl(b(s("container"),s("home")))
 
@@ -346,6 +350,7 @@ function drawMenu(menuStructure){
 			case "ref":
 				window.open(menuItem.event.path)
 			break;
+			///page just info on the level..
 			default:
 				cl("No matching route..")
 			break;
