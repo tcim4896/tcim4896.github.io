@@ -4,10 +4,12 @@ html, body {
   margin:0; 
   font-family: “Oxygen”, sans-serif;
   font-size: 12px;
+  background-color:rgba(0,0,0,0.5);
 }
 
 body {
-  flex-direction: row;
+  background-image: url("images/mercedesa_008.jpg");
+  background-repeat: no-repeat;
 }
 
 div[root]{
@@ -21,7 +23,6 @@ div[root]{
   bottom:0;
   right:0;
   height:215px;
-  background-color:rgba(0,0,0,0.5);
   white-space: nowrap;
   overflow-x:scroll;
   z-index:999;
@@ -32,16 +33,21 @@ div[root]{
   display: inline-block;
   margin: 0px;
   padding: 40px;
-  font-size: 100px;
+  font-size: 60px;
   line-height: 100px;
-  background-color:rgb(68, 125, 50);
-  box-shadow:inset -7px 0 50px -7px rgba(0,0,0,.5)
+  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
+  box-shadow:inset -7px 0 50px -7px rgba(0,0,0,.5);
   color: #fff;
   cursor: pointer;
   user-select:none;
   border:10px solid rgba(0,0,0,0.5);
   border-right:none;
+  border-top:none;
   box-sizing: border-box;
+}
+
+.menu .item:last-child {
+  border-right:10px solid rgba(0,0,0,0.5);
 }
 
 .level {
@@ -136,7 +142,8 @@ div[root]{
   margin:5px;
   height:auto;
   text-align: center;
-  background-color:rgba(20,225,55,0.7);
+  background-color:rgba(0,0,0,0.7);
+  color:#fff;
   cursor:pointer;
   word-break: break-all;
 }
