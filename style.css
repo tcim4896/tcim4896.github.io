@@ -17,6 +17,20 @@ div[root]{
   width:100%;
 }
 
+.header {
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:200px;
+  font-size: 80px;
+  letter-spacing: 5px;
+  line-height:200px;
+  background-color:rgba(0,0,0,0.8);
+  color: #fff;
+  text-align:center;
+}
+
 .menu {
   position: fixed;
   left:0;
@@ -48,6 +62,11 @@ div[root]{
 
 .menu .item:last-child {
   border-right:10px solid rgba(0,0,0,0.5);
+
+}
+
+.menu .item:hover {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,1));
 }
 
 .level {

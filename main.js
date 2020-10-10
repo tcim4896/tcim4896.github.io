@@ -302,7 +302,7 @@ function toggle(id){
 o({id:"container",class:"container",siblings:[]})
 
 o({id:"home",class:"home",siblings:[
-	text("BIBI Cars")
+	o({id:"header",class:"header",text:"BIBI Cars"})
 ]})
 
 cl(b(s("container"),s("home")))
