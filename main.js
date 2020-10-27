@@ -135,6 +135,18 @@ function o(args) {
 	}
   return r;
 }
+function oo(amt,args){
+	let r = [];
+	/*
+		diff on element props
+	*/
+	for(let i=0;i<amt;i++){
+		let elm = document.createElement("div");
+		r.push(elm)
+	}
+
+	return r;
+}
 
 function e(elm,type,fn) {
 	function ffkeys(event){ // key validator
@@ -201,8 +213,7 @@ function draw(...args){
 // higher order function.
 	let canvas = document.createElement("canvas");
 		canvas.getContext("2d"); //do things from hereon
-		canvas.fillStyle = "green";
-		b(root,canvas)
+		cl(root,canvas)
 	return canvas;
 }
 
@@ -230,7 +241,7 @@ function dropdown(props){
 	dropdown.open=false;
   	dropdown.textContent=props.text;
 	dropdown.setAttribute("class","dropdown");
-  	dropdown.addEventListener("click",function(e){
+  	dropdown.addEventListener("click",function(e){s
 	    s(props.id).open=!s(props.id).open;
 	    if(!s(props.id).open){
 	    	s(props.id).style.height="20px";
@@ -297,7 +308,7 @@ o({id:"home",class:"home",siblings:[
 ]})
 
 e(document.body,"click",function(){
-	this.target.style.backgroundImage=`url("images/mercedesa_015.jpg"`;
+	this.target.style.backgroundImage=`url("dist/images/mercedesa_015.jpg"`;
 })
 
 function slideGallery(){
@@ -317,6 +328,8 @@ registerService({
 				b(root,s("container"))
 			break;
 			default:
+				//window.history.pushState({"html":0,"pageTitle":0},"", "/container");
+				//window.location="/container/";// initial route
 				b(root,s("container"))
 			break;
 		}
