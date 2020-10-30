@@ -28,13 +28,8 @@ menuStructure = [
 	      },
 	      {
 	        text: "Contactgegevens",
-	        event: {type:"level",path:"contact"}
-	      },
-	      {
-	        text: "Dictionary",
-	        event: {type:"route",path:"dictionary"
-	        }
-	      },	      
+	        event: {type:"route",path:"contact"}
+	      },      
 	    ],
 	},
 	{
@@ -297,10 +292,12 @@ registerService({
 	name: "router",
 	init: function Router(path){ // handler for request and routes
 		routes = {
-			path: "home", component: "container",
+			path: "contact", component: "container",
 		}
 
 		if(typeof routes[path]!=="undefined"){
+			cl(0)
+			window.location="\\"+path;
 			b(root,s(routes.component))
 		}
 
