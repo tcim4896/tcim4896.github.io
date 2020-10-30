@@ -294,10 +294,10 @@ registerService({
 		routes = {
 			path: "contact", component: "container",
 		}
-
-		if(typeof routes[path]!=="undefined"){
-			cl(0)
-			window.location="\\"+path;
+		cl(0,routes[path],path)
+		if(typeof routes.path!=="undefined"){
+			cl(1)
+			//window.location="\\"+path;
 			b(root,s(routes.component))
 		}
 
