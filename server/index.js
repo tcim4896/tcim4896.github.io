@@ -18,7 +18,7 @@ const { spawn } = require('child_process');
 
 app.use('/', express.static(path.join(__dirname, 'dist')))
 
-app.all('*', (req, res) => {
+app.all('*/**', (req, res) => {
     res.status(200).sendFile(path.join(__dirname,"dist/index.html"));
 });
 

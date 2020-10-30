@@ -13,30 +13,6 @@ mState = {
 			currentPage: 0,
 			routes:{}
 		},
-		langCheckup:{
-			inputStr:""
-		},
-		cursor: {
-			x:0,
-			y:0,
-		},
-		replace:{
-			term:"",
-			replacement:""
-		},
-		exclude:{
-			char:""
-		},
-		extra:{
-			char:""
-		},
-		encrypt:{
-			type:"abcup"
-		},
-		encode:{
-			type:""
-		},
-		applied:[]
 	}
 };
 _=mState.services;
@@ -319,20 +295,15 @@ cl(b(s("container"),s("home")))
 
 registerService({
 	name: "router",
-	init: function Router(pageId){ // handler for request and routes
-		/*
-			dynamic switcher(in case of registerRoute) so no switch statement!
-		*/
-		switch(pageId){
-			case "home":
-				b(root,s("container"))
-			break;
-			default:
-				//window.history.pushState({"html":0,"pageTitle":0},"", "/container");
-				//window.location="/container/";// initial route
-				b(root,s("container"))
-			break;
+	init: function Router(path){ // handler for request and routes
+		routes = {
+			path: "home", component: "container",
 		}
+
+		if(typeof routes[path]!=="undefined"){
+			b(root,s(routes.component))
+		}
+
 	},
 	registerRoute: function registerRoute(id,component){
 		_.router.routes[id]=component;
@@ -435,3 +406,6 @@ drawMenu(menuStructure);
 
 _.router.init()
 stateChange() //init
+
+cl(document.location)
+cl(window.location)
