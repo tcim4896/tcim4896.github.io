@@ -271,15 +271,16 @@ function toggle(id){
 
 }
 
-// html
+// html over here??
 o({id:"container",class:"container",siblings:[]})
 
 o({id:"home",class:"home",siblings:[
 	o({id:"header",class:"header",text:"BIBI Cars"})
 ]})
+b(root,s("header"));
 
 e(document.body,"click",function(){
-	this.target.style.backgroundImage=`url("dist/images/mercedesa_015.jpg"`;
+	this.target.style.backgroundImage=`url("mercedesa_015.jpg"`;
 })
 
 function slideGallery(){

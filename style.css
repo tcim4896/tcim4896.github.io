@@ -8,7 +8,7 @@ html, body {
 }
 
 body {
-  background-image: url("/dist/images/mercedesa_008.jpg");
+  background-image: url("mercedesa_008.jpg");
   background-repeat: no-repeat;
 }
 

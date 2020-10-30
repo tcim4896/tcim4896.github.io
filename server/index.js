@@ -18,8 +18,9 @@ const { spawn } = require('child_process');
 
 app.use('/', express.static(path.join(__dirname, 'dist')))
 
-app.all('*/**', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname,"dist/index.html"));
+app.all('*', (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.status(200).sendFile(path.join(__dirname,"/index.html"));
 });
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
