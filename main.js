@@ -294,16 +294,18 @@ registerService({
 
 		// window location handler
 		// http://localhost:8080/contact
-		routes = {
-			path: "/contact", component: "contact",
-		}
+		routes = [
+			{path: "/contact", component: "contact"},
+		]
 		cl(0,path)
-		if(typeof routes[path]!=="undefined"){
-			cl(1)
-			//history.pushState({},"BiBi Cars "+path,path)
-			b(root,s(routes.component))
-		}
-
+		routes.forEach(route=>{
+			if(route.path==path){
+				cl(1)
+				//history.pushState({},"BiBi Cars "+path,path)
+				cl(s("contact",route.component))
+				b(root,s(route.component))
+			}
+		})
 	},
 	registerRoute: function registerRoute(id,component){
 		_.router.routes[id]=component;
@@ -404,7 +406,7 @@ function drawMenu(menuStructure){
 
 drawMenu(menuStructure);
 
-_.router.init(window.location)
+_.router.init(window.location.pathname)
 stateChange() //init
 
 cl(document.location)
