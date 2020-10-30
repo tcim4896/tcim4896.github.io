@@ -297,8 +297,8 @@ registerService({
 		routes = {
 			path: "/contact", component: "contact",
 		}
-		cl(0,routes[path],path)
-		if(typeof routes.path!=="undefined"){
+		cl(0,path)
+		if(typeof routes[path]!=="undefined"){
 			cl(1)
 			//history.pushState({},"BiBi Cars "+path,path)
 			b(root,s(routes.component))
