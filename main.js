@@ -291,13 +291,16 @@ cl(b(s("container"),s("home")))
 registerService({
 	name: "router",
 	init: function Router(path){ // handler for request and routes
+
+		// window location handler
+		// http://localhost:8080/contact
 		routes = {
 			path: "contact", component: "container",
 		}
 		cl(0,routes[path],path)
 		if(typeof routes.path!=="undefined"){
 			cl(1)
-			//window.location="\\"+path;
+			history.pushState(path,"BiBi Cars "+path,path)
 			b(root,s(routes.component))
 		}
 
@@ -401,7 +404,7 @@ function drawMenu(menuStructure){
 
 drawMenu(menuStructure);
 
-_.router.init()
+_.router.init(window.location)
 stateChange() //init
 
 cl(document.location)
