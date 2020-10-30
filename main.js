@@ -286,7 +286,7 @@ function slideGallery(){
 	o({})// image slider
 }
 
-cl(b(s("container"),s("home")))
+o({id:"contact",class:"contact",text:"Hello"})
 
 registerService({
 	name: "router",
