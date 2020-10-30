@@ -28,7 +28,7 @@ menuStructure = [
 	      },
 	      {
 	        text: "Contactgegevens",
-	        event: {type:"route",path:"contact"}
+	        event: {type:"route",path:"/contact"}
 	      },      
 	    ],
 	},
@@ -295,12 +295,12 @@ registerService({
 		// window location handler
 		// http://localhost:8080/contact
 		routes = {
-			path: "contact", component: "container",
+			path: "/contact", component: "contact",
 		}
 		cl(0,routes[path],path)
 		if(typeof routes.path!=="undefined"){
 			cl(1)
-			history.pushState(path,"BiBi Cars "+path,path)
+			//history.pushState({},"BiBi Cars "+path,path)
 			b(root,s(routes.component))
 		}
 
