@@ -301,7 +301,7 @@ registerService({
 		routes.forEach(route=>{
 			if(route.path==path){
 				cl(1)
-				//history.pushState({},"BiBi Cars "+path,path)
+				History.pushState({},"BiBi Cars "+path,path)
 				cl(s("contact",route.component))
 				b(root,s(route.component))
 			}
