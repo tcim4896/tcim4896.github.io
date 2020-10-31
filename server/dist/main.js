@@ -18,7 +18,7 @@ mState = {
 _=mState.services;
 menuStructure = [
  	{
-	    text: "BIBI Cars",
+	    text: "BiBi Cars",
 	    event: {type:"open",path:0},
 	    list: [
 	      {
@@ -29,18 +29,12 @@ menuStructure = [
 	      {
 	        text: "Contactgegevens",
 	        event: {type:"route",path:"/contact"}
-	      },      
+		  },
+	      {
+	        text: "Route",
+	        event: {type:"route",path:"/route"}
+	      }, 
 	    ],
-	},
-	{
-		text: "Diensten",
-		event:{},
-		list:[],
-	},
-	{
-		text: "Contactgegevens",
-		event:{type:"level",path:"contact"},
-		list:[],
 	},
 ];
 
@@ -274,14 +268,8 @@ function toggle(id){
 // html over here??
 o({id:"container",class:"container",siblings:[]})
 
-o({id:"home",class:"home",siblings:[
-	o({id:"header",class:"header",text:"BIBI Cars"})
-]})
-b(root,s("header"));
 
-e(document.body,"click",function(){
-	this.target.style.backgroundImage=`url("mercedesa_015.jpg"`;
-})
+// end html
 
 function slideGallery(){
 	o({})// image slider
@@ -409,6 +397,4 @@ drawMenu(menuStructure);
 
 _.router.init(window.location.pathname)
 stateChange() //init
-
-cl(document.location)
 cl(window.location)
