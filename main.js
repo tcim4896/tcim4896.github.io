@@ -302,8 +302,8 @@ registerService({
 })
 
 window.onload=function(){
-  body.textContent+=window.location.pathname;
-}
+  root.innerHTML=window.location.pathname;
+}}
 
 function drawMenu(menuStructure){
 	function menuAction(menuItem){
