@@ -1,4 +1,4 @@
-cl=console.log;
+var cl=console.log;
 root=document.querySelector("[root]");
 mState = {
 	elements:[],
